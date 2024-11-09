@@ -11,32 +11,41 @@
     BackgroundColor="Black"
     Shell.TitleColor="White"
     Shell.TabBarForegroundColor="Yellow"
-    Title="timeTableApp">
     
+    Title="timeTableApp">
 
+    <Shell.TitleView>
+        <HorizontalStackLayout>
+            <Image Source="fckairat.jpg"/>
+            <Label Text="FC Kairat 1954" TextColor="White" Margin="20,10,0,0" FontSize="30"/>
+        </HorizontalStackLayout>        
+    </Shell.TitleView>
     <TabBar >
         <ShellContent
         Title="News"
         
-        Icon="dotnet_bot.png"
+        Icon="news.png"
         
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage"></ShellContent>
         <ShellContent
     Title="Timetable"
-            Icon="dotnet_bot.png"
+            Icon="football.png"
     ContentTemplate="{DataTemplate local:GamesPage}"
     Route="GamesPage"></ShellContent>
         <ShellContent
 Title="Your Profile"
+            Icon="user.png"
 ContentTemplate="{DataTemplate local:ProfilePage}"
 Route="ProfilePage"></ShellContent>
         <ShellContent
 Title="Our Team"
+            Icon="team.png"
 ContentTemplate="{DataTemplate local:TeamPage}"
 Route="TeamPage"></ShellContent>
         <ShellContent
 Title="Settings"
+Icon="settings.png"
 ContentTemplate="{DataTemplate local:SettingsPage}"
 Route="SettingsPage"></ShellContent>
     </TabBar>

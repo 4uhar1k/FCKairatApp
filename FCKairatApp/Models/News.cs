@@ -10,6 +10,7 @@ namespace FCKairatApp.Models
     {
         public string Title { get; set; }
         public string Description { get; set; }
+        public Image NewsImage { get; set; }
 
     }
 }
