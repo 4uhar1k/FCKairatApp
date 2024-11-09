@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="FCKairatApp.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:FCKairatApp"
+    Shell.FlyoutBehavior="Disabled"
+    Shell.TabBarBackgroundColor="Black"
+    Shell.TabBarUnselectedColor="White"
+    Shell.TabBarTitleColor="Yellow"
+    BackgroundColor="Black"
+    Shell.TitleColor="White"
+    Shell.TabBarForegroundColor="Yellow"
+    Title="timeTableApp">
+    
+
+    <TabBar >
+        <ShellContent
+        Title="News"
+        
+        Icon="dotnet_bot.png"
+        
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage"></ShellContent>
+        <ShellContent
+    Title="Timetable"
+            Icon="dotnet_bot.png"
+    ContentTemplate="{DataTemplate local:GamesPage}"
+    Route="GamesPage"></ShellContent>
+        <ShellContent
+Title="Your Profile"
+ContentTemplate="{DataTemplate local:ProfilePage}"
+Route="ProfilePage"></ShellContent>
+        <ShellContent
+Title="Our Team"
+ContentTemplate="{DataTemplate local:TeamPage}"
+Route="TeamPage"></ShellContent>
+        <ShellContent
+Title="Settings"
+ContentTemplate="{DataTemplate local:SettingsPage}"
+Route="SettingsPage"></ShellContent>
+    </TabBar>
+
+</Shell>
