@@ -14,7 +14,7 @@ namespace FCKairatApp
 
         private async void GoToLoginPage()
         {
-            await Navigation.PushModalAsync(new LoginPage());
+            await Navigation.PushModalAsync(new LoginPage(new SqlConnectionBase()));
         }
     }
 

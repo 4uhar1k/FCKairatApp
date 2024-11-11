@@ -5,9 +5,10 @@
              x:Class="FCKairatApp.ProfilePage"
              Title="Your Profile">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <Label Text="{Binding Name}" TextColor="White"/>
+        <Label Text="{Binding Surname}" TextColor="White"/>
+        <Label Text="{Binding Email}" TextColor="White"/>
+        <Label Text="{Binding Password}" TextColor="White"/>
+        <!--<Button Text="Update(for time)" Clicked="Update"/>-->
     </VerticalStackLayout>
 </ContentPage>

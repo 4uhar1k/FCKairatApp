@@ -12,7 +12,7 @@ namespace FCKairatApp
         string DataBasePath = "kairatdatabase.db3";
         public ISQLiteAsyncConnection CreateConnection()
         {
-            return new SQLiteAsyncConnection(Path.Combine(FileSystem.AppDataDirectory,DataBasePath),
+            return new SQLiteAsyncConnection(Path.Combine(FileSystem.AppDataDirectory, DataBasePath),
                 SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create | SQLiteOpenFlags.SharedCache);
         }
     }
