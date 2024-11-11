@@ -1,4 +1,6 @@
-﻿namespace FCKairatApp
+﻿using FCKairatApp;
+
+namespace FCKairatApp
 {
     public partial class MainPage : ContentPage
     {
@@ -7,11 +9,12 @@
         public MainPage()
         {
             InitializeComponent();
+            GoToLoginPage();
         }
 
-        private void OnCounterClicked(object sender, EventArgs e)
+        private async void GoToLoginPage()
         {
-           
+            await Navigation.PushModalAsync(new LoginPage());
         }
     }
 

@@ -17,6 +17,7 @@ namespace FCKairatApp
 
 #if DEBUG
     		builder.Logging.AddDebug();
+            builder.Services.AddSingleton<SqlConnectionBase>();
 #endif
 
             return builder.Build();
