@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FCKairatApp
+namespace FCKairatApp.Dtos
 {
     public class PlayerDto
     {
@@ -15,6 +15,7 @@ namespace FCKairatApp
         public string Name { get; set; }
         public string Surname { get; set; }
         public int Number { get; set; }
+        public string Position { get; set; }
         public string PlayersTeam { get; set; }
         public int GoalsAmount { get; set; }
         public int AssistsAmount { get; set; }

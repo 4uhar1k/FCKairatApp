@@ -1,4 +1,5 @@
 ﻿
+using FCKairatApp.Dtos;
 using SQLite;
 
 namespace FCKairatApp

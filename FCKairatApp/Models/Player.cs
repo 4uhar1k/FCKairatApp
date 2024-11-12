@@ -11,6 +11,7 @@ namespace FCKairatApp.Models
         public string Name { get; set; }
         public string Surname { get; set; }
         public int Number { get; set; }
+        public string Position { get; set; }
         public string PlayersTeam { get; set; }
         public int GoalsAmount { get; set; }
         public int AssistsAmount { get; set; }
