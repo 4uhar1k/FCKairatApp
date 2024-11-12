@@ -12,17 +12,12 @@ namespace FCKairatApp.ViewModels
         public string CurUser = Path.Combine(FileSystem.AppDataDirectory, "curuser.txt");
         public ProfileViewModel()
         {
-            if (!File.Exists(CurUser))
+            if (emailbase!=null)
             {
-                File.Create(CurUser);
-            }
-            using (StreamReader sr = new StreamReader(CurUser))
-            {
-                Email = sr.ReadLine();
-                Password = sr.ReadLine();
-                Name = sr.ReadLine();
-                Surname = sr.ReadLine();
-                sr.Close();
+                Email = emailbase;
+                Password = passbase;
+                Name = namebase;
+                Surname = surnamebase;
             }
         }
 

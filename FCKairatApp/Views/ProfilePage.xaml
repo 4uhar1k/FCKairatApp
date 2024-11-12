@@ -9,6 +9,6 @@
         <Label Text="{Binding Surname}" TextColor="White"/>
         <Label Text="{Binding Email}" TextColor="White"/>
         <Label Text="{Binding Password}" TextColor="White"/>
-        <!--<Button Text="Update(for time)" Clicked="Update"/>-->
+        <Button Text="Log out" BackgroundColor="Red" WidthRequest="150" FontSize="25" Clicked="LogOut"/>
     </VerticalStackLayout>
 </ContentPage>

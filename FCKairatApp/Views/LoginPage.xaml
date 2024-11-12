@@ -6,11 +6,11 @@
              Title="LoginPage">
     <VerticalStackLayout Spacing="15">
         <Image Source="fckairat.jpg" VerticalOptions="Center" HorizontalOptions="Center"/>
-        <Entry x:Name="SurnamePlaceholder" Placeholder="Surname" FontSize="30" HorizontalTextAlignment="Center" PlaceholderColor="Gray" TextColor="White"/>
-        <Entry x:Name="NamePlaceholder" Placeholder="Name" FontSize="30" HorizontalTextAlignment="Center" PlaceholderColor="Gray" TextColor="White"/>
-        <Entry x:Name="LoginPlaceholder" Placeholder="Login" FontSize="30" HorizontalTextAlignment="Center" PlaceholderColor="Gray" TextColor="White"/>
-        <Entry x:Name="PassPlaceholder" Placeholder="Password" FontSize="30" HorizontalTextAlignment="Center" PlaceholderColor="Gray" TextColor="White" />
-        <Button x:Name="SignInBtn" Text="Sign in" BackgroundColor="DarkGoldenrod" TextColor="Black" FontSize="20" WidthRequest="250" Clicked="SignIn"  />
+        <Entry x:Name="SurnamePlaceholder" Text="{Binding Surname}" Placeholder="Surname" FontSize="30" HorizontalTextAlignment="Center" PlaceholderColor="Gray" TextColor="White"/>
+        <Entry x:Name="NamePlaceholder" Text ="{Binding Name}" Placeholder="Name" FontSize="30" HorizontalTextAlignment="Center" PlaceholderColor="Gray" TextColor="White"/>
+        <Entry x:Name="LoginPlaceholder" Text="{Binding Email}" Placeholder="Login" FontSize="30" HorizontalTextAlignment="Center" PlaceholderColor="Gray" TextColor="White"/>
+        <Entry x:Name="PassPlaceholder" Text="{Binding Password}" Placeholder="Password" FontSize="30" HorizontalTextAlignment="Center" PlaceholderColor="Gray" TextColor="White" />
+        <Button x:FieldModifier="public" x:Name="SignInBtn" Text="Sign in" BackgroundColor="DarkGoldenrod" TextColor="Black" FontSize="20" WidthRequest="250" Clicked="SignIn"  />
         <Button x:Name="SignUpBtn" Text="Sign up" BackgroundColor="White" TextColor="Black" FontSize="20" WidthRequest="150" Clicked="SignUp"  />
         <Button x:Name="RestorePassword" Clicked="RestorePass"  Text="Forgot your password?" TextColor="White" BackgroundColor="Transparent"/>
         <Picker Title="Language" BackgroundColor="Gray" FontSize="20" WidthRequest="125" HorizontalTextAlignment="Center" >
