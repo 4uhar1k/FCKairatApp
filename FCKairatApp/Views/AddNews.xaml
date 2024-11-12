@@ -12,7 +12,15 @@
         <Border>
             <Editor HeightRequest="400" Text="{Binding Description}" Placeholder="Add description..." TextColor="White" FontSize="25" />
         </Border>
-        <Button Text="Save" Command="{Binding AddArticle}" Clicked="goBack" WidthRequest="300" FontSize="27" BackgroundColor="DarkGoldenrod" TextColor="Black"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Text="Delete" Command="{Binding DeleteArticle}" Clicked="goBack" WidthRequest="150" FontSize="27" BackgroundColor="Red" TextColor="Black"/>
+            <Button Grid.Column="1" Text="Save" Command="{Binding AddArticle}" Clicked="goBack" WidthRequest="150" FontSize="27" BackgroundColor="DarkGoldenrod" TextColor="Black"/>
+        </Grid>
+        
 
     </VerticalStackLayout>
 </ContentPage>

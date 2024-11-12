@@ -18,7 +18,8 @@ namespace FCKairatApp.ViewModels
         public string CurUser = Path.Combine(FileSystem.AppDataDirectory, "curuser.txt");
         public string emailbase, passbase, namebase, surnamebase;
         public SqlConnectionBase baseConnection;
-        public ICommand AddArticle { get; set; }
+        public NewsDto articleToChange { get; set; }
+        
 
         public ViewModelBase()
         {
@@ -40,11 +41,7 @@ namespace FCKairatApp.ViewModels
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-            try
-            {
-                ((Command)AddArticle).ChangeCanExecute();
-            }
-            catch { }
+            
         }
         //public async void GoToLogin()
         //{

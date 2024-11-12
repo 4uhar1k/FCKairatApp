@@ -29,7 +29,7 @@
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage"></ShellContent>
         <ShellContent
-    Title="Timetable"
+    Title="Matches"
             Icon="football.png"
     ContentTemplate="{DataTemplate local:GamesPage}"
     Route="GamesPage"></ShellContent>

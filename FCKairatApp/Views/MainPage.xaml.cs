@@ -38,6 +38,17 @@ namespace FCKairatApp
             await Navigation.PushAsync(addArticle);
             addArticle.NavigatingFrom += Update;
         }
+        public async void EditText(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.CurrentSelection.Count != 0)
+            {
+                var selectedNote = (NewsDto)e.CurrentSelection[0];
+                AddNews addArticle = new AddNews(selectedNote);
+                await Navigation.PushAsync(addArticle);
+                addArticle.NavigatingFrom += Update;
+            }                     
+            
+        }
     }
 
 }

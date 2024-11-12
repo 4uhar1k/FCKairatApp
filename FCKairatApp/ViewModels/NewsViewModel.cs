@@ -13,9 +13,13 @@ namespace FCKairatApp.ViewModels
 {
     public class NewsViewModel: ViewModelBase
     {
+        public event PropertyChangedEventHandler? PropertyChanged;
         public ISQLiteAsyncConnection database;
         public string title, description, author;
         public bool isPublished;
+        public ICommand AddArticle { get; set; }
+        public ICommand DeleteArticle { get; set; }
+        public ICommand EditArticle { get; set; }
         public ObservableCollection<NewsDto> AllNews { get; set; }
         
         public NewsViewModel()
@@ -23,7 +27,7 @@ namespace FCKairatApp.ViewModels
             AllNews = new ObservableCollection<NewsDto>();
             database = baseConnection.CreateConnection();
             LoadNews();
-
+            
             AddArticle = new Command(() =>
             {
                 NewsDto newArticle = new NewsDto()
@@ -33,10 +37,29 @@ namespace FCKairatApp.ViewModels
                     Author = $"{namebase} {surnamebase}",
                     IsPublished = true
                 };
-                database.InsertAsync(newArticle);                
-            }, ()=>Title!=null & Description!=null);
+                database.InsertAsync(newArticle);
+                if (articleToChange!=null)
+                {
+                    NewsDto articleToDelete = AllNews.Where(n => n.Title == articleToChange.Title & n.Description == articleToChange.Description & n.Author == articleToChange.Author & n.IsPublished == articleToChange.IsPublished).First();
+                    database.DeleteAsync(articleToDelete);
+                }
+                             
+            }, ()=>Title!="" & Description!="" & Title!=null & Description!=null);
 
-            
+            DeleteArticle = new Command(() =>
+            {
+                NewsDto articleToDelete = AllNews.Where(n => n.Title == articleToChange.Title & n.Description == articleToChange.Description & n.Author == articleToChange.Author & n.IsPublished == articleToChange.IsPublished).First();
+                NewsDto newArticle = new NewsDto()
+                {
+                    Title = Title,
+                    Description = Description,
+                    Author = $"{namebase} {surnamebase}",
+                    IsPublished = true,
+                    Id = articleToChange.Id
+                };
+                database.DeleteAsync(newArticle);
+            }, () => Title != "" & Description != "" & Title != null & Description != null);
+
             
         }
 
@@ -99,7 +122,13 @@ namespace FCKairatApp.ViewModels
             }
         }
 
-        
+        public void OnPropertyChanged([CallerMemberName] string prop = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+            
+            ((Command)AddArticle).ChangeCanExecute();
+            ((Command)DeleteArticle).ChangeCanExecute();
+        }
 
     }
 }

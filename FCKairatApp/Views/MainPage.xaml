@@ -10,8 +10,9 @@
             Margin="0,50,0,0"
             Padding="30,0"
             Spacing="25">
-            <Button Text="+" BackgroundColor="Green" WidthRequest="50" FontSize="25" HorizontalOptions="End" Clicked="AddNewText" />
-            <CollectionView HeightRequest="500" BackgroundColor="Black" ItemsSource="{Binding AllNews}">
+
+            <CollectionView x:Name="NewsCollection" HeightRequest="500" BackgroundColor="Black" ItemsSource="{Binding AllNews}" SelectionChanged="EditText" SelectionMode="Single"
+                            >
                 
                     <CollectionView.ItemTemplate>
                     <DataTemplate>
@@ -36,6 +37,7 @@
                     </CollectionView.ItemTemplate>
                 
             </CollectionView>
+            <Button Text="+" BackgroundColor="Green" WidthRequest="50" FontSize="25" HorizontalOptions="End" Clicked="AddNewText" />
         </VerticalStackLayout>
     </ScrollView>
 

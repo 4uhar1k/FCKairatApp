@@ -11,6 +11,12 @@ namespace FCKairatApp.Models
         public string TeamName { get; set; }
         public List<Player> Players { get; set; }
         public string CoachName { get; set; }
+        public int WinsAmount { get; set; }
+        public int DrawsAmount { get; set; }
+        public int LosesAmount { get; set; }
+        public int GoalsScored { get; set; }
+        public int GoalsMissed { get; set; }
+        public int Points { get; set; }
         public Image TeamLogo { get; set; }
     }
 }
