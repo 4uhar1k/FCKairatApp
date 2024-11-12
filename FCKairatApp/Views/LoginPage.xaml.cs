@@ -87,30 +87,48 @@ public partial class LoginPage : ContentPage
 
     public async void RestorePass(object sender, EventArgs e)
     {
-        var fromAddress = new MailAddress("vovas0712@gmail.com", "FC Kairat Restoring Password");
-        var toAddress = new MailAddress("vovas0712@gmail.com");
-        const string fromPassword = "Bob07122005"; // Your email account's password
+        MailAddress from = new MailAddress("vovas0712@gmail.com", "Служба поддержки Studychat");
+        MailAddress to = new MailAddress("lizametonidze@gmail.com");
+        MailMessage message = new MailMessage(from, to);
+        message.Subject = "Напоминание о пароле";
+        message.Body = "Здравствуйте" + Environment.NewLine +
+            "Ваш пароль от аккаунта FC Kairat: blablabla";
 
-        // Set up the SMTP client
-        SmtpClient smtp = new SmtpClient
-        {
-            Host = "smtp.gmail.com", // e.g., smtp.gmail.com for Gmail
-            Port = 465, // SMTP port, typically 587 or 465 for SSL
-            EnableSsl = true, // Enable SSL
-            DeliveryMethod = SmtpDeliveryMethod.Network,
-            UseDefaultCredentials = false,
-            Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
-        };
 
-        // Create the email message
-        using (MailMessage message = new MailMessage(fromAddress, toAddress)
-        {
-            Subject = "subject",
-            Body = "body"
-        })
-        {
-            smtp.Send(message); // Send the email
-        }
+
+        SmtpClient smtp = new SmtpClient();
+        smtp.Host = "smtp.gmail.com";
+        smtp.Port = 587;
+        smtp.EnableSsl = true;
+        smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+        smtp.UseDefaultCredentials = false;
+        smtp.Credentials = new NetworkCredential(from.Address, "Bob07122005");
+
+        smtp.Send(message);
+        //var fromAddress = new MailAddress("vovas0712@gmail.com", "FC Kairat Restoring Password");
+        //var toAddress = new MailAddress("vovas0712@gmail.com");
+        //const string fromPassword = "Bob07122005"; // Your email account's password
+
+        //// Set up the SMTP client
+        //SmtpClient smtp = new SmtpClient
+        //{
+        //    Host = "smtp.gmail.com", // e.g., smtp.gmail.com for Gmail
+        //    Port = 465, // SMTP port, typically 587 or 465 for SSL
+        //    EnableSsl = true, // Enable SSL
+        //    DeliveryMethod = SmtpDeliveryMethod.Network,
+        //    UseDefaultCredentials = false,
+        //    Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+        //};
+
+        //// Create the email message
+        //using (MailMessage message = new MailMessage(fromAddress, toAddress)
+        //{
+        //    Subject = "subject",
+        //    Body = "body"
+        //})
+        //{
+        //    smtp.Send(message); // Send the email
+        //}
         //try
         //{
 

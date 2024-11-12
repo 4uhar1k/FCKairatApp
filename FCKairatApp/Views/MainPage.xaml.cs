@@ -6,12 +6,13 @@ namespace FCKairatApp
     public partial class MainPage : ContentPage
     {
 
-        public ViewModelBase thisContext;
+        public NewsViewModel thisContext;
         public MainPage()
         {
             InitializeComponent();
-            thisContext = new ViewModelBase();
+            thisContext = new NewsViewModel();
             BindingContext = thisContext;
+            //ShowArticles();
             if (thisContext.emailbase==null)
             {
                 GoToLoginPage();
@@ -21,7 +22,21 @@ namespace FCKairatApp
 
         private async void GoToLoginPage()
         {
+           
             await Navigation.PushModalAsync(new LoginPage(thisContext.baseConnection));
+        }
+
+        public void Update(object sender, EventArgs e)
+        {
+            thisContext = new NewsViewModel();
+            BindingContext = thisContext;
+        }
+        
+        public async void AddNewText(object sender, EventArgs e)
+        {
+            AddNews addArticle = new AddNews();
+            await Navigation.PushAsync(addArticle);
+            addArticle.NavigatingFrom += Update;
         }
     }
 

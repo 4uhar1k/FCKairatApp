@@ -10,11 +10,12 @@
             Margin="0,50,0,0"
             Padding="30,0"
             Spacing="25">
-            <!--<CollectionView HeightRequest="600" BackgroundColor="White" ItemsSource="{Binding this}">
+            <Button Text="+" BackgroundColor="Green" WidthRequest="50" FontSize="25" HorizontalOptions="End" Clicked="AddNewText" />
+            <CollectionView HeightRequest="500" BackgroundColor="Black" ItemsSource="{Binding AllNews}">
                 
                     <CollectionView.ItemTemplate>
-                        <DataTemplate>-->
-                            <StackLayout>
+                    <DataTemplate>
+                        <StackLayout>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="1*"/>
@@ -23,16 +24,18 @@
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="1*"/>
                                         <RowDefinition Height="1*"/>
-                                    </Grid.RowDefinitions>
-                                    <Label Grid.Column="0" Grid.Row="0" Text="Newstitle" TextColor="White" FontSize="30" />
-                                    <Label Grid.Column="0" Grid.Row="1" Text="Newstext" TextColor="Gray" FontSize="20" />
-                                    <Image Grid.Column="1" Grid.Row="1" Source="fckairat.jpg" WidthRequest="200" HeightRequest="200" />
+                                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                                    <Label Grid.Column="0" Grid.Row="0" Text="{Binding Title}" TextColor="White" FontSize="30" />
+                                    <Label Grid.Column="0" Grid.Row="1" Text="{Binding Description}" TextColor="Gray" FontSize="20" />
+                    <Label Grid.Column="1" Grid.Row="2" Text="{Binding Author}" TextColor="Gray" HorizontalTextAlignment="End" FontSize="10" />
+                    <Image Grid.Column="1" Grid.Row="1" Source="fckairat.jpg" WidthRequest="200" HeightRequest="200" />
                                 </Grid>
                             </StackLayout>
-                        <!--</DataTemplate>
+                        </DataTemplate>
                     </CollectionView.ItemTemplate>
                 
-            </CollectionView>-->
+            </CollectionView>
         </VerticalStackLayout>
     </ScrollView>
 

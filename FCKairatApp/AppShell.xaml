@@ -11,7 +11,7 @@
     BackgroundColor="Black"
     Shell.TitleColor="White"
     Shell.TabBarForegroundColor="Yellow"
-    
+    Shell.ForegroundColor="White"
     Title="timeTableApp">
 
     <Shell.TitleView>

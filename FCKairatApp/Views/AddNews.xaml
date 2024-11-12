@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FCKairatApp.AddNews"
+             BackgroundColor="Black"
+             Title="AddNews">
+    <VerticalStackLayout Spacing="40">
+        <Label Text="Add new article" TextColor="White" FontSize="40" HorizontalTextAlignment="Center" />
+        <Border>
+            <Editor HeightRequest="50" Text="{Binding Title}" Placeholder="Add title..." TextColor="White" FontSize="27" />
+        </Border>
+        <Border>
+            <Editor HeightRequest="400" Text="{Binding Description}" Placeholder="Add description..." TextColor="White" FontSize="25" />
+        </Border>
+        <Button Text="Save" Command="{Binding AddArticle}" Clicked="goBack" WidthRequest="300" FontSize="27" BackgroundColor="DarkGoldenrod" TextColor="Black"/>
+
+    </VerticalStackLayout>
+</ContentPage>

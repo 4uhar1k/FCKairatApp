@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 //using Microsoft.UI.Xaml;
 
 namespace FCKairatApp.ViewModels
@@ -17,7 +18,8 @@ namespace FCKairatApp.ViewModels
         public string CurUser = Path.Combine(FileSystem.AppDataDirectory, "curuser.txt");
         public string emailbase, passbase, namebase, surnamebase;
         public SqlConnectionBase baseConnection;
-        
+        public ICommand AddArticle { get; set; }
+
         public ViewModelBase()
         {
             //File.Delete(CurUser);
@@ -38,6 +40,11 @@ namespace FCKairatApp.ViewModels
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+            try
+            {
+                ((Command)AddArticle).ChangeCanExecute();
+            }
+            catch { }
         }
         //public async void GoToLogin()
         //{
