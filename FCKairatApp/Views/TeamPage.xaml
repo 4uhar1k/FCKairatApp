@@ -5,27 +5,91 @@
              x:Class="FCKairatApp.TeamPage"
              Title="Our Team">
     <VerticalStackLayout>
-        <!--<CollectionView>
+        <CollectionView ItemsLayout="VerticalGrid, 2" ItemsSource="{Binding Players}">
     <CollectionView.ItemTemplate>
-        <DataTemplate>
-            <StackLayout>-->
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-            </Grid.ColumnDefinitions>
-            <Image Grid.Column="0" Source="fckairat.jpg" />
-            <Label Grid.Column="1" Text="1" TextColor="White" VerticalTextAlignment="Center"/>
-            <Label Grid.Column="2" Text="GK" TextColor="White" VerticalTextAlignment="Center"/>
-            <Label Grid.Column="3" Text="Ivan" TextColor="White" VerticalTextAlignment="Center"/>
-            <Label Grid.Column="4" Text="Trushin" TextColor="White" VerticalTextAlignment="Center"/>
-        </Grid>
-        <!--</StackLayout>
+                <DataTemplate>
+
+        <StackLayout Spacing="20">
+            <Grid RowSpacing="30">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                
+                
+                    <Button BackgroundColor="DarkGoldenrod" ImageSource="dotnet_bot.png" TextColor="White" Grid.Row="0" WidthRequest="150" HeightRequest="150">
+
+                    </Button>
+                    <Label Grid.Row="1" Text="{Binding Number}" TextColor="White" />
+                            <Label Grid.Row="2" Text="{Binding Name}" TextColor="White"  />
+                            <Label Grid.Row="3" Text="{Binding Surname}" TextColor="White"  />
+
+                        </Grid>
+                        
+                
+            
+            
+        </StackLayout>
+        <!--<Border>
+            <StackLayout>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Image Grid.Row="1" Grid.Column="0" Source="fckairat.jpg" />
+                    <Label Grid.Row="0" Grid.Column="1" Text="1" TextColor="White" VerticalTextAlignment="Center"/>
+                    <Label Grid.Row="1" Grid.Column="1" Text="GK" TextColor="White" VerticalTextAlignment="Start"/>
+                    <Label Grid.Row="0" Grid.Column="2" Text="Ivan" TextColor="White" VerticalTextAlignment="Center"/>
+                    <Label Grid.Row="1" Grid.Column="2" Text="Trushin" FontSize="25" TextColor="White" VerticalTextAlignment="Start"/>
+                    <Button Grid.Row="1" Grid.Column="3" Text="Edit" WidthRequest="60" HeightRequest="40"  />
+                </Grid>
+            </StackLayout>
+        </Border>
+        <Border>
+            <StackLayout>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Image Grid.Row="0" Grid.Column="0" Source="fckairat.jpg" />
+                    <Entry Grid.Row="0" Grid.Column="1" Placeholder="№" WidthRequest="35" HeightRequest="40" HorizontalTextAlignment="Start" TextColor="White" VerticalTextAlignment="End"/>
+                    <Picker Grid.Row="1" Grid.Column="1" HeightRequest="42" Title="Position" TextColor="White" VerticalTextAlignment="Start">
+                        <Picker.Items>
+                            <x:String>Goalkeeper</x:String>
+                            <x:String>Defender</x:String>
+                            <x:String>Midfielder</x:String>
+                            <x:String>Forward</x:String>
+                        </Picker.Items>
+                    </Picker>
+                    <Entry Grid.Row="0" Grid.Column="2" Placeholder="Name" TextColor="White" VerticalTextAlignment="End"/>
+                    <Entry Grid.Row="1" Grid.Column="2" Placeholder="Surname" FontSize="20" TextColor="White" VerticalTextAlignment="Start" HeightRequest="40"/>
+                    <Button Grid.Row="0" Grid.Column="3" Text="Add" BackgroundColor="Green" WidthRequest="60" HeightRequest="40" />
+                </Grid>
+            </StackLayout>
+        </Border>-->
+        
+        
+        
+
         </DataTemplate>
     </CollectionView.ItemTemplate>
-</CollectionView>-->
+</CollectionView>
+        <Button BackgroundColor="Green" Grid.Row="1" Text="+" Clicked="GoToPlayer" FontSize="100" Padding="2" Grid.Column="1" WidthRequest="150" HeightRequest="150"   />
     </VerticalStackLayout>
 </ContentPage>
