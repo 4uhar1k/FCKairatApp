@@ -3,7 +3,9 @@ using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -12,16 +14,19 @@ namespace FCKairatApp.ViewModels
 {
     public class PlayerViewModel: ViewModelBase
     {
+        public event PropertyChangedEventHandler? PropertyChanged;
         public ObservableCollection<PlayerDto> Players { get; set; }
         public ISQLiteAsyncConnection database { get; set; }
         string name, surname, position, startmonth,startyear, expirymonth, expiryyear;
         int number, goalamount, assistamount;
+        public PlayerDto PlayerToEdit { get; set; }
         public ICommand AddPlayer { get; set; }
         public PlayerViewModel()
         {
             Players = new ObservableCollection<PlayerDto>();
             database = baseConnection.CreateConnection();
             LoadPlayers();
+            
 
             AddPlayer = new Command(() =>
             {
@@ -37,7 +42,11 @@ namespace FCKairatApp.ViewModels
                     ExpiryDate = $"{ExpiryMonth} {ExpiryYear}"
                 };
                 database.InsertAsync(newPlayer);
-            });
+                if (PlayerToEdit!=null)
+                {
+                    database.DeleteAsync(PlayerToEdit);
+                }
+            }, () => Name!="" & Surname!="" & Number!=0 & Number!=null & GoalsAmount!=null & AssistsAmount!=null & Position!="" & StartMonth!="" & StartYear!="" & ExpiryMonth!="" & ExpiryYear!="" & Name!=null & Surname!=null & Position!=null & StartMonth!=null & StartYear!=null & ExpiryMonth!=null & ExpiryYear!=null);
         }
 
         public async void LoadPlayers()
@@ -48,6 +57,8 @@ namespace FCKairatApp.ViewModels
                 Players.Add(player);
             }
         }
+
+        
 
         public string Name 
         {
@@ -168,6 +179,11 @@ namespace FCKairatApp.ViewModels
                     OnPropertyChanged();
                 }
             }
+        }
+        public void OnPropertyChanged([CallerMemberName] string prop = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+            ((Command)AddPlayer).ChangeCanExecute();
         }
 
     }

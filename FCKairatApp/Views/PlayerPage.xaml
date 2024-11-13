@@ -7,7 +7,7 @@
     <VerticalStackLayout>
         <Entry Placeholder="Name..." Text="{Binding Name}" TextColor="White" FontSize="30"/>
         <Entry Placeholder="Surname..." Text="{Binding Surname}" TextColor="White" FontSize="30"/>
-        <Entry Placeholder="Number..."  Text="{Binding Number}" TextColor="White" FontSize="30"/>
+        <Entry x:Name="NumberEntry" Placeholder="Number..."  Text="{Binding Number}" TextColor="White" FontSize="30"/>
         <Picker Title="Position..."  FontSize="30" SelectedItem="{Binding Position}" BackgroundColor="Gray">
             <Picker.Items>
                 <x:String>Goalkeeper</x:String>
@@ -21,8 +21,8 @@
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            <Entry Grid.Column="0" Placeholder="Goals..." TextColor="White" Text="{Binding GoalsAmount}" FontSize="30"/>
-            <Entry Grid.Column="1" Placeholder="Assists..." TextColor="White" Text="{Binding AssistsAmount}" FontSize="30"/>
+            <Entry x:Name="GoalsEntry" Grid.Column="0" Placeholder="Goals..." TextColor="White" Text="{Binding GoalsAmount}" FontSize="30"/>
+            <Entry x:Name="AssistsEntry" Grid.Column="1" Placeholder="Assists..." TextColor="White" Text="{Binding AssistsAmount}" FontSize="30"/>
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>

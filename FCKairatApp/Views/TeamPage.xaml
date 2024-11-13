@@ -5,7 +5,7 @@
              x:Class="FCKairatApp.TeamPage"
              Title="Our Team">
     <VerticalStackLayout>
-        <CollectionView ItemsLayout="VerticalGrid, 2" ItemsSource="{Binding Players}">
+        <CollectionView ItemsLayout="VerticalGrid, 2" ItemsSource="{Binding Players}" HeightRequest="530">
     <CollectionView.ItemTemplate>
                 <DataTemplate>
 
@@ -19,7 +19,7 @@
                             </Grid.RowDefinitions>
                 
                 
-                    <Button BackgroundColor="DarkGoldenrod" ImageSource="dotnet_bot.png" TextColor="White" Grid.Row="0" WidthRequest="150" HeightRequest="150">
+                    <Button BackgroundColor="DarkGoldenrod" Clicked="GoToPlayer" CommandParameter="{Binding .}" ImageSource="dotnet_bot.png" TextColor="White" Grid.Row="0" WidthRequest="150" HeightRequest="150">
 
                     </Button>
                     <Label Grid.Row="1" Text="{Binding Number}" TextColor="White" />
