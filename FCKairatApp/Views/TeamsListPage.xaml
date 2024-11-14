@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FCKairatApp.TeamsListPage"
+             Title="TeamsListPage"
+             BackgroundColor="Black">
+    <VerticalStackLayout>
+        <Border>
+    <StackLayout>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+               
+            </Grid.ColumnDefinitions>
+            
+            <Image Grid.Column="0" Source="fckairat.jpg" />
+            <Label Grid.Column="1" Text="FC Kairat" FontSize="25" TextColor="White" VerticalTextAlignment="Center"/>          
+            
+            <Button Grid.Column="2" Text="Delete" BackgroundColor="Red"  WidthRequest="80" HeightRequest="40"  />
+        </Grid>
+    </StackLayout>
+</Border>
+<Border>
+    <StackLayout>
+                <Grid x:Name="AddingGrid">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+
+                    </Grid.ColumnDefinitions>
+
+                    <Image Grid.Column="0" Source="fckairat.jpg" />
+                    <Entry Grid.Column="1" Placeholder="Name..." HeightRequest="50" FontSize="25" TextColor="White" VerticalTextAlignment="Center"/>
+
+                    <Button Grid.Column="2" Text="Add" BackgroundColor="Green"  WidthRequest="80" HeightRequest="40"  />
+                </Grid>
+            </StackLayout>
+</Border>
+        <Button Text="Add" BackgroundColor="Green" Clicked="AddBtnClicked"  WidthRequest="80" HeightRequest="40"  />
+    </VerticalStackLayout>
+</ContentPage>

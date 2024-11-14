@@ -5,10 +5,20 @@
              x:Class="FCKairatApp.GamesPage"
              Title="Timetable">
     <ScrollView>
-        <VerticalStackLayout Margin="0,50,0,0">
-            <!--<CollectionView>
+        <VerticalStackLayout Margin="0,50,0,0" Spacing="20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" WidthRequest="180" Clicked="ShowList" Text="List of Teams" FontSize="20" BackgroundColor="DarkGoldenrod" TextColor="Black"/>
+                <Button Grid.Column="1" WidthRequest="180" Text="Add new game" FontSize="20" BackgroundColor="DarkGoldenrod" TextColor="Black"/>
+            </Grid>
+            
+            <!--<CollectionView HeightRequest="550">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>-->
+            
             <Border >
                 <StackLayout>
                     <Grid>
