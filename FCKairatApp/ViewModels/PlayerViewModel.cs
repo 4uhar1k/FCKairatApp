@@ -26,6 +26,7 @@ namespace FCKairatApp.ViewModels
         public PlayerDto oldPlayerNumber { get; set; }
         public PlayerDto newPlayer { get; set; }
         public ICommand AddPlayer { get; set; }
+        public ICommand DeletePlayer { get; set; }
         public PlayerViewModel()
         {
             Players = new ObservableCollection<PlayerDto>();
@@ -63,6 +64,12 @@ namespace FCKairatApp.ViewModels
                     database.DeleteAsync(PlayerToEdit);
                 }
             }, () => Name!="" & Surname!="" & Number!=0 & Position!="" & StartMonth!="" & StartYear!="" & ExpiryMonth!="" & ExpiryYear!="" & DataAreCorrect() & Name!=null & Surname!=null & Position!=null & StartMonth!=null & StartYear!=null & ExpiryMonth!=null & ExpiryYear!=null);
+
+            DeletePlayer = new Command((object SelectedPlayer) =>
+            {
+                PlayerDto PlayerToDelete = (PlayerDto)SelectedPlayer;
+                database.DeleteAsync(PlayerToDelete);
+            });
         }
 
         public async void LoadPlayers()
