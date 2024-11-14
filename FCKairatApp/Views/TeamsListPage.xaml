@@ -5,26 +5,37 @@
              Title="TeamsListPage"
              BackgroundColor="Black">
     <VerticalStackLayout>
-        <Border>
-    <StackLayout>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-               
-            </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                    </Grid.RowDefinitions>
-            <Image Grid.Row="0" Grid.Column="0" Source="fckairat.jpg" />
-                    <Label Grid.Row="0" Grid.Column="1" Text="FC Kairat" FontSize="25" TextColor="White" VerticalTextAlignment="Center"/>
-                    <Label Grid.Row="1" Grid.Column="1" Text="Rafael Urazbakhtin" FontSize="15" WidthRequest="200" TextColor="Gray" VerticalOptions="Start" VerticalTextAlignment="Start"/>
-                    <Button Grid.Row="0" Grid.Column="2" Text="Delete" BackgroundColor="Red"  WidthRequest="80" HeightRequest="40"  />
-        </Grid>
-    </StackLayout>
-</Border>
+
+
+        <CollectionView ItemsSource="{Binding Teams}" MaximumHeightRequest="600">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                    <Border>
+                        <StackLayout>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="1*"/>
+
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="1*"/>
+                                    </Grid.RowDefinitions>
+                                    <Image Grid.Row="0" Grid.Column="0" Source="fckairat.jpg" />
+                                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding TeamName}" FontSize="25" TextColor="White" VerticalTextAlignment="Center"/>
+                                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding CoachName}" FontSize="15" WidthRequest="200" TextColor="Gray" VerticalOptions="Start" VerticalTextAlignment="Start"/>
+                                    <Button Grid.Row="0" Grid.Column="2" Text="Delete"  BackgroundColor="Red"  WidthRequest="80" HeightRequest="40"  />
+                                </Grid>
+                            </StackLayout>
+                    </Border>
+                </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+        
+    
+
 <Border>
     <StackLayout>
                 <Grid x:Name="AddingGrid">
@@ -39,9 +50,9 @@
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
                     <Image Grid.Column="0" Source="fckairat.jpg" />
-                    <Entry Grid.Column="1" Placeholder="Name..." HeightRequest="50" FontSize="25" TextColor="White" VerticalTextAlignment="Center"/>
-                    <Entry Grid.Row="1" Grid.Column="1" Placeholder="Coach..." FontSize="15" WidthRequest="200" TextColor="Gray" VerticalOptions="Start" VerticalTextAlignment="Start"/>
-                    <Button Grid.Column="2" Text="Add" BackgroundColor="Green"  WidthRequest="80" HeightRequest="40"  />
+                    <Entry Grid.Column="1" Placeholder="Name..." Text="{Binding TeamName}" HeightRequest="50" FontSize="25" TextColor="White" VerticalTextAlignment="Center"/>
+                    <Entry Grid.Row="1" Grid.Column="1" Placeholder="Coach..." Text="{Binding CoachName}" FontSize="15" WidthRequest="200" TextColor="Gray" VerticalOptions="Start" VerticalTextAlignment="Start"/>
+                    <Button Grid.Column="2" Text="Add" BackgroundColor="Green" Command="{Binding AddTeam}" Clicked="Update" WidthRequest="80" HeightRequest="40"  />
                 </Grid>
             </StackLayout>
 </Border>

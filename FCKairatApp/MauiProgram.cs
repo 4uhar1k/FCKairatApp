@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace FCKairatApp.Dtos
+namespace FCKairatApp
 {
     public static class MauiProgram
     {
