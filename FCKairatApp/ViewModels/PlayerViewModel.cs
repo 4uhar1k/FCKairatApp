@@ -1,9 +1,11 @@
 ﻿using FCKairatApp.Dtos;
+using Microsoft.Maui.Layouts;
 using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -20,17 +22,20 @@ namespace FCKairatApp.ViewModels
         string name, surname, position, startmonth,startyear, expirymonth, expiryyear;
         int number, goalamount, assistamount;
         public PlayerDto PlayerToEdit { get; set; }
+        public PlayerDto oldPlayerName { get; set; }
+        public PlayerDto oldPlayerNumber { get; set; }
+        public PlayerDto newPlayer { get; set; }
         public ICommand AddPlayer { get; set; }
         public PlayerViewModel()
         {
             Players = new ObservableCollection<PlayerDto>();
             database = baseConnection.CreateConnection();
             LoadPlayers();
-            
+
 
             AddPlayer = new Command(() =>
             {
-                PlayerDto newPlayer = new PlayerDto()
+                newPlayer = new PlayerDto()
                 {
                     Name = Name,
                     Surname = Surname,
@@ -41,24 +46,54 @@ namespace FCKairatApp.ViewModels
                     StartDate = $"{StartMonth} {StartYear}",
                     ExpiryDate = $"{ExpiryMonth} {ExpiryYear}"
                 };
-                database.InsertAsync(newPlayer);
-                if (PlayerToEdit!=null)
+
+
+                //PlayerUniqueCheck();
+
+                //PlayerNumberCheck();
+                oldPlayerName = Players.Where(n => n.Name == Name & n.Surname == Surname).FirstOrDefault();
+                oldPlayerNumber = Players.Where(n => n.Number == Number).FirstOrDefault();
+                if (oldPlayerNumber==null & oldPlayerName==null & PlayerToEdit==null)
                 {
+                    database.InsertAsync(newPlayer);
+                }
+                else if (PlayerToEdit != null)
+                {
+                    database.InsertAsync(newPlayer);
                     database.DeleteAsync(PlayerToEdit);
                 }
-            }, () => Name!="" & Surname!="" & Number!=0 & Number!=null & GoalsAmount!=null & AssistsAmount!=null & Position!="" & StartMonth!="" & StartYear!="" & ExpiryMonth!="" & ExpiryYear!="" & Name!=null & Surname!=null & Position!=null & StartMonth!=null & StartYear!=null & ExpiryMonth!=null & ExpiryYear!=null);
+            }, () => Name!="" & Surname!="" & Number!=0 & Position!="" & StartMonth!="" & StartYear!="" & ExpiryMonth!="" & ExpiryYear!="" & DataAreCorrect() & Name!=null & Surname!=null & Position!=null & StartMonth!=null & StartYear!=null & ExpiryMonth!=null & ExpiryYear!=null);
         }
 
         public async void LoadPlayers()
         {
-            List<PlayerDto> PlayersFromDatabase = await database.Table<PlayerDto>().ToListAsync();
+            List<PlayerDto> PlayersFromDatabase = await database.Table<PlayerDto>().OrderBy(n=>n.Number).ToListAsync();
             foreach (PlayerDto player in PlayersFromDatabase)
             {
                 Players.Add(player);
             }
+            
+            
         }
 
+        public bool DataAreCorrect()
+        {
+            try
+            {
+                if (Convert.ToInt32(StartYear) > 1900 & Convert.ToInt32(StartYear)<2100 & Convert.ToInt32(ExpiryYear) > 1900 & Convert.ToInt32(ExpiryYear) < 2100 & Convert.ToInt32(StartYear) <= Convert.ToInt32(ExpiryYear))
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         
+        
+
 
         public string Name 
         {

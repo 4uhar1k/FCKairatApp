@@ -1,28 +1,31 @@
 using FCKairatApp.Dtos;
 using FCKairatApp.ViewModels;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace FCKairatApp;
 
 public partial class PlayerPage : ContentPage
 {
     PlayerViewModel thisContext;
+    public PlayerDto oldPlayerName, oldPlayerNumber;
+     
 	public PlayerPage()
 	{
 		InitializeComponent();
         thisContext = new PlayerViewModel();
         BindingContext = thisContext;
-        //if(thisContext.GoalsAmount==0)
-        //{
-        //    GoalsEntry.Text = "";
-        //}
-        //if (thisContext.AssistsAmount == 0)
-        //{
-        //    AssistsEntry.Text = "";
-        //}
-        //if (thisContext.Number == 0)
-        //{
-        //    NumberEntry.Text = "";
-        //}
+        if (thisContext.GoalsAmount == 0)
+        {
+            GoalsEntry.Text = "";
+        }
+        if (thisContext.AssistsAmount == 0)
+        {
+            AssistsEntry.Text = "";
+        }
+        if (thisContext.Number == 0)
+        {
+            NumberEntry.Text = "";
+        }
     }
     public PlayerPage(object Player)
     {
@@ -46,6 +49,22 @@ public partial class PlayerPage : ContentPage
 
     public async void goBack(object sender, EventArgs e)
     {
-        await Navigation.PopAsync();
+        
+        if (thisContext.oldPlayerName != null & thisContext.PlayerToEdit == null)
+        {
+            await DisplayAlert("", "Player with this name already exists", "OK");
+        }
+        else if (thisContext.oldPlayerNumber != null & thisContext.PlayerToEdit == null)
+        {
+            await DisplayAlert("", "Player with this number already exists", "OK");
+        }
+        else
+            await Navigation.PopAsync();
     }
+
+    public async void PlayerUniqueCheck()
+    {
+        
+    }
+
 }
