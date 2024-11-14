@@ -26,7 +26,7 @@
                                     <Image Grid.Row="0" Grid.Column="0" Source="fckairat.jpg" />
                                     <Label Grid.Row="0" Grid.Column="1" Text="{Binding TeamName}" FontSize="25" TextColor="White" VerticalTextAlignment="Center"/>
                                     <Label Grid.Row="1" Grid.Column="1" Text="{Binding CoachName}" FontSize="15" WidthRequest="200" TextColor="Gray" VerticalOptions="Start" VerticalTextAlignment="Start"/>
-                                    <Button Grid.Row="0" Grid.Column="2" Text="Delete"  BackgroundColor="Red"  WidthRequest="80" HeightRequest="40"  />
+                                <Button Grid.Row="0" Grid.Column="2" Text="Delete" Clicked="Update" Command="{Binding Source={RelativeSource AncestorType={x:Type Page}}, Path=BindingContext.RemoveTeam}" CommandParameter="{Binding .}" BackgroundColor="Red"  WidthRequest="80" HeightRequest="40"  />
                                 </Grid>
                             </StackLayout>
                     </Border>

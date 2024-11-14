@@ -21,6 +21,7 @@ namespace FCKairatApp.ViewModels
         string teamname, coachname;
         int winsamount, drawsamount, losesamount, goalsscored, goalsmissed, points;
         public ICommand AddTeam { get; set; }
+        public ICommand RemoveTeam { get; set; }
         public GamesNTeamsViewModel()
         {
             Teams = new ObservableCollection<TeamDto>();
@@ -41,6 +42,11 @@ namespace FCKairatApp.ViewModels
                 
                                 
             }, ()=> TeamName!=null & CoachName!=null & TeamName!="" & CoachName!="");
+            RemoveTeam = new Command((object SelectedTeam) =>
+            {
+                TeamDto TeamToDelete = (TeamDto)SelectedTeam;
+                database.DeleteAsync(TeamToDelete);
+            });
         }
         public async void LoadTeams()
         {
