@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace FCKairatApp
+namespace FCKairatApp.Dtos
 {
     public static class MauiProgram
     {
@@ -16,7 +16,7 @@ namespace FCKairatApp
                 });
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
             builder.Services.AddSingleton<SqlConnectionBase>();
 #endif
 

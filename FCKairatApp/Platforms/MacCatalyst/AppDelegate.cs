@@ -1,4 +1,5 @@
-﻿using Foundation;
+﻿using FCKairatApp.Dtos;
+using Foundation;
 
 namespace FCKairatApp
 {

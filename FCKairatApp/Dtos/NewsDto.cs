@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FCKairatApp
+namespace FCKairatApp.Dtos
 {
     public class NewsDto
     {

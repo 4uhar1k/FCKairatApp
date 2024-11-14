@@ -1,4 +1,5 @@
 ﻿
+using FCKairatApp.Dtos;
 using SQLite;
 
 namespace FCKairatApp
@@ -19,7 +20,7 @@ namespace FCKairatApp
         protected override async void OnStart()
         {
             ISQLiteAsyncConnection database = _connectionBase.CreateConnection();
-            //await database.DropTableAsync<NewsDto>();
+            //await database.DropTableAsync<PlayerDto>();
             await database.CreateTablesAsync<UserDto, PlayerDto, TeamDto, GameDto, NewsDto>();
 
             base.OnStart();
