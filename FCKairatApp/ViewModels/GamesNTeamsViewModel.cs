@@ -19,6 +19,7 @@ namespace FCKairatApp.ViewModels
         public ObservableCollection<TeamDto> Teams { get; set; }
         public ObservableCollection<string> TeamNames { get; set; }
         public TeamDto SameTeamName {  get; set; }
+        public GameDto GameToChange { get; set; }
         public ISQLiteAsyncConnection database { get; set; }
         string teamname, coachname, firstteamname, secondteamname, gametime, tournament, score, day, month, year, time;
         int winsamount, drawsamount, losesamount, goalsscored, goalsmissed, points, firstteamscore, secondteamscore;
@@ -78,6 +79,10 @@ namespace FCKairatApp.ViewModels
                 //if (SameTeamName == null)
                 //{
                 database.InsertAsync(NewGame);
+                if (GameToChange!=null)
+                {
+                    database.DeleteAsync(GameToChange);
+                }
                 //}
 
 
@@ -218,7 +223,7 @@ namespace FCKairatApp.ViewModels
                 if (firstteamname != value)
                 {
                     firstteamname = value;
-                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(FirstTeamName));
                 }
             }
         }
@@ -231,7 +236,7 @@ namespace FCKairatApp.ViewModels
                 if (secondteamname != value)
                 {
                     secondteamname = value;
-                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(SecondTeamName));
                 }
             }
         }

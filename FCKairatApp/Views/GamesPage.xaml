@@ -14,8 +14,8 @@
                 <Button Grid.Column="0" WidthRequest="180" Clicked="ShowList" Text="List of Teams" FontSize="20" BackgroundColor="DarkGoldenrod" TextColor="Black"/>
                 <Button Grid.Column="1" WidthRequest="180" Clicked="AddGame" Text="Add new game" FontSize="20" BackgroundColor="DarkGoldenrod" TextColor="Black"/>
             </Grid>
-            
-            <CollectionView HeightRequest="550" ItemsSource="{Binding Games}">
+
+            <CollectionView x:Name="GamesCollection" HeightRequest="550" ItemsSource="{Binding Games}" SelectionMode="Single" SelectionChanged="EditGame" >
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
             

@@ -1,3 +1,4 @@
+using FCKairatApp.Dtos;
 using FCKairatApp.ViewModels;
 
 namespace FCKairatApp;
@@ -23,6 +24,17 @@ public partial class GamesPage : ContentPage
 		addGamePage.SaveGame.Clicked += Update;
 	}
 
+	public async void EditGame(object sender, SelectionChangedEventArgs e)
+	{
+		if (e.CurrentSelection.Count!=0)
+		{
+			GameDto SelectedGame = (GameDto)e.CurrentSelection[0];
+            AddGamePage addGamePage = new AddGamePage(SelectedGame);
+            await Navigation.PushAsync(addGamePage);
+            addGamePage.SaveGame.Clicked += Update;
+			GamesCollection.SelectedItem = null;
+        }
+	}
     public void Update(object sender, EventArgs e)
     {        
         thisContext = new GamesNTeamsViewModel();
