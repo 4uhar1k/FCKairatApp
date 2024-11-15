@@ -32,12 +32,14 @@
                             <ColumnDefinition Width="1*"/>
                             <ColumnDefinition Width="1*"/>
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Row="0" Grid.Column="1" Text="10.11.24 14:00" Margin="0,30,0,0" TextColor="Gray" />
+                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding GameTime}" HorizontalTextAlignment="Center" Margin="0,30,0,0" TextColor="Gray" />
                         <Image Grid.Row="1" Grid.Column="0" Source="fckairat.jpg" WidthRequest="200" HeightRequest="200" />
-                        <Label Grid.Row="1" Grid.Column="1" Text="3:0" TextColor="Red" FontSize="40" Margin="40,70,0,0"/>
+                                    <Label Grid.Row="1" Grid.Column="1" TextColor="Red" FontSize="40" Text="{Binding FirstTeamScore}" Margin="40,70,0,0">
+                                        
+                                    </Label>
                         <Image Grid.Row="1" Grid.Column="2" Source="fcatyrau.png" WidthRequest="100" HeightRequest="100"/>
-                        <Label Grid.Row="2" Grid.Column="0" Text="FC Kairat" Margin="25,-20,0,0" FontSize="20" TextColor="White"/>
-                        <Label Grid.Row="2" Grid.Column="2" Text="FC Atyrau" Margin="25,-20,0,0" FontSize="20" TextColor="White"/>
+                        <Label Grid.Row="2" Grid.Column="0" Text="{Binding FirstTeamName}" HorizontalTextAlignment="Center" Margin="25,-20,0,0" FontSize="20" TextColor="White"/>
+                                    <Label Grid.Row="2" Grid.Column="2" Text="{Binding SecondTeamName}" HorizontalTextAlignment="Center" Margin="25,-20,0,0" FontSize="20" TextColor="White"/>
                     </Grid>
                 </StackLayout>
             </Border>

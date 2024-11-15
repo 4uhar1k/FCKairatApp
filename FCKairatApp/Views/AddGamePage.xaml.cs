@@ -11,4 +11,8 @@ public partial class AddGamePage : ContentPage
         thisContext = new GamesNTeamsViewModel();
 		BindingContext = thisContext;
     }
+	public async void goBack(object sender, EventArgs e)
+	{
+		await Navigation.PopAsync();
+	}
 }

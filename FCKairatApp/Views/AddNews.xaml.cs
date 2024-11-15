@@ -10,6 +10,7 @@ public partial class AddNews : ContentPage
 		InitializeComponent();
 		NewsViewModel thisContext = new NewsViewModel();
 		BindingContext = thisContext;
+        DeleteBtn.IsVisible = false;
 		//if (thisContext.articleToChange!=null)
 		//{
 		//	thisContext.Title = thisContext.articleToChange.Title;
@@ -22,7 +23,7 @@ public partial class AddNews : ContentPage
     {
         InitializeComponent();
         NewsViewModel thisContext = new NewsViewModel();
-        
+        DeleteBtn.IsVisible = true;
         if (CurArticle != null)
         {
             thisContext.Title = CurArticle.Title;

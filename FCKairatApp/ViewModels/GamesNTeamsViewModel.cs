@@ -20,10 +20,11 @@ namespace FCKairatApp.ViewModels
         public ObservableCollection<string> TeamNames { get; set; }
         public TeamDto SameTeamName {  get; set; }
         public ISQLiteAsyncConnection database { get; set; }
-        string teamname, coachname, firstteamname, secondteamname, gametime, tournament;
+        string teamname, coachname, firstteamname, secondteamname, gametime, tournament, score, day, month, year, time;
         int winsamount, drawsamount, losesamount, goalsscored, goalsmissed, points, firstteamscore, secondteamscore;
         public ICommand AddTeam { get; set; }
         public ICommand RemoveTeam { get; set; }
+        public ICommand AddGame { get; set; }
         public GamesNTeamsViewModel()
         {
             Games = new ObservableCollection<GameDto>();
@@ -51,6 +52,25 @@ namespace FCKairatApp.ViewModels
                 TeamDto TeamToDelete = (TeamDto)SelectedTeam;
                 database.DeleteAsync(TeamToDelete);
             });
+            AddGame = new Command(() =>
+            {
+                GameDto NewGame = new GameDto()
+                {
+                    FirstTeamName = FirstTeamName,
+                    SecondTeamName = SecondTeamName,
+                    FirstTeamScore = Convert.ToInt32(Score.Split(':')[0]),
+                    SecondTeamScore = Convert.ToInt32(Score.Split(':')[1]),
+                    GameTime = $"{Day} {Month} {Year} {Time}",
+                    Tournament = ""
+                };
+                //SameTeamName = Teams.Where(n => n.TeamName == TeamName).FirstOrDefault();
+                //if (SameTeamName == null)
+                //{
+                database.InsertAsync(NewGame);
+                //}
+
+
+            });//, () => TeamName != null & CoachName != null & TeamName != "" & CoachName != "");
         }
         public async void LoadTeamsNGames()
         {
@@ -66,6 +86,7 @@ namespace FCKairatApp.ViewModels
                 TeamNames.Add(team.TeamName);
             }
         }
+        //for team
         public string TeamName 
         {
             get => teamname;
@@ -171,6 +192,7 @@ namespace FCKairatApp.ViewModels
                 }
             }
         }
+        // for game
         public string FirstTeamName
         {
             get => firstteamname;
@@ -249,7 +271,75 @@ namespace FCKairatApp.ViewModels
                 }
             }
         }
-        
+
+        // helping stuff for game
+        public string Score
+        {
+            get => score;
+
+            set
+            {
+                if (score != value)
+                {
+                    score = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string Day
+        {
+            get => day;
+
+            set
+            {
+                if (day != value)
+                {
+                    day = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public string Month
+        {
+            get => month;
+
+            set
+            {
+                if (month != value)
+                {
+                    month = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public string Year
+        {
+            get => year;
+
+            set
+            {
+                if (year != value)
+                {
+                    year = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public string Time
+        {
+            get => time;
+
+            set
+            {
+                if (time != value)
+                {
+                    time = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
 
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {

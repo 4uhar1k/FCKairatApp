@@ -18,7 +18,9 @@ public partial class GamesPage : ContentPage
 	}
 	public async void AddGame(object sender, EventArgs e)
 	{
-		await Navigation.PushAsync(new AddGamePage());
+		AddGamePage addGamePage = new AddGamePage();
+		await Navigation.PushAsync(addGamePage);
+		addGamePage.SaveGame.Clicked += Update;
 	}
 
     public void Update(object sender, EventArgs e)

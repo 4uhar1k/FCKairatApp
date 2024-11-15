@@ -17,7 +17,7 @@
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Text="Delete" Command="{Binding DeleteArticle}" Clicked="goBack" WidthRequest="150" FontSize="27" BackgroundColor="Red" TextColor="Black"/>
+            <Button x:Name="DeleteBtn" Grid.Column="0" Text="Delete" Command="{Binding DeleteArticle}" Clicked="goBack" WidthRequest="150" FontSize="27" BackgroundColor="Red" TextColor="Black"/>
             <Button Grid.Column="1" Text="Save" Command="{Binding AddArticle}" Clicked="goBack" WidthRequest="150" FontSize="27" BackgroundColor="DarkGoldenrod" TextColor="Black"/>
         </Grid>
         
