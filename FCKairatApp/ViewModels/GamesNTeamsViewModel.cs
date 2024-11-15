@@ -15,18 +15,22 @@ namespace FCKairatApp.ViewModels
     public class GamesNTeamsViewModel: ViewModelBase
     {
         public event PropertyChangedEventHandler? PropertyChanged;
+        public ObservableCollection<GameDto> Games {  get; set; }
         public ObservableCollection<TeamDto> Teams { get; set; }
+        public ObservableCollection<string> TeamNames { get; set; }
         public TeamDto SameTeamName {  get; set; }
         public ISQLiteAsyncConnection database { get; set; }
-        string teamname, coachname;
-        int winsamount, drawsamount, losesamount, goalsscored, goalsmissed, points;
+        string teamname, coachname, firstteamname, secondteamname, gametime, tournament;
+        int winsamount, drawsamount, losesamount, goalsscored, goalsmissed, points, firstteamscore, secondteamscore;
         public ICommand AddTeam { get; set; }
         public ICommand RemoveTeam { get; set; }
         public GamesNTeamsViewModel()
         {
+            Games = new ObservableCollection<GameDto>();
             Teams = new ObservableCollection<TeamDto>();
+            TeamNames = new ObservableCollection<string>();
             database = baseConnection.CreateConnection();
-            LoadTeams();
+            LoadTeamsNGames();
             AddTeam = new Command(() =>
             {
                 TeamDto NewTeam = new TeamDto()
@@ -48,12 +52,18 @@ namespace FCKairatApp.ViewModels
                 database.DeleteAsync(TeamToDelete);
             });
         }
-        public async void LoadTeams()
+        public async void LoadTeamsNGames()
         {
+            List<GameDto> ListOfGames = await database.Table<GameDto>().ToListAsync();
+            foreach (GameDto game in ListOfGames)
+            {
+                Games.Add(game);
+            }
             List<TeamDto> ListOfTeams = await database.Table<TeamDto>().ToListAsync();
             foreach (TeamDto team in ListOfTeams)
             {
                 Teams.Add(team);
+                TeamNames.Add(team.TeamName);
             }
         }
         public string TeamName 
@@ -161,6 +171,85 @@ namespace FCKairatApp.ViewModels
                 }
             }
         }
+        public string FirstTeamName
+        {
+            get => firstteamname;
+
+            set
+            {
+                if (firstteamname != value)
+                {
+                    firstteamname = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public string SecondTeamName
+        {
+            get => secondteamname;
+
+            set
+            {
+                if (secondteamname != value)
+                {
+                    secondteamname = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public int FirstTeamScore
+        {
+            get => firstteamscore;
+
+            set
+            {
+                if (firstteamscore != value)
+                {
+                    firstteamscore = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public int SecondTeamScore
+        {
+            get => secondteamscore;
+
+            set
+            {
+                if (secondteamscore != value)
+                {
+                    secondteamscore = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public string GameTime
+        {
+            get => gametime;
+
+            set
+            {
+                if (gametime != value)
+                {
+                    gametime = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public string Tournament
+        {
+            get => tournament;
+
+            set
+            {
+                if (tournament != value)
+                {
+                    tournament = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        
 
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {

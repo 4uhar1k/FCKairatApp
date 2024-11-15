@@ -16,6 +16,10 @@ public partial class GamesPage : ContentPage
 	{
 		await Navigation.PushAsync(new TeamsListPage());
 	}
+	public async void AddGame(object sender, EventArgs e)
+	{
+		await Navigation.PushAsync(new AddGamePage());
+	}
 
     public void Update(object sender, EventArgs e)
     {        

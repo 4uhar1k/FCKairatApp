@@ -71,6 +71,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Views\AddGamePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\AddNews.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

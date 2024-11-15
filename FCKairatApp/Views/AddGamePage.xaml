@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FCKairatApp.AddGamePage"
+             Title="AddGamePage"
+             BackgroundColor="Black">
+    <VerticalStackLayout>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                
+            </Grid.ColumnDefinitions>
+            <Entry Grid.Column="0" Placeholder="Day" HeightRequest="80" FontSize="30" TextColor="White" HorizontalTextAlignment="Center" />
+            <Picker Grid.Column="1" Title="Month" BackgroundColor="Gray" HeightRequest="50" FontSize="23" HorizontalTextAlignment="Center">
+                <Picker.Items>
+                    <x:String>January</x:String>
+                    <x:String>February</x:String>
+                    <x:String>March</x:String>
+                    <x:String>April</x:String>
+                    <x:String>May</x:String>
+                    <x:String>June</x:String>
+                    <x:String>July</x:String>
+                    <x:String>August</x:String>
+                    <x:String>September</x:String>
+                    <x:String>October</x:String>
+                    <x:String>November</x:String>
+                    <x:String>December</x:String>
+                </Picker.Items>
+            </Picker>
+            <Entry Grid.Column="3" Placeholder="Year" HeightRequest="80" FontSize="30" TextColor="White" HorizontalTextAlignment="Center" />
+        </Grid>
+        <Entry Placeholder="Time"  HeightRequest="80" FontSize="30" TextColor="White" HorizontalTextAlignment="Center" />
+        <Grid RowSpacing="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            
+            <Image Grid.Row="0" Grid.Column="0" Source="fckairat.jpg" WidthRequest="200" HeightRequest="200" />
+            <Entry Grid.Row="0" Grid.Column="1" Placeholder="0:0" TextColor="Red" HeightRequest="80" HorizontalTextAlignment="Center" FontSize="40" Margin="40,70,0,0"/>
+            <Image Grid.Row="0" Grid.Column="2" Source="fcatyrau.png" WidthRequest="100" HeightRequest="100"/>
+            <Picker ItemsSource="{Binding TeamNames}" WidthRequest="150" Grid.Row="1" Grid.Column="0" Title="Team 1" Margin="25,-20,0,0" FontSize="20" TextColor="White" BackgroundColor="Gray"/>
+            <Picker ItemsSource="{Binding TeamNames}"  WidthRequest="150" Grid.Row="1" Grid.Column="2" Title="Team 2" Margin="25,-20,0,0" FontSize="20" TextColor="White" BackgroundColor="Gray"/>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Text="Delete" />
+            <Button Grid.Column="1" Text="Save"/>
+        </Grid>
+    </VerticalStackLayout>
+</ContentPage>
