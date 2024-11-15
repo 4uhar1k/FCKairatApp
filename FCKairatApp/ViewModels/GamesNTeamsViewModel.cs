@@ -24,7 +24,9 @@ namespace FCKairatApp.ViewModels
         int winsamount, drawsamount, losesamount, goalsscored, goalsmissed, points, firstteamscore, secondteamscore;
         public ICommand AddTeam { get; set; }
         public ICommand RemoveTeam { get; set; }
+        public ICommand EditTeam { get; set; }
         public ICommand AddGame { get; set; }
+        public ICommand RemoveGame { get; set; }
         public GamesNTeamsViewModel()
         {
             Games = new ObservableCollection<GameDto>();
@@ -47,10 +49,19 @@ namespace FCKairatApp.ViewModels
                 
                                 
             }, ()=> TeamName!=null & CoachName!=null & TeamName!="" & CoachName!="");
+            
             RemoveTeam = new Command((object SelectedTeam) =>
             {
                 TeamDto TeamToDelete = (TeamDto)SelectedTeam;
                 database.DeleteAsync(TeamToDelete);
+                try
+                {
+                    Teams.Remove(Teams.Where(n => n.TeamName == TeamToDelete.TeamName & n.CoachName == TeamToDelete.CoachName).First());
+                }
+                catch
+                {
+
+                }
             });
             AddGame = new Command(() =>
             {
@@ -71,13 +82,18 @@ namespace FCKairatApp.ViewModels
 
 
             });//, () => TeamName != null & CoachName != null & TeamName != "" & CoachName != "");
+            RemoveGame = new Command((object SelectedGame) =>
+            {
+                GameDto GameToDelete = (GameDto)SelectedGame;
+                database.DeleteAsync(GameToDelete);
+            });
         }
         public async void LoadTeamsNGames()
         {
             List<GameDto> ListOfGames = await database.Table<GameDto>().ToListAsync();
             foreach (GameDto game in ListOfGames)
             {
-                Games.Add(game);
+                Games.Insert(0,game);
             }
             List<TeamDto> ListOfTeams = await database.Table<TeamDto>().ToListAsync();
             foreach (TeamDto team in ListOfTeams)

@@ -34,14 +34,22 @@
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="1" Text="{Binding GameTime}" HorizontalTextAlignment="Center" Margin="0,30,0,0" TextColor="Gray" />
                         <Image Grid.Row="1" Grid.Column="0" Source="fckairat.jpg" WidthRequest="200" HeightRequest="200" />
-                                    <Label Grid.Row="1" Grid.Column="1" TextColor="Red" FontSize="40" Text="{Binding FirstTeamScore}" Margin="40,70,0,0">
-                                        
+                                    <Label Grid.Row="1" Grid.Column="1" TextColor="Red" FontSize="40" Margin="40,70,0,0">
+                                        <Label.Text>
+                                            <MultiBinding StringFormat="{}{0} - {1}">
+                                                <Binding Path="FirstTeamScore" />
+                                                <Binding Path="SecondTeamScore" />
+                                            </MultiBinding>
+                                        </Label.Text>
                                     </Label>
-                        <Image Grid.Row="1" Grid.Column="2" Source="fcatyrau.png" WidthRequest="100" HeightRequest="100"/>
+                                    <Image Grid.Row="1" Grid.Column="2" Source="fcatyrau.png" WidthRequest="100" HeightRequest="100"/>
                         <Label Grid.Row="2" Grid.Column="0" Text="{Binding FirstTeamName}" HorizontalTextAlignment="Center" Margin="25,-20,0,0" FontSize="20" TextColor="White"/>
                                     <Label Grid.Row="2" Grid.Column="2" Text="{Binding SecondTeamName}" HorizontalTextAlignment="Center" Margin="25,-20,0,0" FontSize="20" TextColor="White"/>
                     </Grid>
-                </StackLayout>
+                                <Button WidthRequest="70" Text="-" FontSize="20" BackgroundColor="Red" Clicked="Update"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type Page}}, Path=BindingContext.RemoveGame}"
+                                        CommandParameter="{Binding .}"/>
+                            </StackLayout>
             </Border>
                         
                     </DataTemplate>

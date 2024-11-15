@@ -7,7 +7,9 @@
     <VerticalStackLayout>
 
 
-        <CollectionView ItemsSource="{Binding Teams}" MaximumHeightRequest="600">
+        <CollectionView x:Name="TeamsCollection" ItemsSource="{Binding Teams}" SelectionMode="Single" SelectionChanged="TeamClicked" SelectionChangedCommand="{Binding RemoveTeam}" 
+                        SelectionChangedCommandParameter="{Binding Source={x:Reference TeamsCollection}, Path=SelectedItem}"
+                        MaximumHeightRequest="500">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                     <Border>
@@ -50,12 +52,12 @@
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
                     <Image Grid.Column="0" Source="fckairat.jpg" />
-                    <Entry Grid.Column="1" Placeholder="Name..." Text="{Binding TeamName}" HeightRequest="50" FontSize="25" TextColor="White" VerticalTextAlignment="Center"/>
-                    <Entry Grid.Row="1" Grid.Column="1" Placeholder="Coach..." Text="{Binding CoachName}" FontSize="15" WidthRequest="200" TextColor="Gray" VerticalOptions="Start" VerticalTextAlignment="Start"/>
-                    <Button Grid.Column="2" Text="Add" BackgroundColor="Green" Command="{Binding AddTeam}" Clicked="Update" WidthRequest="80" HeightRequest="40"  />
+                    <Entry x:Name="NameEntry" Grid.Column="1" Placeholder="New Team..." Text="{Binding TeamName}" HeightRequest="50" FontSize="20" TextColor="White" VerticalTextAlignment="Center"/>
+                    <Entry x:Name="CoachEntry" Grid.Row="1" Grid.Column="1" Placeholder="Coach..." Text="{Binding CoachName}" FontSize="15" WidthRequest="200" TextColor="Gray" VerticalOptions="Start" VerticalTextAlignment="Start"/>
+                    <Button x:Name="AddBtn" Grid.Column="2" Text="Add" BackgroundColor="Green" Command="{Binding AddTeam}" Clicked="Update" WidthRequest="80" HeightRequest="40"  />
                 </Grid>
             </StackLayout>
 </Border>
-        <Button Text="Add" BackgroundColor="Green" Clicked="AddBtnClicked"  WidthRequest="80" HeightRequest="40"  />
+        <!--<Button Text="Add" BackgroundColor="Green" Clicked="AddBtnClicked"  WidthRequest="80" HeightRequest="40"  />-->
     </VerticalStackLayout>
 </ContentPage>
