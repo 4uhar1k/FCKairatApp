@@ -17,6 +17,8 @@ namespace FCKairatApp.ViewModels
     {
         public event PropertyChangedEventHandler? PropertyChanged;
         public string CurUser = Path.Combine(FileSystem.AppDataDirectory, "curuser.txt");
+        public string Tournaments = Path.Combine(FileSystem.AppDataDirectory, "tournaments.txt");
+        
         public string emailbase, passbase, namebase, surnamebase;
         public SqlConnectionBase baseConnection;
         public NewsDto articleToChange { get; set; }
@@ -24,7 +26,7 @@ namespace FCKairatApp.ViewModels
 
         public ViewModelBase()
         {
-            //File.Delete(CurUser);
+            //File.Delete(Tournaments);
             baseConnection = new SqlConnectionBase();
             if (File.Exists(CurUser))
             {
@@ -36,7 +38,9 @@ namespace FCKairatApp.ViewModels
                     surnamebase = sr.ReadLine();
                     sr.Close();
                 }
-            }          
+            }
+            
+            
         }
 
         public void OnPropertyChanged([CallerMemberName] string prop = "")

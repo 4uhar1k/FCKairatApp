@@ -1,5 +1,7 @@
+using CommunityToolkit.Maui.Views;
 using FCKairatApp.Dtos;
 using FCKairatApp.ViewModels;
+//using MauiToolKitPopupSample;
 
 namespace FCKairatApp;
 
@@ -35,4 +37,27 @@ public partial class AddGamePage : ContentPage
 	{
 		await Navigation.PopAsync();
 	}
+
+    public void AddTournament (object sender, EventArgs e)
+    {
+        try
+        {
+            if (TournamentPicker.SelectedItem.ToString() == "Add new tournament...")
+            {
+                AddTournamentPage addTournamentPage = new AddTournamentPage();
+                this.ShowPopup(addTournamentPage);
+                TournamentPicker.SelectedItem = null;
+                addTournamentPage.ReadyBtn.Clicked += Update;
+            }
+        }
+        catch
+        {
+
+        }
+    }
+    public void Update(object sender, EventArgs e)
+    {
+        thisContext = new GamesNTeamsViewModel();
+        BindingContext = thisContext;
+    }
 }

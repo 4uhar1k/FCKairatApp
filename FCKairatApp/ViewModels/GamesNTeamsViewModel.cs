@@ -18,16 +18,18 @@ namespace FCKairatApp.ViewModels
         public ObservableCollection<GameDto> Games {  get; set; }
         public ObservableCollection<TeamDto> Teams { get; set; }
         public ObservableCollection<string> TeamNames { get; set; }
+        public ObservableCollection<string> TournamentNames { get; set; }
         public TeamDto SameTeamName {  get; set; }
         public GameDto GameToChange { get; set; }
         public ISQLiteAsyncConnection database { get; set; }
-        string teamname, coachname, firstteamname, secondteamname, gametime, tournament, score, day, month, year, time;
+        string teamname, coachname, firstteamname, secondteamname, gametime, tournament, score, day, month, year, time, tournamentname;
         int winsamount, drawsamount, losesamount, goalsscored, goalsmissed, points, firstteamscore, secondteamscore;
         public ICommand AddTeam { get; set; }
         public ICommand RemoveTeam { get; set; }
         public ICommand EditTeam { get; set; }
         public ICommand AddGame { get; set; }
         public ICommand RemoveGame { get; set; }
+        public ICommand AddTournament { get; set; }
         public GamesNTeamsViewModel()
         {
             Games = new ObservableCollection<GameDto>();
@@ -35,6 +37,36 @@ namespace FCKairatApp.ViewModels
             TeamNames = new ObservableCollection<string>();
             database = baseConnection.CreateConnection();
             LoadTeamsNGames();
+            if (!File.Exists(Tournaments))
+            {
+                File.Create(Tournaments);
+            }
+            TournamentNames = new ObservableCollection<string>();
+            string? line;
+            using (StreamReader reader = new StreamReader(Tournaments))
+            {
+                
+                while ((line = reader.ReadLine()) != null)
+                {
+                    TournamentNames.Add(line);
+                    
+                }
+                reader.Close();
+            }
+            if (!TournamentNames.Contains("Add new tournament..."))
+            {
+                
+                using (StreamWriter sw = new StreamWriter(Tournaments, false))
+                {
+                    sw.WriteLine("Add new tournament...");
+                    for (int i = 0; i < TournamentNames.Count; i++)
+                    {
+                        sw.WriteLine(TournamentNames[i]);
+                    }
+                    TournamentNames.Add("Add new tournament...");
+                    sw.Close();
+                }
+            }
             AddTeam = new Command(() =>
             {
                 TeamDto NewTeam = new TeamDto()
@@ -73,7 +105,7 @@ namespace FCKairatApp.ViewModels
                     FirstTeamScore = Convert.ToInt32(Score.Split(':')[0]),
                     SecondTeamScore = Convert.ToInt32(Score.Split(':')[1]),
                     GameTime = $"{Day} {Month} {Year} {Time}",
-                    Tournament = ""
+                    Tournament = Tournament
                 };
                 //SameTeamName = Teams.Where(n => n.TeamName == TeamName).FirstOrDefault();
                 //if (SameTeamName == null)
@@ -92,6 +124,14 @@ namespace FCKairatApp.ViewModels
                 GameDto GameToDelete = (GameDto)SelectedGame;
                 database.DeleteAsync(GameToDelete);
             });
+
+            AddTournament = new Command(() =>
+            {
+                using (StreamWriter sw = new StreamWriter(Tournaments,true))
+                {
+                    sw.WriteLine(TournamentName);
+                }
+            }, () => TournamentName != null & TournamentName!="");
         }
         public async void LoadTeamsNGames()
         {
@@ -360,12 +400,25 @@ namespace FCKairatApp.ViewModels
                 }
             }
         }
+        public string TournamentName
+        {
+            get => tournamentname;
 
+            set
+            {
+                if (tournamentname != value)
+                {
+                    tournamentname = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
             ((Command)AddTeam).ChangeCanExecute();
+            ((Command)AddTournament).ChangeCanExecute();
         }
 
     }
