@@ -39,8 +39,7 @@ namespace FCKairatApp.ViewModels
                     sr.Close();
                 }
             }
-            
-            
+
         }
 
         public void OnPropertyChanged([CallerMemberName] string prop = "")

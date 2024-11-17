@@ -1,4 +1,5 @@
 ﻿using FCKairatApp.Dtos;
+using Org.Apache.Http.Impl;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -118,7 +119,9 @@ namespace FCKairatApp.ViewModels
                 //}
 
 
-            });//, () => TeamName != null & CoachName != null & TeamName != "" & CoachName != "");
+
+            }, () => FirstTeamName != null & SecondTeamName != null & Tournament!=null & Score!=null & Score!="" & Day!=null & Day!="" & Month!=null 
+            & Year!=null & Year!="" & Time!=null & Time!="" & IsDataCorrect());
             RemoveGame = new Command((object SelectedGame) =>
             {
                 GameDto GameToDelete = (GameDto)SelectedGame;
@@ -145,6 +148,24 @@ namespace FCKairatApp.ViewModels
             {
                 Teams.Add(team);
                 TeamNames.Add(team.TeamName);
+            }
+        }
+
+        public bool IsDataCorrect()
+        {
+            try
+            {
+                if (!Score.Contains(':'))
+                    return false;
+                if (FirstTeamName != "FC Kairat Almaty" & SecondTeamName != "FC Kairat Almaty")
+                    return false;
+                if(!int.TryParse(Score.Split(':')[0], out firstteamscore) | !int.TryParse(Score.Split(':')[1], out secondteamscore))
+                    return false;
+                return true;
+            }
+            catch
+            {
+                return false;
             }
         }
         //for team
@@ -418,6 +439,7 @@ namespace FCKairatApp.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
             ((Command)AddTeam).ChangeCanExecute();
+            ((Command)AddGame).ChangeCanExecute();
             ((Command)AddTournament).ChangeCanExecute();
         }
 
