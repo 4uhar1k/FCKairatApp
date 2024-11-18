@@ -1,5 +1,4 @@
 ﻿using FCKairatApp.Dtos;
-using Org.Apache.Http.Impl;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -120,7 +119,7 @@ namespace FCKairatApp.ViewModels
 
 
 
-            }, () => FirstTeamName != null & SecondTeamName != null & Tournament!=null & Score!=null & Score!="" & Day!=null & Day!="" & Month!=null 
+            }, () => FirstTeamName != null & SecondTeamName != null & FirstTeamName!=SecondTeamName & Tournament!=null & Score!=null & Score!="" & Day!=null & Day!="" & Month!=null 
             & Year!=null & Year!="" & Time!=null & Time!="" & IsDataCorrect());
             RemoveGame = new Command((object SelectedGame) =>
             {

@@ -17,7 +17,7 @@ namespace FCKairatApp.ViewModels
     public class PlayerViewModel: ViewModelBase
     {
         public event PropertyChangedEventHandler? PropertyChanged;
-        public ObservableCollection<PlayerDto> Players { get; set; }
+        
         public ISQLiteAsyncConnection database { get; set; }
         string name, surname, position, startmonth,startyear, expirymonth, expiryyear;
         int number, goalamount, assistamount;
@@ -29,9 +29,9 @@ namespace FCKairatApp.ViewModels
         public ICommand DeletePlayer { get; set; }
         public PlayerViewModel()
         {
-            Players = new ObservableCollection<PlayerDto>();
+            
             database = baseConnection.CreateConnection();
-            LoadPlayers();
+            //LoadPlayers();
 
 
             AddPlayer = new Command(() =>
@@ -72,16 +72,7 @@ namespace FCKairatApp.ViewModels
             });
         }
 
-        public async void LoadPlayers()
-        {
-            List<PlayerDto> PlayersFromDatabase = await database.Table<PlayerDto>().OrderBy(n=>n.Number).ToListAsync();
-            foreach (PlayerDto player in PlayersFromDatabase)
-            {
-                Players.Add(player);
-            }
-            
-            
-        }
+        
 
         public bool DataAreCorrect()
         {

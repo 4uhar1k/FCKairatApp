@@ -13,6 +13,10 @@ public partial class AddGamePage : ContentPage
 		InitializeComponent();
         //thisContext = new GamesNTeamsViewModel();
 		BindingContext = thisContext;
+        FirstTeamGoal.IsVisible = false;
+        FirstKairatGoal.IsVisible = false;
+        SecondTeamGoal.IsVisible = false;
+        SecondKairatGoal.IsVisible = false;
     }
     public AddGamePage(GameDto SelectedGame)
     {
@@ -29,7 +33,13 @@ public partial class AddGamePage : ContentPage
         thisContext.Year = SelectedGame.GameTime.Split(' ')[2];
         thisContext.Time = SelectedGame.GameTime.Split(' ')[3];
         thisContext.Tournament = SelectedGame.Tournament;
-        this.BindingContext = thisContext;
+
+        BindingContext = thisContext;
+
+        FirstTeamGoal.IsVisible = false;
+        FirstKairatGoal.IsVisible = false;
+        SecondTeamGoal.IsVisible = false;
+        SecondKairatGoal.IsVisible = false;
         //FirstTeamPicker.SelectedItem = SelectedGame.FirstTeamName;
         //thisContext.SecondTeamName = SelectedGame.SecondTeamName;
     }
@@ -54,6 +64,29 @@ public partial class AddGamePage : ContentPage
         {
 
         }
+    }
+
+    public async void AddGoal (object sender, EventArgs e)
+    {
+        Button clickedBtn = (Button)sender;
+        if (clickedBtn.AutomationId == "AddForFirstTeam" & FirstTeamPicker.SelectedItem!=null)
+        {
+            if (FirstTeamPicker.SelectedItem.ToString() == "FC Kairat Almaty")
+            {
+                FirstKairatGoal.IsVisible = true;
+            }
+            else
+                FirstTeamGoal.IsVisible = true;
+        }
+        else if (clickedBtn.AutomationId == "AddForSecondTeam" & SecondTeamPicker.SelectedItem != null)
+        {
+            if (SecondTeamPicker.SelectedItem.ToString() == "FC Kairat Almaty")
+                SecondKairatGoal.IsVisible = true;
+            else
+                SecondTeamGoal.IsVisible = true;
+        }
+
+        //await DisplayAlert("", clickedBtn.AutomationId, "OK");
     }
     public void Update(object sender, EventArgs e)
     {
