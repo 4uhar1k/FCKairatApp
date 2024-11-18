@@ -32,6 +32,9 @@ public partial class GamesPage : ContentPage
             AddGamePage addGamePage = new AddGamePage(SelectedGame);
             await Navigation.PushAsync(addGamePage);
             addGamePage.SaveGame.Clicked += Update;
+			addGamePage.EndGame.Clicked += Update;
+			addGamePage.FirstGoalAdd.Clicked += Update;
+			addGamePage.SecondGoalAdd.Clicked += Update;
 			GamesCollection.SelectedItem = null;
         }
 	}

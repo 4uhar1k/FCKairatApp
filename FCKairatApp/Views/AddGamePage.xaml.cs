@@ -17,6 +17,11 @@ public partial class AddGamePage : ContentPage
         FirstKairatGoal.IsVisible = false;
         SecondTeamGoal.IsVisible = false;
         SecondKairatGoal.IsVisible = false;
+        EndGame.IsVisible = false;
+        FirstGoalAdd.IsVisible = false;
+        SecondGoalAdd.IsVisible = false;
+        //AddForFirstTeam.IsVisible = false;
+        //AddForSecondTeam.IsVisible = false;
     }
     public AddGamePage(GameDto SelectedGame)
     {
@@ -24,10 +29,14 @@ public partial class AddGamePage : ContentPage
         //thisContext = new GamesNTeamsViewModel();
         //thisContext.LoadTeamsNGames();
         thisContext.GameToChange = SelectedGame;
+        thisContext.GameToChange.Id = SelectedGame.Id;
+        //thisContext.Id = SelectedGame.Id;
         thisContext.FirstTeamName = SelectedGame.FirstTeamName;
         thisContext.SecondTeamName = SelectedGame.SecondTeamName;
+        thisContext.FirstTeamScore = SelectedGame.FirstTeamScore;
+        thisContext.SecondTeamScore = SelectedGame.SecondTeamScore;
         //FirstTeamPicker.SelectedItem = thisContext.TeamNames.Where(n => n == SelectedGame.FirstTeamName).First();
-        thisContext.Score = $"{SelectedGame.FirstTeamScore}:{SelectedGame.SecondTeamScore}";
+        //thisContext.Score = $"{SelectedGame.FirstTeamScore}:{SelectedGame.SecondTeamScore}";
         thisContext.Day = SelectedGame.GameTime.Split(' ')[0];
         thisContext.Month = SelectedGame.GameTime.Split(' ')[1];
         thisContext.Year = SelectedGame.GameTime.Split(' ')[2];
@@ -35,6 +44,14 @@ public partial class AddGamePage : ContentPage
         thisContext.Tournament = SelectedGame.Tournament;
 
         BindingContext = thisContext;
+
+
+        SaveGame.Text = "Save changes";
+        EndGame.IsVisible = SelectedGame.IsLive;
+        FirstGoalAdd.IsVisible = false;
+        SecondGoalAdd.IsVisible = false;
+        //AddForFirstTeam.IsVisible = SelectedGame.IsLive;
+        //AddForSecondTeam.IsVisible = SelectedGame.IsLive;
 
         FirstTeamGoal.IsVisible = false;
         FirstKairatGoal.IsVisible = false;
@@ -77,6 +94,8 @@ public partial class AddGamePage : ContentPage
             }
             else
                 FirstTeamGoal.IsVisible = true;
+            FirstGoalAdd.IsVisible = true;
+            
         }
         else if (clickedBtn.AutomationId == "AddForSecondTeam" & SecondTeamPicker.SelectedItem != null)
         {
@@ -84,12 +103,15 @@ public partial class AddGamePage : ContentPage
                 SecondKairatGoal.IsVisible = true;
             else
                 SecondTeamGoal.IsVisible = true;
+            
+            SecondGoalAdd.IsVisible = true;
         }
 
         //await DisplayAlert("", clickedBtn.AutomationId, "OK");
     }
     public void Update(object sender, EventArgs e)
     {
+
         thisContext = new GamesNTeamsViewModel();
         BindingContext = thisContext;
     }

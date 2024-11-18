@@ -45,33 +45,69 @@
             </Grid.ColumnDefinitions>
             
             <Image Grid.Row="0" Grid.Column="0" Source="fckairat.jpg" WidthRequest="200" HeightRequest="200" />
-            <Entry Grid.Row="0" Grid.Column="1" Placeholder="0:0" Text="{Binding Score}" TextColor="Red" HeightRequest="80" HorizontalTextAlignment="Center" FontSize="40" Margin="40,70,0,0"/>
+            <Label Grid.Row="0" Grid.Column="1" TextColor="Red" FontSize="40" Margin="40,70,0,0">
+                <Label.Text>
+                    <MultiBinding StringFormat="{}{0} : {1}">
+                        <Binding Path="FirstTeamScore" />
+                        <Binding Path="SecondTeamScore" />
+                    </MultiBinding>
+                </Label.Text>
+            </Label>
             <Image Grid.Row="0" Grid.Column="2" Source="fcatyrau.png" WidthRequest="100" HeightRequest="100"/>
             <Picker x:Name="FirstTeamPicker" ItemsSource="{Binding TeamNames}" SelectedItem="{Binding FirstTeamName}" WidthRequest="150" Grid.Row="1" Grid.Column="0" Title="{Binding FirstTeamName}" Margin="25,-20,0,0" FontSize="20" TextColor="White" BackgroundColor="Gray"/>
             <Picker x:Name="SecondTeamPicker" ItemsSource="{Binding TeamNames}" SelectedItem="{Binding SecondTeamName}" WidthRequest="150" Grid.Row="1" Grid.Column="2" Title="{Binding SecondTeamName}" Margin="25,-20,0,0" FontSize="20" TextColor="White" BackgroundColor="Gray"/>
         </Grid>
+        
+        <Grid x:Name="Goals">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <CollectionView Grid.Column="0" x:Name="GoalsOfFirstTeam" HorizontalOptions="Start" ItemsSource="{Binding GoalsOfFirstTeam}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Label Text="{Binding ScoredPlayerSurname}" TextColor="White"/>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <CollectionView Grid.Column="1" x:Name="GoalsOfSecondTeam" HorizontalOptions="End" ItemsSource="{Binding GoalsOfSecondTeam}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Label Text="{Binding ScoredPlayerSurname}" TextColor="White"/>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+        
         <Grid x:Name="AddGoalBtnsGrid" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            <Button AutomationId="AddForFirstTeam" Clicked="AddGoal" Grid.Column="0" BackgroundColor="DarkGoldenrod" WidthRequest="100" HorizontalOptions="Start" Text="Add goal" />
-            <Button AutomationId="AddForSecondTeam" Clicked="AddGoal" Grid.Column="1" BackgroundColor="DarkGoldenrod" WidthRequest="100" HorizontalOptions="End" Text="Add goal" />
+            <Button AutomationId="AddForFirstTeam" Clicked="AddGoal"   Grid.Column="0" BackgroundColor="DarkGoldenrod" WidthRequest="100" HorizontalOptions="Start" Text="Add goal" />
+            <Button AutomationId="AddForSecondTeam" Clicked="AddGoal"  Grid.Column="1" BackgroundColor="DarkGoldenrod" WidthRequest="100" HorizontalOptions="End" Text="Add goal" />
         </Grid>
         <Grid x:Name="NewGoalGrid">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
+                
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            <Entry  Grid.Column="0" x:Name="FirstTeamGoal" Placeholder="Player's surname..." TextColor="White"/>
-            <Entry  Grid.Column="1" x:Name="SecondTeamGoal" Placeholder="Player's surname..." TextColor="White"/>
-            <Picker  Grid.Column="0" x:Name="FirstKairatGoal" Title="Player..."  ItemsSource="{Binding PlayerNames}" TextColor="White" BackgroundColor="Gray"/>
-            <Picker  Grid.Column="1" x:Name="SecondKairatGoal" Title="Player..." ItemsSource="{Binding PlayerNames}" TextColor="White" BackgroundColor="Gray"/>
+            <Entry  Grid.Column="0" x:Name="FirstTeamGoal" HorizontalOptions="Start" WidthRequest="120" Placeholder="Player's surname..." Text="{Binding ScoredPlayerSurname}" TextColor="White"/>
+            <Button Grid.Column="1" x:Name="FirstGoalAdd" x:FieldModifier="public" Command="{Binding AddGoal}" Clicked="goBack" CommandParameter="{Binding FirstTeamName}" WidthRequest="40" Text="+" BackgroundColor="Green"/>
+            <Button Grid.Column="2"  x:Name="SecondGoalAdd" x:FieldModifier="public" Command="{Binding AddGoal}" Clicked="goBack" CommandParameter="{Binding SecondTeamName}" WidthRequest="40" Text="+" BackgroundColor="Green"/>
+            <Entry  Grid.Column="3" x:Name="SecondTeamGoal"  HorizontalOptions="End" WidthRequest="120" Placeholder="Player's surname..." Text="{Binding ScoredPlayerSurname}" TextColor="White"/>
+            <Picker  Grid.Column="0" x:Name="FirstKairatGoal" HorizontalOptions="Start" Title="Player..." WidthRequest="120"  ItemsSource="{Binding PlayerNames}" SelectedItem="{Binding ScoredPlayerSurname}" TextColor="White" BackgroundColor="Gray"/>
+
+            <Picker  Grid.Column="3" x:Name="SecondKairatGoal" HorizontalOptions="End" Title="Player..." WidthRequest="120" ItemsSource="{Binding PlayerNames}" SelectedItem="{Binding ScoredPlayerSurname}" TextColor="White" BackgroundColor="Gray"/>
         </Grid>
-            <Button x:Name="SaveGame" x:FieldModifier="public" Grid.Column="1" Text="Save" Command="{Binding AddGame}" Clicked="goBack"/>
+            <Button x:Name="SaveGame" x:FieldModifier="public" BackgroundColor="DarkGoldenrod" Grid.Column="1" Text="Add game" Command="{Binding AddGame}" Clicked="goBack"/>
+            <Button x:Name="EndGame" x:FieldModifier="public" BackgroundColor="Red" Grid.Column="1" Text="End game" Command="{Binding EndGame}" Clicked="goBack"/>
         </VerticalStackLayout>
 </ContentPage>
