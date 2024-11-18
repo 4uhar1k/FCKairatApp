@@ -45,7 +45,7 @@ namespace FCKairatApp.ViewModels
             database = baseConnection.CreateConnection();
             LoadTeamsNGames();
             
-            //LoadGoals();
+            
             
             if (!File.Exists(Tournaments))
             {
@@ -110,7 +110,7 @@ namespace FCKairatApp.ViewModels
             {
                 GameDto NewGame = new GameDto()
                 {
-                    //Id = Games.Count+1,
+                    
                     FirstTeamName = FirstTeamName,
                     SecondTeamName = SecondTeamName,
                     FirstTeamScore = FirstTeamScore,
@@ -119,13 +119,11 @@ namespace FCKairatApp.ViewModels
                     Tournament = Tournament,
                     
                 };
-                //SameTeamName = Teams.Where(n => n.TeamName == TeamName).FirstOrDefault();
-                //if (SameTeamName == null)
-                //{
+                
                 if (GameToChange != null)
                 {
 
-                    //NewGame.Id = Games.Count;
+                    
                     NewGame.IsLive = IsLive;
                     GameToChange.FirstTeamName = NewGame.FirstTeamName;
                     GameToChange.SecondTeamName = NewGame.SecondTeamName;
@@ -145,7 +143,7 @@ namespace FCKairatApp.ViewModels
                 
                 
                 
-                //}
+                
 
 
 
@@ -154,16 +152,12 @@ namespace FCKairatApp.ViewModels
             RemoveGame = new Command((object SelectedGame) =>
             {
                 GameDto GameToDelete = (GameDto)SelectedGame;
-                //int IdToDelete = GameToDelete.Id;
+                
                 DeleteGoals(GameToDelete);
                 { };
-                //List<GoalDto> listofgoals = GoalsOfFirstTeam.Where(n => n.GameId == IdToDelete).ToList();
-                ////listofgoals.AddRange(GoalsOfSecondTeam.Where(n => n.GameId == IdToDelete).ToList());
+                
                 database.DeleteAsync(GameToDelete);
-                //foreach (GoalDto goalDto in listofgoals)
-                //{
-                //    database.DeleteAsync(goalDto);
-                //}
+                
             });
             EndGame = new Command(() =>
             {
@@ -178,11 +172,7 @@ namespace FCKairatApp.ViewModels
                     Tournament = Tournament,
                     IsLive = false
                 };
-                //SameTeamName = Teams.Where(n => n.TeamName == TeamName).FirstOrDefault();
-                //if (SameTeamName == null)
-                //{
                 
-                    //NewGame.Id = Games.Count;
                     GameToChange.FirstTeamName = NewGame.FirstTeamName;
                     GameToChange.SecondTeamName = NewGame.SecondTeamName;
                     GameToChange.FirstTeamScore = NewGame.FirstTeamScore;
@@ -211,7 +201,7 @@ namespace FCKairatApp.ViewModels
                     GameId = GameToChange.Id,
                     ScoredTeam = ScoredTeamName
                 };
-                //newGoal.GameId++;
+                
                 if (ScoredTeamName == "FC Kairat Almaty")
                 {
                     newGoal.ScoredPlayerSurname = ScoredPlayerSurname.Split(' ')[2];
@@ -226,11 +216,10 @@ namespace FCKairatApp.ViewModels
                 database.InsertAsync(newGoal);
 
 
-                //LoadGames();
+                
 
                 GameDto NewGame = new GameDto()
-                {
-                    //Id = Games.Count+1,
+                {                    
                     FirstTeamName = FirstTeamName,
                     SecondTeamName = SecondTeamName,
                     FirstTeamScore = FirstTeamScore,
@@ -238,11 +227,7 @@ namespace FCKairatApp.ViewModels
                     GameTime = $"{Day} {Month} {Year} {Time}",
                     Tournament = Tournament,
                     IsLive = true
-                };
-                //SameTeamName = Teams.Where(n => n.TeamName == TeamName).FirstOrDefault();
-                //if (SameTeamName == null)
-                //{
-                
+                };                
                     GameToChange.FirstTeamName = NewGame.FirstTeamName;
                     GameToChange.SecondTeamName = NewGame.SecondTeamName;
                     GameToChange.FirstTeamScore = NewGame.FirstTeamScore;
@@ -251,20 +236,6 @@ namespace FCKairatApp.ViewModels
                     GameToChange.Tournament = NewGame.Tournament;
                     GameToChange.IsLive = NewGame.IsLive;
                     database.UpdateAsync(GameToChange);
-
-                
-                //SameTeamName = Teams.Where(n => n.TeamName == TeamName).FirstOrDefault();
-                //if (SameTeamName == null)
-                //{
-                //database.UpdateAsync(GameToChange);
-                //database.InsertAsync(NewGame);
-
-                
-
-                
-
-                
-
             });
         }
         
@@ -285,9 +256,9 @@ namespace FCKairatApp.ViewModels
             {
                 
                 List<GoalDto> ListOfGoalsOfFirstTeam = await database.Table<GoalDto>().Where(n => n.GameId == GameToChange.Id & n.ScoredTeam == GameToChange.FirstTeamName).ToListAsync();
-                //{ };
+                
                 List<GoalDto> ListOfGoalsOfSecondTeam = await database.Table<GoalDto>().Where(n => n.GameId == GameToChange.Id & n.ScoredTeam == GameToChange.SecondTeamName).ToListAsync();
-                //{ };
+               
                 foreach (GoalDto goal in ListOfGoalsOfFirstTeam)
                 {
                     GoalsOfFirstTeam.Add(goal);
@@ -300,54 +271,16 @@ namespace FCKairatApp.ViewModels
                 }
 
             }
-            //try
-            //{
-
-
-            //}
-            //catch (Exception ex)
-            //{
-
-            //}            
+                 
         }
-        public async void LoadGames()
-        {
-            List<GoalDto> ListOfGoalsOfFirstTeam = await database.Table<GoalDto>().Where(n => n.GameId == GameToChange.Id).ToListAsync();
-            { };
-            //List<GoalDto> ListOfGoalsOfSecondTeam = await database.Table<GoalDto>().Where(n => n.GameId == gameDto.Id & n.ScoredTeam == gameDto.SecondTeamName).ToListAsync();
-            //{ };
-            foreach (GoalDto goal in ListOfGoalsOfFirstTeam)
-            {
-                //GoalsOfFirstTeam.Add(goal);
-                GoalDto newGoal = new GoalDto()
-                {
-                    ScoredTeam = goal.ScoredTeam,
-                    ScoredPlayerSurname = goal.ScoredPlayerSurname,
-                    GameId = goal.GameId
-                };
-                newGoal.GameId++;
-                await database.DeleteAsync(goal);
-                await database.InsertAsync(newGoal);
-            }
-            //foreach (GoalDto goal in ListOfGoalsOfSecondTeam)
-            //{
-            //    GoalsOfSecondTeam.Add(goal);
-
-            //}
-        }
-
+        
         public async void DeleteGoals(GameDto game)
         {
             List<GoalDto> ListOfGoalsOfFirstTeam = await database.Table<GoalDto>().Where(n => n.GameId == game.Id).ToListAsync();
             { };
-            //List<GoalDto> ListOfGoalsOfSecondTeam = await database.Table<GoalDto>().Where(n => n.GameId == gameDto.Id & n.ScoredTeam == gameDto.SecondTeamName).ToListAsync();
-            //{ };
             foreach (GoalDto goal in ListOfGoalsOfFirstTeam)
             {
-                //GoalsOfFirstTeam.Add(goal);
-                
-                await database.DeleteAsync(goal);
-               // await database.InsertAsync(newGoal);
+                await database.DeleteAsync(goal);               
             }
         }
         public bool IsDataCorrect()
