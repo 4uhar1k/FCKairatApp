@@ -21,8 +21,10 @@ namespace FCKairatApp.ViewModels
         public ObservableCollection<GoalDto> GoalsOfSecondTeam { get; set; }
         public ObservableCollection<string> TeamNames { get; set; }
         public ObservableCollection<string> TournamentNames { get; set; }
+        public string ScoredPlayerName { get; set; }
         public TeamDto SameTeamName {  get; set; }
         public GameDto GameToChange { get; set; }
+        public PlayerDto PlayerToUpdate { get; set; }
         public ISQLiteAsyncConnection database { get; set; }
         string teamname, coachname, firstteamname, secondteamname, gametime, tournament, score, day, month, year, time, tournamentname, scoredplayersurname, scoredteam;
         int id, winsamount, drawsamount, losesamount, goalsscored, goalsmissed, points, firstteamscore, secondteamscore, gameid, scoredminute;
@@ -227,15 +229,26 @@ namespace FCKairatApp.ViewModels
                     GameTime = $"{Day} {Month} {Year} {Time}",
                     Tournament = Tournament,
                     IsLive = true
-                };                
-                    GameToChange.FirstTeamName = NewGame.FirstTeamName;
-                    GameToChange.SecondTeamName = NewGame.SecondTeamName;
-                    GameToChange.FirstTeamScore = NewGame.FirstTeamScore;
-                    GameToChange.SecondTeamScore = NewGame.SecondTeamScore;
-                    GameToChange.GameTime = NewGame.GameTime;
-                    GameToChange.Tournament = NewGame.Tournament;
-                    GameToChange.IsLive = NewGame.IsLive;
-                    database.UpdateAsync(GameToChange);
+                };
+                //GameToChange = NewGame;
+                
+                GameToChange.FirstTeamName = NewGame.FirstTeamName;
+                GameToChange.SecondTeamName = NewGame.SecondTeamName;
+                GameToChange.FirstTeamScore = NewGame.FirstTeamScore;
+                GameToChange.SecondTeamScore = NewGame.SecondTeamScore;
+                GameToChange.GameTime = NewGame.GameTime;
+                GameToChange.Tournament = NewGame.Tournament;
+                GameToChange.IsLive = NewGame.IsLive;
+                database.UpdateAsync(GameToChange);
+
+                if (ScoredTeamName == "FC Kairat Almaty")
+                {
+                    PlayerToUpdate = Players.Where(n => n.Name == ScoredPlayerSurname.Split(' ')[1] & n.Surname == ScoredPlayerSurname.Split(' ')[2]).FirstOrDefault();
+                    PlayerToUpdate.GoalsAmount++;
+                    database.UpdateAsync(PlayerToUpdate);
+                    
+                }
+                
             });
         }
         
