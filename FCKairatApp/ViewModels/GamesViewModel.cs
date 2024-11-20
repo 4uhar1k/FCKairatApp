@@ -12,42 +12,31 @@ using System.Windows.Input;
 
 namespace FCKairatApp.ViewModels
 {
-    public class GamesNTeamsViewModel: ViewModelBase
+    public class GamesViewModel: TeamsViewModel
     {
         public event PropertyChangedEventHandler? PropertyChanged;
-        public ObservableCollection<GameDto> Games {  get; set; }
-        public ObservableCollection<TeamDto> Teams { get; set; }
+        public ObservableCollection<GameDto> Games {  get; set; }        
         public ObservableCollection<GoalDto> GoalsOfFirstTeam { get; set; }
-        public ObservableCollection<GoalDto> GoalsOfSecondTeam { get; set; }
-        public ObservableCollection<string> TeamNames { get; set; }
+        public ObservableCollection<GoalDto> GoalsOfSecondTeam { get; set; }        
         public ObservableCollection<string> TournamentNames { get; set; }
-        public string ScoredPlayerName { get; set; }
-        public TeamDto SameTeamName {  get; set; }
+        public string ScoredPlayerName { get; set; }        
         public GameDto GameToChange { get; set; }
         public PlayerDto PlayerToUpdate { get; set; }
-        public ISQLiteAsyncConnection database { get; set; }
-        string teamname, coachname, firstteamname, secondteamname, gametime, tournament, score, day, month, year, time, tournamentname, scoredplayersurname, scoredteam;
-        int id, winsamount, drawsamount, losesamount, goalsscored, goalsmissed, points, firstteamscore, secondteamscore, gameid, scoredminute;
-        bool islive;
-        public ICommand AddTeam { get; set; }
-        public ICommand RemoveTeam { get; set; }
-        public ICommand EditTeam { get; set; }
+        string firstteamname, secondteamname, gametime, tournament, score, day, month, year, time, tournamentname, scoredplayersurname, scoredteam;
+        int id, firstteamscore, secondteamscore, gameid, scoredminute;
+        bool islive;        
         public ICommand AddGame { get; set; }
         public ICommand RemoveGame { get; set; }
         public ICommand EndGame { get; set; }
         public ICommand AddTournament { get; set; }
         public ICommand AddGoal { get; set; }
-        public GamesNTeamsViewModel()
+        public GamesViewModel()
         {
-            Games = new ObservableCollection<GameDto>();
-            Teams = new ObservableCollection<TeamDto>();
-            TeamNames = new ObservableCollection<string>();
+            Games = new ObservableCollection<GameDto>();         
             GoalsOfFirstTeam = new ObservableCollection<GoalDto>();
             GoalsOfSecondTeam = new ObservableCollection<GoalDto>();
             database = baseConnection.CreateConnection();
-            LoadTeamsNGames();
-            
-            
+            LoadGames();
             
             if (!File.Exists(Tournaments))
             {
@@ -79,35 +68,7 @@ namespace FCKairatApp.ViewModels
                     sw.Close();
                 }
             }
-            AddTeam = new Command(() =>
-            {
-                TeamDto NewTeam = new TeamDto()
-                {
-                    TeamName = TeamName,
-                    CoachName = CoachName
-                };
-                SameTeamName = Teams.Where(n=>n.TeamName==TeamName).FirstOrDefault();
-                if (SameTeamName==null)
-                {
-                    database.InsertAsync(NewTeam);
-                }
-                
-                                
-            }, ()=> TeamName!=null & CoachName!=null & TeamName!="" & CoachName!="");
             
-            RemoveTeam = new Command((object SelectedTeam) =>
-            {
-                TeamDto TeamToDelete = (TeamDto)SelectedTeam;
-                database.DeleteAsync(TeamToDelete);
-                try
-                {
-                    Teams.Remove(Teams.Where(n => n.TeamName == TeamToDelete.TeamName & n.CoachName == TeamToDelete.CoachName).First());
-                }
-                catch
-                {
-
-                }
-            });
             AddGame = new Command(() =>
             {
                 GameDto NewGame = new GameDto()
@@ -120,12 +81,9 @@ namespace FCKairatApp.ViewModels
                     GameTime = $"{Day} {Month} {Year} {Time}",
                     Tournament = Tournament,
                     
-                };
-                
+                };                
                 if (GameToChange != null)
-                {
-
-                    
+                {                   
                     NewGame.IsLive = GameToChange.IsLive;
                     GameToChange.FirstTeamName = NewGame.FirstTeamName;
                     GameToChange.SecondTeamName = NewGame.SecondTeamName;
@@ -133,33 +91,21 @@ namespace FCKairatApp.ViewModels
                     GameToChange.SecondTeamScore = NewGame.SecondTeamScore;
                     GameToChange.GameTime = NewGame.GameTime;
                     GameToChange.Tournament = NewGame.Tournament;
-                    //GameToChange.IsLive = NewGame.IsLive;
-                    database.UpdateAsync(GameToChange);
-                    
+                    database.UpdateAsync(GameToChange);                    
                 }
                 else
                 {
                     NewGame.IsLive = true;
                     database.InsertAsync(NewGame);
-                }
-                
-                
-                
-                
-
-
-
-            }, () => FirstTeamName != null & SecondTeamName != null & FirstTeamName!=SecondTeamName & Tournament!=null & Day!=null & Day!="" & Month!=null 
+                }              
+                }, () => FirstTeamName != null & SecondTeamName != null & FirstTeamName!=SecondTeamName & Tournament!=null & Day!=null & Day!="" & Month!=null 
             & Year!=null & Year!="" & Time!=null & Time!="" & IsDataCorrect());
             RemoveGame = new Command((object SelectedGame) =>
             {
-                GameDto GameToDelete = (GameDto)SelectedGame;
-                
+                GameDto GameToDelete = (GameDto)SelectedGame;                
                 DeleteGoals(GameToDelete);
-                { };
-                
-                database.DeleteAsync(GameToDelete);
-                
+                { };                
+                database.DeleteAsync(GameToDelete);                
             });
             EndGame = new Command(() =>
             {
@@ -241,57 +187,7 @@ namespace FCKairatApp.ViewModels
                     FirstTeamScore++;
                 else
                     SecondTeamScore++;
-                database.InsertAsync(newGoal);
-
-                //here to work
-               /* TeamDto FirstTeamToChange = Teams.Where(n => n.TeamName == FirstTeamName).FirstOrDefault();
-                TeamDto SecondTeamToChange = Teams.Where(n => n.TeamName == SecondTeamName).FirstOrDefault();
-                FirstTeamToChange.GoalsScored += FirstTeamScore;
-                FirstTeamToChange.GoalsMissed += SecondTeamScore;
-                SecondTeamToChange.GoalsScored += SecondTeamScore;
-                SecondTeamToChange.GoalsMissed += FirstTeamScore;
-
-                if (FirstTeamScore > SecondTeamScore)
-                {
-                    if (GameToChange.FirstTeamScore == GameToChange.SecondTeamScore)
-                    {
-                        FirstTeamToChange.Points += 2;
-                        SecondTeamToChange.Points--;
-                    }
-                    else if(GameToChange.FirstTeamScore == 0 & GameToChange.SecondTeamScore == 0)
-                    {
-                        FirstTeamToChange.Points += 3;
-                        
-                    }
-                }
-                else if (FirstTeamScore < SecondTeamScore)
-                {
-                    if (GameToChange.FirstTeamScore == GameToChange.SecondTeamScore)
-                    {
-                        FirstTeamToChange.Points--;
-                        SecondTeamToChange.Points+=2;
-                    }
-                    else if (GameToChange.FirstTeamScore == 0 & GameToChange.SecondTeamScore == 0)
-                    {
-                        SecondTeamToChange.Points += 3;
-
-                    }
-                }
-                else
-                {
-                    if (GameToChange.FirstTeamScore > GameToChange.SecondTeamScore)
-                    {
-                        FirstTeamToChange.Points-=2;
-                        SecondTeamToChange.Points++;
-                    }
-                    else if (GameToChange.FirstTeamScore < GameToChange.SecondTeamScore)
-                    {
-                        FirstTeamToChange.Points++;
-                        SecondTeamToChange.Points -= 2;
-                    }
-                }
-                database.UpdateAsync(FirstTeamToChange);
-                database.UpdateAsync(SecondTeamToChange);*/
+                database.InsertAsync(newGoal);                
                 GameDto NewGame = new GameDto()
                 {                    
                     FirstTeamName = FirstTeamName,
@@ -301,9 +197,7 @@ namespace FCKairatApp.ViewModels
                     GameTime = $"{Day} {Month} {Year} {Time}",
                     Tournament = Tournament,
                     IsLive = true
-                };
-                //GameToChange = NewGame;
-                
+                };                               
                 GameToChange.FirstTeamName = NewGame.FirstTeamName;
                 GameToChange.SecondTeamName = NewGame.SecondTeamName;
                 GameToChange.FirstTeamScore = NewGame.FirstTeamScore;
@@ -312,31 +206,24 @@ namespace FCKairatApp.ViewModels
                 GameToChange.Tournament = NewGame.Tournament;
                 GameToChange.IsLive = NewGame.IsLive;
                 database.UpdateAsync(GameToChange);
-
                 if (ScoredTeamName == "FC Kairat Almaty")
                 {
                     PlayerToUpdate = Players.Where(n => n.Name == ScoredPlayerSurname.Split(' ')[1] & n.Surname == ScoredPlayerSurname.Split(' ')[2]).FirstOrDefault();
                     PlayerToUpdate.GoalsAmount++;
-                    database.UpdateAsync(PlayerToUpdate);
-                    
+                    database.UpdateAsync(PlayerToUpdate);                    
                 }
                 
             }, (object s) => ScoredPlayerSurname!=null & ScoredPlayerSurname!="");
         }
         
-        public async void LoadTeamsNGames()
+        public async void LoadGames()
         {
             List<GameDto> ListOfGames = await database.Table<GameDto>().ToListAsync();
             foreach (GameDto game in ListOfGames)
             {
                 Games.Insert(0,game);
             }
-            List<TeamDto> ListOfTeams = await database.Table<TeamDto>().ToListAsync();
-            foreach (TeamDto team in ListOfTeams)
-            {
-                Teams.Add(team);
-                TeamNames.Add(team.TeamName);
-            }
+            
             if (GameToChange != null)
             {
                 
@@ -383,112 +270,8 @@ namespace FCKairatApp.ViewModels
                 return false;
             }
         }
-        //for team
-        public string TeamName 
-        {
-            get => teamname;
-
-            set
-            {
-                if (teamname != value)
-                {
-                    teamname = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        public string CoachName
-        {
-            get => coachname;
-
-            set
-            {
-                if (coachname != value)
-                {
-                    coachname = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public int WinsAmount
-        {
-            get => winsamount;
-
-            set
-            {
-                if (winsamount != value)
-                {
-                    winsamount = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        public int DrawsAmount
-        {
-            get => drawsamount;
-
-            set
-            {
-                if (drawsamount != value)
-                {
-                    drawsamount = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        public int LosesAmount
-        {
-            get => losesamount;
-
-            set
-            {
-                if (losesamount != value)
-                {
-                    losesamount = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        public int GoalsScored
-        {
-            get => goalsscored;
-
-            set
-            {
-                if (goalsscored != value)
-                {
-                    goalsscored = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        public int GoalsMissed
-        {
-            get => goalsmissed;
-
-            set
-            {
-                if (goalsmissed != value)
-                {
-                    goalsmissed = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        public int Points
-        {
-            get => points;
-
-            set
-            {
-                if (points != value)
-                {
-                    points = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        
+        
         // for game
 
         public int Id
@@ -729,7 +512,6 @@ namespace FCKairatApp.ViewModels
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-            ((Command)AddTeam).ChangeCanExecute();
             ((Command)AddGame).ChangeCanExecute();
             ((Command)AddTournament).ChangeCanExecute();
             ((Command)AddGoal).ChangeCanExecute();

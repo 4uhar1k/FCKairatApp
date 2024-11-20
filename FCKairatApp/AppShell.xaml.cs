@@ -12,7 +12,7 @@ namespace FCKairatApp
         {
             if (Shell.Current.CurrentPage.Title == "Timetable" | Shell.Current.CurrentPage.Title == "Our Team")
             {
-                Shell.Current.CurrentPage.BindingContext = new GamesNTeamsViewModel();
+                Shell.Current.CurrentPage.BindingContext = new GamesViewModel();
             }
             else if (Shell.Current.CurrentPage.Title == "News")
             {

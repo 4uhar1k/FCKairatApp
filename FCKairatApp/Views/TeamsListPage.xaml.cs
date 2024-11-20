@@ -5,12 +5,12 @@ namespace FCKairatApp;
 
 public partial class TeamsListPage : ContentPage
 {
-	public GamesNTeamsViewModel thisContext;
+	public TeamsViewModel thisContext;
 	public TeamsListPage()
 	{
 		InitializeComponent();		
 		//AddingGrid.IsVisible = false;
-		thisContext = new GamesNTeamsViewModel();
+		thisContext = new TeamsViewModel();
 		BindingContext = thisContext;
 		
 	}
@@ -45,7 +45,7 @@ public partial class TeamsListPage : ContentPage
 		}
 		else
 		{
-            thisContext = new GamesNTeamsViewModel();
+            thisContext = new TeamsViewModel();
             BindingContext = thisContext;
             AddBtn.Text = "Add";
             //AddingGrid.IsVisible = false;

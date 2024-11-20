@@ -5,11 +5,11 @@ namespace FCKairatApp;
 
 public partial class GamesPage : ContentPage
 {
-	public GamesNTeamsViewModel thisContext;
+	public GamesViewModel thisContext;
 	public GamesPage()
 	{
 		InitializeComponent();
-		thisContext = new GamesNTeamsViewModel();
+		thisContext = new GamesViewModel();
 		BindingContext = thisContext;
 	}
 
@@ -40,7 +40,7 @@ public partial class GamesPage : ContentPage
 	}
     public void Update(object sender, EventArgs e)
     {        
-        thisContext = new GamesNTeamsViewModel();
+        thisContext = new GamesViewModel();
         BindingContext = thisContext;        
     }
 }

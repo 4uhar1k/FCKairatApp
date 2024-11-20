@@ -7,7 +7,7 @@ namespace FCKairatApp
         public AddTournamentPage()
         {
             InitializeComponent();
-            BindingContext = new GamesNTeamsViewModel();
+            BindingContext = new GamesViewModel();
         }
 
         public void goBack(object sender, EventArgs e)
