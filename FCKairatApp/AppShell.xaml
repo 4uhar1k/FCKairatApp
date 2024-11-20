@@ -16,9 +16,10 @@
     Title="timeTableApp">
 
     <Shell.TitleView>
-        <HorizontalStackLayout>
+        <HorizontalStackLayout Spacing="15">
             <Image Source="fckairat.jpg"/>
-            <Label Text="FC Kairat 1954" TextColor="White" Margin="20,10,0,0" FontSize="30"/>
+            <Label Text="FC Kairat 1954" TextColor="White" Margin="0,10,0,0" FontSize="30"/>
+            <Button ImageSource="refresh.png" Clicked="Update" BackgroundColor="Transparent"/>
         </HorizontalStackLayout>        
     </Shell.TitleView>
     <!--<Shell.Resources>
