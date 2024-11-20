@@ -5,7 +5,7 @@
              BackgroundColor="Black"
              Title="TablePage">
     <VerticalStackLayout>
-        <CollectionView ItemsSource="{Binding Teams}" MaximumWidthRequest="1000">
+        <CollectionView ItemsSource="{Binding SortedTeams}" MaximumWidthRequest="1000">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid>

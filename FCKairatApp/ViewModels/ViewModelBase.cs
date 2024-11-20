@@ -17,6 +17,7 @@ namespace FCKairatApp.ViewModels
     public class ViewModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
+        public ISQLiteAsyncConnection database { get; set; }
         public string CurUser = Path.Combine(FileSystem.AppDataDirectory, "curuser.txt");
         public string Tournaments = Path.Combine(FileSystem.AppDataDirectory, "tournaments.txt");
         public ObservableCollection<PlayerDto> Players { get; set; }

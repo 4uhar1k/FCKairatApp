@@ -10,7 +10,7 @@ namespace FCKairatApp
 
         public void Update(object sender, EventArgs e)
         {
-            if (Shell.Current.CurrentPage.Title == "Timetable" | Shell.Current.CurrentPage.Title == "Our Team" | Shell.Current.CurrentPage.Title == "TablePage")
+            if (Shell.Current.CurrentPage.Title == "Timetable" | Shell.Current.CurrentPage.Title == "Our Team")
             {
                 Shell.Current.CurrentPage.BindingContext = new GamesNTeamsViewModel();
             }
@@ -21,6 +21,10 @@ namespace FCKairatApp
             else if(Shell.Current.CurrentPage.Title == "Your Profile")
             {
                 Shell.Current.CurrentPage.BindingContext = new ProfileViewModel();
+            }
+            else if (Shell.Current.CurrentPage.Title == "TablePage")
+            {
+                Shell.Current.CurrentPage.BindingContext = new TableViewModel();
             }
         }
     }

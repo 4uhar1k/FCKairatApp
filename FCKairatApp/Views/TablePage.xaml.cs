@@ -6,6 +6,6 @@ public partial class TablePage : ContentPage
 	public TablePage()
 	{
 		InitializeComponent();
-		BindingContext = new GamesNTeamsViewModel();
+		BindingContext = new TableViewModel();
 	}
 }

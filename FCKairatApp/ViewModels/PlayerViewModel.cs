@@ -18,7 +18,7 @@ namespace FCKairatApp.ViewModels
     {
         public event PropertyChangedEventHandler? PropertyChanged;
         
-        public ISQLiteAsyncConnection database { get; set; }
+        
         string name, surname, position, startmonth,startyear, expirymonth, expiryyear;
         int number, goalamount, assistamount;
         public PlayerDto PlayerToEdit { get; set; }

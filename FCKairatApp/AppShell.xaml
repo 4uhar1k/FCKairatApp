@@ -37,8 +37,8 @@
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage"></ShellContent>
         <Tab Title="Matches" Icon="football.png" >
-            <ShellContent
-Title="Matches"
+            <ShellContent 
+                Title="Matches"
         
 ContentTemplate="{DataTemplate local:GamesPage}"
 Route="GamesPage"></ShellContent>
