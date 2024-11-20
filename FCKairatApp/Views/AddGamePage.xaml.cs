@@ -18,10 +18,10 @@ public partial class AddGamePage : ContentPage
         SecondTeamGoal.IsVisible = false;
         SecondKairatGoal.IsVisible = false;
         EndGame.IsVisible = false;
-        FirstGoalAdd.IsVisible = false;
-        SecondGoalAdd.IsVisible = false;
-        //AddForFirstTeam.IsVisible = false;
-        //AddForSecondTeam.IsVisible = false;
+        FirstGoalAddBtn.IsVisible = false;
+        SecondGoalAddBtn.IsVisible = false;
+        AddForFirstTeam.IsVisible = false;
+        AddForSecondTeam.IsVisible = false;
     }
     public AddGamePage(GameDto SelectedGame)
     {
@@ -48,10 +48,9 @@ public partial class AddGamePage : ContentPage
 
         SaveGame.Text = "Save changes";
         EndGame.IsVisible = SelectedGame.IsLive;
-        FirstGoalAdd.IsVisible = false;
-        SecondGoalAdd.IsVisible = false;
-        //AddForFirstTeam.IsVisible = SelectedGame.IsLive;
-        //AddForSecondTeam.IsVisible = SelectedGame.IsLive;
+
+        AddForFirstTeam.IsVisible = SelectedGame.IsLive;
+        AddForSecondTeam.IsVisible = SelectedGame.IsLive;
 
         FirstTeamGoal.IsVisible = false;
         FirstKairatGoal.IsVisible = false;
@@ -83,29 +82,31 @@ public partial class AddGamePage : ContentPage
         }
     }
 
-    public async void AddGoal (object sender, EventArgs e)
+    public async void AddGoalFirst (object sender, EventArgs e)
     {
-        Button clickedBtn = (Button)sender;
-        if (clickedBtn.AutomationId == "AddForFirstTeam" & FirstTeamPicker.SelectedItem!=null)
-        {
+        
             if (FirstTeamPicker.SelectedItem.ToString() == "FC Kairat Almaty")
             {
                 FirstKairatGoal.IsVisible = true;
             }
             else
                 FirstTeamGoal.IsVisible = true;
-            FirstGoalAdd.IsVisible = true;
+            FirstGoalAddBtn.IsVisible = true;
             
-        }
-        else if (clickedBtn.AutomationId == "AddForSecondTeam" & SecondTeamPicker.SelectedItem != null)
-        {
+        
+
+        //await DisplayAlert("", clickedBtn.AutomationId, "OK");
+    }
+    public async void AddGoalSecond(object sender, EventArgs e)
+    {
+        
             if (SecondTeamPicker.SelectedItem.ToString() == "FC Kairat Almaty")
                 SecondKairatGoal.IsVisible = true;
             else
                 SecondTeamGoal.IsVisible = true;
-            
-            SecondGoalAdd.IsVisible = true;
-        }
+
+            SecondGoalAddBtn.IsVisible = true;
+        
 
         //await DisplayAlert("", clickedBtn.AutomationId, "OK");
     }

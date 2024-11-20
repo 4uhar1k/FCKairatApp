@@ -84,8 +84,8 @@
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            <Button AutomationId="AddForFirstTeam" Clicked="AddGoal"   Grid.Column="0" BackgroundColor="DarkGoldenrod" WidthRequest="100" HorizontalOptions="Start" Text="Add goal" />
-            <Button AutomationId="AddForSecondTeam" Clicked="AddGoal"  Grid.Column="1" BackgroundColor="DarkGoldenrod" WidthRequest="100" HorizontalOptions="End" Text="Add goal" />
+            <Button x:Name="AddForFirstTeam" Clicked="AddGoalFirst"   Grid.Column="0" BackgroundColor="DarkGoldenrod" WidthRequest="100" HorizontalOptions="Start" Text="Add goal" />
+            <Button x:Name="AddForSecondTeam" Clicked="AddGoalSecond"  Grid.Column="1" BackgroundColor="DarkGoldenrod" WidthRequest="100" HorizontalOptions="End" Text="Add goal" />
         </Grid>
         <Grid x:Name="NewGoalGrid">
             <Grid.RowDefinitions>
@@ -100,8 +100,8 @@
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
             <Entry  Grid.Column="0" x:Name="FirstTeamGoal" HorizontalOptions="Start" WidthRequest="120" Placeholder="Player's surname..." Text="{Binding ScoredPlayerSurname}" TextColor="White"/>
-            <Button Grid.Column="1" x:Name="FirstGoalAdd" x:FieldModifier="public" Command="{Binding AddGoal}" Clicked="goBack" CommandParameter="{Binding FirstTeamName}" WidthRequest="40" Text="+" BackgroundColor="Green"/>
-            <Button Grid.Column="2"  x:Name="SecondGoalAdd" x:FieldModifier="public" Command="{Binding AddGoal}" Clicked="goBack" CommandParameter="{Binding SecondTeamName}" WidthRequest="40" Text="+" BackgroundColor="Green"/>
+            <Button Grid.Column="1" x:Name="FirstGoalAddBtn" x:FieldModifier="public" Command="{Binding AddGoal}" Clicked="goBack" CommandParameter="{Binding FirstTeamName}" WidthRequest="40" Text="+" IsVisible="False" BackgroundColor="Green"/>
+            <Button Grid.Column="2"  x:Name="SecondGoalAddBtn" x:FieldModifier="public" Command="{Binding AddGoal}" Clicked="goBack" CommandParameter="{Binding SecondTeamName}" WidthRequest="40" Text="+" IsVisible="False" BackgroundColor="Green"/>
             <Entry  Grid.Column="3" x:Name="SecondTeamGoal"  HorizontalOptions="End" WidthRequest="120" Placeholder="Player's surname..." Text="{Binding ScoredPlayerSurname}" TextColor="White"/>
             <Picker  Grid.Column="0" x:Name="FirstKairatGoal" HorizontalOptions="Start" Title="Player..." WidthRequest="120"  ItemsSource="{Binding PlayerNames}" SelectedItem="{Binding ScoredPlayerSurname}" TextColor="White" BackgroundColor="Gray"/>
 

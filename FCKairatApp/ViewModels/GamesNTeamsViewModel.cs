@@ -243,9 +243,55 @@ namespace FCKairatApp.ViewModels
                     SecondTeamScore++;
                 database.InsertAsync(newGoal);
 
+                //here to work
+               /* TeamDto FirstTeamToChange = Teams.Where(n => n.TeamName == FirstTeamName).FirstOrDefault();
+                TeamDto SecondTeamToChange = Teams.Where(n => n.TeamName == SecondTeamName).FirstOrDefault();
+                FirstTeamToChange.GoalsScored += FirstTeamScore;
+                FirstTeamToChange.GoalsMissed += SecondTeamScore;
+                SecondTeamToChange.GoalsScored += SecondTeamScore;
+                SecondTeamToChange.GoalsMissed += FirstTeamScore;
 
-                
+                if (FirstTeamScore > SecondTeamScore)
+                {
+                    if (GameToChange.FirstTeamScore == GameToChange.SecondTeamScore)
+                    {
+                        FirstTeamToChange.Points += 2;
+                        SecondTeamToChange.Points--;
+                    }
+                    else if(GameToChange.FirstTeamScore == 0 & GameToChange.SecondTeamScore == 0)
+                    {
+                        FirstTeamToChange.Points += 3;
+                        
+                    }
+                }
+                else if (FirstTeamScore < SecondTeamScore)
+                {
+                    if (GameToChange.FirstTeamScore == GameToChange.SecondTeamScore)
+                    {
+                        FirstTeamToChange.Points--;
+                        SecondTeamToChange.Points+=2;
+                    }
+                    else if (GameToChange.FirstTeamScore == 0 & GameToChange.SecondTeamScore == 0)
+                    {
+                        SecondTeamToChange.Points += 3;
 
+                    }
+                }
+                else
+                {
+                    if (GameToChange.FirstTeamScore > GameToChange.SecondTeamScore)
+                    {
+                        FirstTeamToChange.Points-=2;
+                        SecondTeamToChange.Points++;
+                    }
+                    else if (GameToChange.FirstTeamScore < GameToChange.SecondTeamScore)
+                    {
+                        FirstTeamToChange.Points++;
+                        SecondTeamToChange.Points -= 2;
+                    }
+                }
+                database.UpdateAsync(FirstTeamToChange);
+                database.UpdateAsync(SecondTeamToChange);*/
                 GameDto NewGame = new GameDto()
                 {                    
                     FirstTeamName = FirstTeamName,
@@ -275,7 +321,7 @@ namespace FCKairatApp.ViewModels
                     
                 }
                 
-            });
+            }, (object s) => ScoredPlayerSurname!=null & ScoredPlayerSurname!="");
         }
         
         public async void LoadTeamsNGames()
@@ -686,6 +732,7 @@ namespace FCKairatApp.ViewModels
             ((Command)AddTeam).ChangeCanExecute();
             ((Command)AddGame).ChangeCanExecute();
             ((Command)AddTournament).ChangeCanExecute();
+            ((Command)AddGoal).ChangeCanExecute();
         }
 
     }
