@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FCKairatApp.TeamsListPage"
+             Title="TeamsListPage"
+             BackgroundColor="Black">
+    <VerticalStackLayout>
+
+
+        <CollectionView x:Name="TeamsCollection" ItemsSource="{Binding Teams}" SelectionMode="Single" SelectionChanged="TeamClicked" SelectionChangedCommand="{Binding RemoveTeam}" 
+                        SelectionChangedCommandParameter="{Binding Source={x:Reference TeamsCollection}, Path=SelectedItem}"
+                        MaximumHeightRequest="500">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                    <Border>
+                        <StackLayout>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="1*"/>
+
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="1*"/>
+                                    </Grid.RowDefinitions>
+                                    <Image Grid.Row="0" Grid.Column="0" Source="fckairat.jpg" />
+                                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding TeamName}" FontSize="25" TextColor="White" VerticalTextAlignment="Center"/>
+                                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding CoachName}" FontSize="15" WidthRequest="200" TextColor="Gray" VerticalOptions="Start" VerticalTextAlignment="Start"/>
+                                <Button Grid.Row="0" Grid.Column="2" Text="Delete" Clicked="Update" Command="{Binding Source={RelativeSource AncestorType={x:Type Page}}, Path=BindingContext.RemoveTeam}" CommandParameter="{Binding .}" BackgroundColor="Red"  WidthRequest="80" HeightRequest="40"  />
+                                </Grid>
+                            </StackLayout>
+                    </Border>
+                </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+        
+    
+
+<Border>
+    <StackLayout>
+                <Grid x:Name="AddingGrid">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Image Grid.Column="0" Source="fckairat.jpg" />
+                    <Entry x:Name="NameEntry" Grid.Column="1" Placeholder="New Team..." Text="{Binding TeamName}" HeightRequest="50" FontSize="20" TextColor="White" VerticalTextAlignment="Center"/>
+                    <Entry x:Name="CoachEntry" Grid.Row="1" Grid.Column="1" Placeholder="Coach..." Text="{Binding CoachName}" FontSize="15" WidthRequest="200" TextColor="Gray" VerticalOptions="Start" VerticalTextAlignment="Start"/>
+                    <Button x:Name="AddBtn" Grid.Column="2" Text="Add" BackgroundColor="Green" Command="{Binding AddTeam}" Clicked="Update" WidthRequest="80" HeightRequest="40"  />
+                </Grid>
+            </StackLayout>
+</Border>
+        <!--<Button Text="Add" BackgroundColor="Green" Clicked="AddBtnClicked"  WidthRequest="80" HeightRequest="40"  />-->
+    </VerticalStackLayout>
+</ContentPage>

@@ -4,13 +4,15 @@ namespace FCKairatApp;
 
 public partial class TeamPage : ContentPage
 {
-	public PlayerViewModel thisContext;
+	public PlayerViewModel playersContext;
 	public TeamPage()
 	{
 		InitializeComponent();
-		thisContext = new PlayerViewModel();
-		BindingContext = thisContext;
+        playersContext = new PlayerViewModel();
+		BindingContext = playersContext;
 	}
+
+	
 
 	public async void GoToPlayer(object sender, EventArgs e)
 	{
@@ -32,7 +34,10 @@ public partial class TeamPage : ContentPage
 
 	public void Update(object sender, EventArgs e)
 	{
-        thisContext = new PlayerViewModel();
-        BindingContext = thisContext;
+		
+            playersContext = new PlayerViewModel();
+            BindingContext = playersContext;
+        
+        
     }
 }

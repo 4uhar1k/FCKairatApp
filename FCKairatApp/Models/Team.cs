@@ -9,7 +9,6 @@ namespace FCKairatApp.Models
     public class Team
     {
         public string TeamName { get; set; }
-        public List<Player> Players { get; set; }
         public string CoachName { get; set; }
         public int WinsAmount { get; set; }
         public int DrawsAmount { get; set; }

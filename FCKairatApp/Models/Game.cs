@@ -14,5 +14,6 @@ namespace FCKairatApp.Models
         public int SecondTeamScore { get; set; }
         public string GameTime { get; set; }
         public string Tournament { get; set; }
+        public bool IsLive { get; set; }
     }
 }

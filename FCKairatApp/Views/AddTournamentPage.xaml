@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mct:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FCKairatApp.AddTournamentPage"
+             xmlns:mct="clr-namespace:CommunityToolkit.Maui.Views;assembly=CommunityToolkit.Maui"
+           
+             >
+    <VerticalStackLayout WidthRequest="200" HeightRequest="150" Spacing="50">
+        <Entry Placeholder="Name..." PlaceholderColor="Black" FontSize="20" Text="{Binding TournamentName}"/>
+        <Button x:Name="ReadyBtn" x:FieldModifier="public" Text="Ready" Command="{Binding AddTournament}" Clicked="goBack" />
+    </VerticalStackLayout>
+</mct:Popup>

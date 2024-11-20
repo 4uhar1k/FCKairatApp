@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
+using CommunityToolkit.Maui;
 
-namespace FCKairatApp.Dtos
+namespace FCKairatApp
 {
     public static class MauiProgram
     {
@@ -9,6 +10,7 @@ namespace FCKairatApp.Dtos
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
