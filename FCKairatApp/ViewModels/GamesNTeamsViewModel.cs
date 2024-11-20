@@ -126,14 +126,14 @@ namespace FCKairatApp.ViewModels
                 {
 
                     
-                    NewGame.IsLive = IsLive;
+                    NewGame.IsLive = GameToChange.IsLive;
                     GameToChange.FirstTeamName = NewGame.FirstTeamName;
                     GameToChange.SecondTeamName = NewGame.SecondTeamName;
                     GameToChange.FirstTeamScore = NewGame.FirstTeamScore;
                     GameToChange.SecondTeamScore = NewGame.SecondTeamScore;
                     GameToChange.GameTime = NewGame.GameTime;
                     GameToChange.Tournament = NewGame.Tournament;
-                    GameToChange.IsLive = NewGame.IsLive;
+                    //GameToChange.IsLive = NewGame.IsLive;
                     database.UpdateAsync(GameToChange);
                     
                 }
@@ -184,7 +184,33 @@ namespace FCKairatApp.ViewModels
                     GameToChange.IsLive = NewGame.IsLive;
                     database.UpdateAsync(GameToChange);
 
-                
+                TeamDto FirstTeamToChange = Teams.Where(n => n.TeamName == FirstTeamName).FirstOrDefault();
+                TeamDto SecondTeamToChange = Teams.Where(n => n.TeamName == SecondTeamName).FirstOrDefault();
+                FirstTeamToChange.GoalsScored += FirstTeamScore;
+                FirstTeamToChange.GoalsMissed += SecondTeamScore;
+                SecondTeamToChange.GoalsScored += SecondTeamScore;
+                SecondTeamToChange.GoalsMissed += FirstTeamScore;
+                if (FirstTeamScore > SecondTeamScore)
+                {
+                    FirstTeamToChange.WinsAmount++;
+                    FirstTeamToChange.Points += 3;
+                    SecondTeamToChange.LosesAmount++;
+                }
+                else if (FirstTeamScore < SecondTeamScore)
+                {
+                    SecondTeamToChange.WinsAmount++;
+                    SecondTeamToChange.Points += 3;
+                    FirstTeamToChange.LosesAmount++;
+                }
+                else
+                {
+                    FirstTeamToChange.DrawsAmount++;
+                    FirstTeamToChange.Points++;
+                    SecondTeamToChange.DrawsAmount++;
+                    SecondTeamToChange.Points++;
+                }
+                database.UpdateAsync(FirstTeamToChange);
+                database.UpdateAsync(SecondTeamToChange);
             });
 
             AddTournament = new Command(() =>

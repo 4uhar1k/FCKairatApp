@@ -11,6 +11,7 @@
     BackgroundColor="Black"
     Shell.TitleColor="White"
     Shell.TabBarForegroundColor="Yellow"
+    Shell.NavBarHasShadow="True"
     Shell.ForegroundColor="White"
     Title="timeTableApp">
 
@@ -20,6 +21,12 @@
             <Label Text="FC Kairat 1954" TextColor="White" Margin="20,10,0,0" FontSize="30"/>
         </HorizontalStackLayout>        
     </Shell.TitleView>
+    <!--<Shell.Resources>
+        
+        <Style TargetType="Tab">
+            <Setter Property="FlyoutDisplayOptions" Value="FillAndExpand" />
+        </Style>
+    </Shell.Resources>-->
     <TabBar >
         <ShellContent
         Title="News"
@@ -28,11 +35,20 @@
         
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage"></ShellContent>
-        <ShellContent
-    Title="Matches"
-            Icon="football.png"
-    ContentTemplate="{DataTemplate local:GamesPage}"
-    Route="GamesPage"></ShellContent>
+        <Tab Title="Matches" Icon="football.png" >
+            <ShellContent
+Title="Matches"
+        
+ContentTemplate="{DataTemplate local:GamesPage}"
+Route="GamesPage"></ShellContent>
+            <ShellContent
+Title="Table"
+        
+ContentTemplate="{DataTemplate local:TablePage}"
+Route="TablePage"></ShellContent>
+        </Tab>
+        
+        
         <ShellContent
 Title="Your Profile"
             Icon="user.png"

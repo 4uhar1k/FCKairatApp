@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FCKairatApp.TablePage"
+             BackgroundColor="Black"
+             Title="TablePage">
+    <VerticalStackLayout>
+        <CollectionView ItemsSource="{Binding Teams}" MaximumWidthRequest="1000">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            
+                            <ColumnDefinition Width="1*"/>
+                            
+                            <ColumnDefinition Width="1*"/>
+                            
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Text="1." TextColor="White"/>
+                        <Image Grid.Column="1" WidthRequest="60" Source="fckairat.jpg" Margin="-50,0,0,0"/>
+                        <Label Grid.Column="2" Text="{Binding TeamName}" WidthRequest="100" TextColor="White"/>
+                        <Label Grid.Column="3" Text="{Binding WinsAmount}" TextColor="White"/>
+                        <Label Grid.Column="4" Text="{Binding DrawsAmount}" TextColor="White" />
+                        <Label Grid.Column="5" Text="{Binding LosesAmount}"  TextColor="White"/>
+                        <Label Grid.Column="6" Text="{Binding GoalsScored}" TextColor="White"/>
+                        <Label Grid.Column="7" Text="{Binding GoalsMissed}" TextColor="White"/>
+                        <Label Grid.Column="8" Text="{Binding Points}" TextColor="White"/>
+                        
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>
