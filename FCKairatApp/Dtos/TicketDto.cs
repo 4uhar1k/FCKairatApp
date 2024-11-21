@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLite;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,8 @@ namespace FCKairatApp.Dtos
 {
     public class TicketDto
     {
+        [PrimaryKey]
+        [AutoIncrement]
         public int Id { get; set; }
         public string UserLogin { get; set; }
         public string FirstTeamName { get; set; }

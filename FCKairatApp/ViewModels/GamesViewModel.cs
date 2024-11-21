@@ -222,6 +222,15 @@ namespace FCKairatApp.ViewModels
                 GameDto newGame = (GameDto)SelectedGame;
                 string LinkToTickets = newGame.TicketsLink;
                 BrowserOpen_Clicked(LinkToTickets);
+                
+                TicketDto newTicket = new TicketDto()
+                {
+                    UserLogin = emailbase,
+                    FirstTeamName = newGame.FirstTeamName,
+                    SecondTeamName = newGame.SecondTeamName,
+                    GameTime = newGame.GameTime
+                };
+                database.InsertAsync(newTicket);
             });
         }
         
@@ -271,6 +280,7 @@ namespace FCKairatApp.ViewModels
             {
                 Uri uri = new Uri(LinkToTickets);
                 await Browser.Default.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
+                
             }
             catch (Exception ex)
             {
@@ -545,6 +555,7 @@ namespace FCKairatApp.ViewModels
             }
         }
         
+
 
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {

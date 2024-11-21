@@ -52,7 +52,7 @@
                     </Grid>
                                 <Button Text="Tickets" WidthRequest="70" FontSize="10" BackgroundColor="DarkGoldenrod" Margin="0,-80,0,0"
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type Page}}, Path=BindingContext.BuyTickets}"
-                                        CommandParameter="{Binding .}"/>
+                                        CommandParameter="{Binding .}" IsVisible="{Binding IsLive}"/>
                                 <Button WidthRequest="70" Text="-" FontSize="20" BackgroundColor="Red" Margin="0,0,0,0" Clicked="Update"
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type Page}}, Path=BindingContext.RemoveGame}"
                                         CommandParameter="{Binding .}"/>

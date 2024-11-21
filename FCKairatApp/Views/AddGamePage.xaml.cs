@@ -52,8 +52,8 @@ public partial class AddGamePage : ContentPage
 
         AddForFirstTeam.IsVisible = SelectedGame.IsLive;
         AddForSecondTeam.IsVisible = SelectedGame.IsLive;
-        LinkEntry.IsVisible = SelectedGame.IsLive;
-        AddLinkBtn.IsVisible = SelectedGame.IsLive;
+        LinkEntry.IsVisible = (SelectedGame.IsLive & SelectedGame.TicketsLink!=null & SelectedGame.TicketsLink!="");
+        AddLinkBtn.IsVisible = (SelectedGame.IsLive && SelectedGame.TicketsLink == null | SelectedGame.TicketsLink == "");
         FirstTeamGoal.IsVisible = false;
         FirstKairatGoal.IsVisible = false;
         SecondTeamGoal.IsVisible = false;
@@ -117,6 +117,7 @@ public partial class AddGamePage : ContentPage
     public void AddTicketsLink(object sender, EventArgs e)
     {
         LinkEntry.IsVisible = true;
+        AddLinkBtn.IsVisible = false;
     }
     public void Update(object sender, EventArgs e)
     {
