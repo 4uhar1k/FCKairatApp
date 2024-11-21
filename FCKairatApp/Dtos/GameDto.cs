@@ -19,5 +19,6 @@ namespace FCKairatApp.Dtos
         public string GameTime { get; set; }
         public string Tournament { get; set; }
         public bool IsLive { get; set; }
+        public string TicketsLink { get; set; }
     }
 }

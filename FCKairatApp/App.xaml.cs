@@ -24,7 +24,7 @@ namespace FCKairatApp
             //await database.DropTableAsync<GoalDto>();
 
             await database.CreateTablesAsync<UserDto, PlayerDto, TeamDto, GameDto, NewsDto>();
-            await database.CreateTableAsync<GoalDto>();
+            await database.CreateTablesAsync<GoalDto, TicketDto>();
 
             base.OnStart();
         }

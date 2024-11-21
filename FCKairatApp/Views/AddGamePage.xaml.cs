@@ -22,6 +22,7 @@ public partial class AddGamePage : ContentPage
         SecondGoalAddBtn.IsVisible = false;
         AddForFirstTeam.IsVisible = false;
         AddForSecondTeam.IsVisible = false;
+        LinkEntry.IsVisible = false;
     }
     public AddGamePage(GameDto SelectedGame)
     {
@@ -42,7 +43,7 @@ public partial class AddGamePage : ContentPage
         thisContext.Year = SelectedGame.GameTime.Split(' ')[2];
         thisContext.Time = SelectedGame.GameTime.Split(' ')[3];
         thisContext.Tournament = SelectedGame.Tournament;
-
+        thisContext.TicketsLink = SelectedGame.TicketsLink;
         BindingContext = thisContext;
 
 
@@ -51,11 +52,13 @@ public partial class AddGamePage : ContentPage
 
         AddForFirstTeam.IsVisible = SelectedGame.IsLive;
         AddForSecondTeam.IsVisible = SelectedGame.IsLive;
-
+        LinkEntry.IsVisible = SelectedGame.IsLive;
+        AddLinkBtn.IsVisible = SelectedGame.IsLive;
         FirstTeamGoal.IsVisible = false;
         FirstKairatGoal.IsVisible = false;
         SecondTeamGoal.IsVisible = false;
         SecondKairatGoal.IsVisible = false;
+        
         //FirstTeamPicker.SelectedItem = SelectedGame.FirstTeamName;
         //thisContext.SecondTeamName = SelectedGame.SecondTeamName;
     }
@@ -82,7 +85,7 @@ public partial class AddGamePage : ContentPage
         }
     }
 
-    public async void AddGoalFirst (object sender, EventArgs e)
+    public void AddGoalFirst (object sender, EventArgs e)
     {
         
             if (FirstTeamPicker.SelectedItem.ToString() == "FC Kairat Almaty")
@@ -97,7 +100,7 @@ public partial class AddGamePage : ContentPage
 
         //await DisplayAlert("", clickedBtn.AutomationId, "OK");
     }
-    public async void AddGoalSecond(object sender, EventArgs e)
+    public void AddGoalSecond(object sender, EventArgs e)
     {
         
             if (SecondTeamPicker.SelectedItem.ToString() == "FC Kairat Almaty")
@@ -109,6 +112,11 @@ public partial class AddGamePage : ContentPage
         
 
         //await DisplayAlert("", clickedBtn.AutomationId, "OK");
+    }
+
+    public void AddTicketsLink(object sender, EventArgs e)
+    {
+        LinkEntry.IsVisible = true;
     }
     public void Update(object sender, EventArgs e)
     {

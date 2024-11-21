@@ -22,7 +22,7 @@ namespace FCKairatApp.ViewModels
         public string ScoredPlayerName { get; set; }        
         public GameDto GameToChange { get; set; }
         public PlayerDto PlayerToUpdate { get; set; }
-        string firstteamname, secondteamname, gametime, tournament, score, day, month, year, time, tournamentname, scoredplayersurname, scoredteam;
+        string firstteamname, secondteamname, gametime, tournament, score, day, month, year, time, tournamentname, scoredplayersurname, scoredteam, ticketslink;
         int id, firstteamscore, secondteamscore, gameid, scoredminute;
         bool islive;        
         public ICommand AddGame { get; set; }
@@ -30,6 +30,7 @@ namespace FCKairatApp.ViewModels
         public ICommand EndGame { get; set; }
         public ICommand AddTournament { get; set; }
         public ICommand AddGoal { get; set; }
+        public ICommand BuyTickets { get; set; }
         public GamesViewModel()
         {
             Games = new ObservableCollection<GameDto>();         
@@ -80,7 +81,7 @@ namespace FCKairatApp.ViewModels
                     SecondTeamScore = SecondTeamScore,
                     GameTime = $"{Day} {Month} {Year} {Time}",
                     Tournament = Tournament,
-                    
+                    TicketsLink = TicketsLink
                 };                
                 if (GameToChange != null)
                 {                   
@@ -91,6 +92,7 @@ namespace FCKairatApp.ViewModels
                     GameToChange.SecondTeamScore = NewGame.SecondTeamScore;
                     GameToChange.GameTime = NewGame.GameTime;
                     GameToChange.Tournament = NewGame.Tournament;
+                    GameToChange.TicketsLink = NewGame.TicketsLink;
                     database.UpdateAsync(GameToChange);                    
                 }
                 else
@@ -214,6 +216,13 @@ namespace FCKairatApp.ViewModels
                 }
                 
             }, (object s) => ScoredPlayerSurname!=null & ScoredPlayerSurname!="");
+
+            BuyTickets = new Command((object SelectedGame) =>
+            {
+                GameDto newGame = (GameDto)SelectedGame;
+                string LinkToTickets = newGame.TicketsLink;
+                BrowserOpen_Clicked(LinkToTickets);
+            });
         }
         
         public async void LoadGames()
@@ -253,6 +262,19 @@ namespace FCKairatApp.ViewModels
             foreach (GoalDto goal in ListOfGoalsOfFirstTeam)
             {
                 await database.DeleteAsync(goal);               
+            }
+        }
+
+        private async void BrowserOpen_Clicked(string LinkToTickets)
+        {
+            try
+            {
+                Uri uri = new Uri(LinkToTickets);
+                await Browser.Default.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
+            }
+            catch (Exception ex)
+            {
+                //some shi
             }
         }
         public bool IsDataCorrect()
@@ -361,6 +383,32 @@ namespace FCKairatApp.ViewModels
                 if (tournament != value)
                 {
                     tournament = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public bool IsLive
+        {
+            get => islive;
+            set
+            {
+                if (islive != value)
+                {
+                    islive = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string TicketsLink
+        {
+            get => ticketslink;
+
+            set
+            {
+                if (ticketslink != value)
+                {
+                    ticketslink = value;
                     OnPropertyChanged();
                 }
             }
@@ -496,18 +544,7 @@ namespace FCKairatApp.ViewModels
                 }
             }
         }
-        public bool IsLive
-        {
-            get => islive;
-            set
-            {
-                if (islive != value)
-                {
-                    islive = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        
 
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
@@ -515,6 +552,7 @@ namespace FCKairatApp.ViewModels
             ((Command)AddGame).ChangeCanExecute();
             ((Command)AddTournament).ChangeCanExecute();
             ((Command)AddGoal).ChangeCanExecute();
+            ((Command)BuyTickets).ChangeCanExecute();
         }
 
     }
