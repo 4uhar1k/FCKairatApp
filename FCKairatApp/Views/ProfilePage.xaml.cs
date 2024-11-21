@@ -1,9 +1,13 @@
 using FCKairatApp.ViewModels;
+using FCKairatApp.Dtos;
+using System.ComponentModel.DataAnnotations.Schema;
+using SQLite;
 namespace FCKairatApp;
 
 public partial class ProfilePage : ContentPage
 {
 	public ProfileViewModel thisContext;
+	//public ISQLiteAsyncConnection database;
 
     public ProfilePage()
 	{
@@ -18,6 +22,19 @@ public partial class ProfilePage : ContentPage
         await Navigation.PushModalAsync(loginPage);
 		loginPage.NavigatingFrom += Update;
 		//loginPage.SignInBtn.Clicked += Update;
+	}
+
+	public async void GoToGame(object sender, SelectionChangedEventArgs e)
+	{
+		if (e.CurrentSelection.Count!=0)
+		{
+			TicketDto TicketOfGame = (TicketDto)e.CurrentSelection[0];
+			GameDto SelectedGame = await thisContext.database.Table<GameDto>().Where(n => n.FirstTeamName == TicketOfGame.FirstTeamName &
+			n.SecondTeamName == TicketOfGame.SecondTeamName & n.GameTime == TicketOfGame.GameTime).FirstOrDefaultAsync(); 
+            AddGamePage addGamePage = new AddGamePage(SelectedGame);
+			await Navigation.PushAsync(addGamePage);
+        }
+		
 	}
 	public void Update(object sender, EventArgs e)
 	{
