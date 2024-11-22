@@ -3,24 +3,36 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FCKairatApp.AddNews"
              BackgroundColor="Black"
+             xmlns:local="clr-namespace:FCKairatApp"
              Title="AddNews">
-    <VerticalStackLayout Spacing="40">
-        <Label Text="Add new article" TextColor="White" FontSize="40" HorizontalTextAlignment="Center" />
-        <Border>
-            <Editor HeightRequest="50" Text="{Binding Title}" Placeholder="Add title..." TextColor="White" FontSize="27" />
-        </Border>
-        <Border>
-            <Editor HeightRequest="400" Text="{Binding Description}" Placeholder="Add description..." TextColor="White" FontSize="25" />
-        </Border>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-            </Grid.ColumnDefinitions>
-            <Button x:Name="DeleteBtn" Grid.Column="0" Text="Delete" Command="{Binding DeleteArticle}" Clicked="goBack" WidthRequest="150" FontSize="27" BackgroundColor="Red" TextColor="Black"/>
-            <Button Grid.Column="1" Text="Save" Command="{Binding AddArticle}" Clicked="goBack" WidthRequest="150" FontSize="27" BackgroundColor="DarkGoldenrod" TextColor="Black"/>
-        </Grid>
-        
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ScrollView>
+        <VerticalStackLayout Spacing="40">
+            <Label Text="Add new article" TextColor="White" FontSize="40" HorizontalTextAlignment="Center" />
+            <Border>
+                <Editor HeightRequest="50" Text="{Binding Title}" Placeholder="Add title..." TextColor="White" FontSize="27" />
+            </Border>
+            <Border>
+                <Editor HeightRequest="400" Text="{Binding Description}" Placeholder="Add description..." TextColor="White" FontSize="25" />
+            </Border>
+            <Image x:Name="NewsImage" Source="{Binding NewsImage, Converter={StaticResource ByteArrayToImageSourceConverter}}"  HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="200" HeightRequest="200"/>
+            <Button Text="Add Image" Clicked="AddImageFunc"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
 
-    </VerticalStackLayout>
+                <Button x:Name="DeleteBtn" Grid.Column="0" Text="Delete" Command="{Binding DeleteArticle}" Clicked="goBack" WidthRequest="150" FontSize="27" BackgroundColor="Red" TextColor="Black"/>
+                <Button Grid.Column="1" Text="Save" Command="{Binding AddArticle}" Clicked="goBack" WidthRequest="150" FontSize="27" BackgroundColor="DarkGoldenrod" TextColor="Black"/>
+            </Grid>
+
+
+        </VerticalStackLayout>
+    </ScrollView>
+    
 </ContentPage>

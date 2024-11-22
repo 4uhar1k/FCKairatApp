@@ -16,6 +16,6 @@ namespace FCKairatApp.Dtos
         public string Description { get; set; }
         public string Author { get; set; }
         public bool IsPublished { get; set; }
-        //public Image NewsImage { get; set; }
+        public Byte[] NewsImage { get; set; }
     }
 }

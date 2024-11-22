@@ -1,28 +1,24 @@
 using FCKairatApp.Dtos;
 using FCKairatApp.ViewModels;
+using Microsoft.Maui.Storage;
 
 namespace FCKairatApp;
 
 public partial class AddNews : ContentPage
 {
-	public AddNews()
+    public NewsViewModel thisContext;
+
+    public AddNews()
 	{
 		InitializeComponent();
-		NewsViewModel thisContext = new NewsViewModel();
+		thisContext = new NewsViewModel();
 		BindingContext = thisContext;
-        DeleteBtn.IsVisible = false;
-		//if (thisContext.articleToChange!=null)
-		//{
-		//	thisContext.Title = thisContext.articleToChange.Title;
-  //          thisContext.Description = thisContext.articleToChange.Description;
-  //          thisContext.Author = thisContext.articleToChange.Author;
-  //          thisContext.IsPublished = thisContext.articleToChange.IsPublished;
-  //      }
+        DeleteBtn.IsVisible = false;		
 	}
     public AddNews(NewsDto CurArticle)
     {
         InitializeComponent();
-        NewsViewModel thisContext = new NewsViewModel();
+        thisContext = new NewsViewModel();
         DeleteBtn.IsVisible = true;
         if (CurArticle != null)
         {
@@ -30,9 +26,36 @@ public partial class AddNews : ContentPage
             thisContext.Description = CurArticle.Description;
             thisContext.Author = CurArticle.Author;
             thisContext.IsPublished = CurArticle.IsPublished;
+            thisContext.NewsImage = CurArticle.NewsImage;
             thisContext.articleToChange = CurArticle;
         }
         BindingContext = thisContext;
+    }
+
+    public async void AddImageFunc(object sender, EventArgs e)
+    {
+        var result = await FilePicker.Default.PickAsync(new PickOptions
+        {
+            PickerTitle = "Select an image",
+            FileTypes = FilePickerFileType.Images // Only allow image files
+        });
+
+        if (result != null)
+        {
+            using var fileStream = await result.OpenReadAsync();
+
+            // Copy the file stream to a memory stream
+            var memoryStream = new MemoryStream();
+            await fileStream.CopyToAsync(memoryStream);
+            memoryStream.Seek(0, SeekOrigin.Begin);
+
+            // Set the image source
+            NewsImage.Source = ImageSource.FromStream(() => memoryStream);
+
+
+
+            thisContext.NewsImage = memoryStream.ToArray();
+        }
     }
 
     public async void goBack(object sender, EventArgs e)

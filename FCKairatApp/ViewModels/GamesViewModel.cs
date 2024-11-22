@@ -114,18 +114,7 @@ namespace FCKairatApp.ViewModels
             });
             StartGame = new Command(() =>
             {
-                GameDto NewGame = new GameDto()
-                {
-                    //Id = Games.Count+1,
-                    FirstTeamName = FirstTeamName,
-                    SecondTeamName = SecondTeamName,
-                    FirstTeamScore = FirstTeamScore,
-                    SecondTeamScore = SecondTeamScore,
-                    GameTime = $"{Day} {Month} {Year} {Time}",
-                    Tournament = Tournament,
-                    IsLive = true
-                };
-
+                
                 GameToChange.FirstTeamName = FirstTeamName;
                 GameToChange.SecondTeamName = SecondTeamName;
                 GameToChange.FirstTeamScore = FirstTeamScore;
