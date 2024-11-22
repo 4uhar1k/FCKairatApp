@@ -21,10 +21,10 @@ namespace FCKairatApp
         {
             ISQLiteAsyncConnection database = _connectionBase.CreateConnection();
             //await database.DropTableAsync<GameDto>();
-            //await database.DropTableAsync<GoalDto>();
+            //await database.DropTableAsync<TicketDto>();
 
             await database.CreateTablesAsync<UserDto, PlayerDto, TeamDto, GameDto, NewsDto>();
-            await database.CreateTableAsync<GoalDto>();
+            await database.CreateTablesAsync<GoalDto, TicketDto>();
 
             base.OnStart();
         }

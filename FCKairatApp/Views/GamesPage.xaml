@@ -50,7 +50,10 @@
                         <Label Grid.Row="2" Grid.Column="0" Text="{Binding FirstTeamName}" HorizontalTextAlignment="Center" Margin="25,-20,0,0" FontSize="20" TextColor="White"/>
                                     <Label Grid.Row="2" Grid.Column="2" Text="{Binding SecondTeamName}" HorizontalTextAlignment="Center" Margin="25,-20,0,0" FontSize="20" TextColor="White"/>
                     </Grid>
-                                <Button WidthRequest="70" Text="-" FontSize="20" BackgroundColor="Red" Margin="0,-30,0,0" Clicked="Update"
+                                <Button Text="Tickets" WidthRequest="70" FontSize="10" BackgroundColor="DarkGoldenrod" Margin="0,-80,0,0"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type Page}}, Path=BindingContext.BuyTickets}"
+                                        CommandParameter="{Binding .}" IsVisible="{Binding IsLive}"/>
+                                <Button WidthRequest="70" Text="-" FontSize="20" BackgroundColor="Red" Margin="0,0,0,0" Clicked="Update"
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type Page}}, Path=BindingContext.RemoveGame}"
                                         CommandParameter="{Binding .}"/>
                             </StackLayout>
