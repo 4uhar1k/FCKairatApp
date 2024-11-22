@@ -21,6 +21,7 @@ namespace FCKairatApp.ViewModels
         
         string name, surname, position, startmonth,startyear, expirymonth, expiryyear;
         int number, goalamount, assistamount;
+        Byte[] playerimage;
         public PlayerDto PlayerToEdit { get; set; }
         public PlayerDto oldPlayerName { get; set; }
         public PlayerDto oldPlayerNumber { get; set; }
@@ -45,13 +46,12 @@ namespace FCKairatApp.ViewModels
                     GoalsAmount = GoalsAmount,
                     AssistsAmount = AssistsAmount,
                     StartDate = $"{StartMonth} {StartYear}",
-                    ExpiryDate = $"{ExpiryMonth} {ExpiryYear}"
+                    ExpiryDate = $"{ExpiryMonth} {ExpiryYear}",
+                    PlayerImage = PlayerImage
                 };
 
 
-                //PlayerUniqueCheck();
-
-                //PlayerNumberCheck();
+                
                 oldPlayerName = Players.Where(n => n.Name == Name & n.Surname == Surname).FirstOrDefault();
                 oldPlayerNumber = Players.Where(n => n.Number == Number).FirstOrDefault();
                 if (oldPlayerNumber==null & oldPlayerName==null & PlayerToEdit==null)
@@ -60,8 +60,16 @@ namespace FCKairatApp.ViewModels
                 }
                 else if (PlayerToEdit != null)
                 {
-                    database.InsertAsync(newPlayer);
-                    database.DeleteAsync(PlayerToEdit);
+                    PlayerToEdit.Name = Name;
+                    PlayerToEdit.Surname = Surname;
+                    PlayerToEdit.Number = Number;
+                    PlayerToEdit.Position = Position;
+                    PlayerToEdit.GoalsAmount = GoalsAmount;
+                    PlayerToEdit.AssistsAmount = AssistsAmount;
+                    PlayerToEdit.StartDate = $"{StartMonth} {StartYear}";
+                    PlayerToEdit.ExpiryDate = $"{ExpiryMonth} {ExpiryYear}";
+                    PlayerToEdit.PlayerImage = PlayerImage;
+                    database.UpdateAsync(PlayerToEdit);
                 }
             }, () => Name!="" & Surname!="" & Number!=0 & Position!="" & StartMonth!="" & StartYear!="" & ExpiryMonth!="" & ExpiryYear!="" & DataAreCorrect() & Name!=null & Surname!=null & Position!=null & StartMonth!=null & StartYear!=null & ExpiryMonth!=null & ExpiryYear!=null);
 
@@ -209,6 +217,18 @@ namespace FCKairatApp.ViewModels
                 if (expiryyear != value)
                 {
                     expiryyear = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public Byte[] PlayerImage
+        {
+            get => playerimage;
+            set
+            {
+                if (playerimage != value)
+                {
+                    playerimage = value;
                     OnPropertyChanged();
                 }
             }

@@ -32,6 +32,7 @@ public partial class TeamsListPage : ContentPage
             AddingGrid.IsVisible = true;
 			NameEntry.Text = SelectedGame.TeamName;
 			CoachEntry.Text = SelectedGame.CoachName;
+            thisContext.TeamLogo = SelectedGame.TeamLogo;
             LogoOfTeam.Source = (ImageSource)Converter.Convert(SelectedGame.TeamLogo, forConverter, sender, CultForConverter);
             //LogoOfTeam.Source = "{Binding TeamLogo, Converter={StaticResource ByteArrayToImageSourceConverter}}";
 			AddBtn.Text = "Edit";

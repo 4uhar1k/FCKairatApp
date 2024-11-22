@@ -20,6 +20,6 @@ namespace FCKairatApp.Dtos
         public int AssistsAmount { get; set; }
         public string StartDate { get; set; }
         public string ExpiryDate { get; set; }
-        //public Image Image { get; set; }
+        public Byte[] PlayerImage { get; set; }
     }
 }

@@ -31,7 +31,7 @@
                                         <RowDefinition Height="1*"/>
                                         <RowDefinition Height="1*"/>
                                     </Grid.RowDefinitions>
-                                <Image Grid.Row="0" Grid.Column="0" Source="{Binding TeamLogo, Converter={StaticResource ByteArrayToImageSourceConverter}}" />
+                                <Image Grid.Row="0" WidthRequest="80" Grid.Column="0" Source="{Binding TeamLogo, Converter={StaticResource ByteArrayToImageSourceConverter}}" />
                                     <Label Grid.Row="0" Grid.Column="1" Text="{Binding TeamName}" FontSize="25" TextColor="White" VerticalTextAlignment="Center"/>
                                     <Label Grid.Row="1" Grid.Column="1" Text="{Binding CoachName}" FontSize="15" WidthRequest="200" TextColor="Gray" VerticalOptions="Start" VerticalTextAlignment="Start"/>
                                 
@@ -58,7 +58,7 @@
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
-                    <Image x:Name="LogoOfTeam" Grid.Column="0" />
+                    <Image x:Name="LogoOfTeam" WidthRequest="80" Source="{Binding TeamLogo, Converter={StaticResource ByteArrayToImageSourceConverter}}" Grid.Column="0" />
                     <Entry x:Name="NameEntry" Grid.Column="1" Placeholder="New Team..." Text="{Binding TeamName}" HeightRequest="50" FontSize="20" TextColor="White" VerticalTextAlignment="Center"/>
                     <Entry x:Name="CoachEntry" Grid.Row="1" Grid.Column="1" Placeholder="Coach..." Text="{Binding CoachName}" FontSize="15" WidthRequest="200" TextColor="Gray" VerticalOptions="Start" VerticalTextAlignment="Start"/>
                     <Button Grid.Row="0" Grid.Column="2" Text="Logo" Clicked="AddImageFunc" BackgroundColor="DarkGoldenrod"  WidthRequest="80" HeightRequest="40"  />
