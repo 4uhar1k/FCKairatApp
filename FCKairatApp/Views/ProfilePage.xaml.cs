@@ -29,8 +29,7 @@ public partial class ProfilePage : ContentPage
 		if (e.CurrentSelection.Count!=0)
 		{
 			TicketDto TicketOfGame = (TicketDto)e.CurrentSelection[0];
-			GameDto SelectedGame = await thisContext.database.Table<GameDto>().Where(n => n.FirstTeamName == TicketOfGame.FirstTeamName &
-			n.SecondTeamName == TicketOfGame.SecondTeamName & n.GameTime == TicketOfGame.GameTime).FirstOrDefaultAsync(); 
+			GameDto SelectedGame = await thisContext.database.Table<GameDto>().Where(n => n.Id == TicketOfGame.GameId).FirstOrDefaultAsync(); 
             AddGamePage addGamePage = new AddGamePage(SelectedGame);
 			await Navigation.PushAsync(addGamePage);
         }

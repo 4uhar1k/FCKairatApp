@@ -22,6 +22,7 @@ namespace FCKairatApp.ViewModels
         public string ScoredPlayerName { get; set; }        
         public GameDto GameToChange { get; set; }
         public PlayerDto PlayerToUpdate { get; set; }
+        public TicketDto TicketAlreadyBought { get; set; }
         string firstteamname, secondteamname, gametime, tournament, score, day, month, year, time, tournamentname, scoredplayersurname, scoredteam, ticketslink;
         int id, firstteamscore, secondteamscore, gameid, scoredminute;
         bool islive;        
@@ -221,16 +222,9 @@ namespace FCKairatApp.ViewModels
             {
                 GameDto newGame = (GameDto)SelectedGame;
                 string LinkToTickets = newGame.TicketsLink;
-                BrowserOpen_Clicked(LinkToTickets);
+                BrowserOpen_Clicked(LinkToTickets, newGame);
+               
                 
-                TicketDto newTicket = new TicketDto()
-                {
-                    UserLogin = emailbase,
-                    FirstTeamName = newGame.FirstTeamName,
-                    SecondTeamName = newGame.SecondTeamName,
-                    GameTime = newGame.GameTime
-                };
-                database.InsertAsync(newTicket);
             });
         }
         
@@ -274,13 +268,24 @@ namespace FCKairatApp.ViewModels
             }
         }
 
-        private async void BrowserOpen_Clicked(string LinkToTickets)
+        private async void BrowserOpen_Clicked(string LinkToTickets, GameDto thisGame)
         {
             try
             {
+                
                 Uri uri = new Uri(LinkToTickets);
                 await Browser.Default.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
-                
+                TicketAlreadyBought = await database.Table<TicketDto>().Where(n => n.UserLogin == emailbase && n.GameId == thisGame.Id).FirstOrDefaultAsync();
+                if (TicketAlreadyBought == null)
+                {
+                    TicketDto newTicket = new TicketDto()
+                    {
+                        UserLogin = emailbase,
+                        GameId = thisGame.Id
+                    };
+                    await database.InsertAsync(newTicket);
+                }
+                //{ };
             }
             catch (Exception ex)
             {

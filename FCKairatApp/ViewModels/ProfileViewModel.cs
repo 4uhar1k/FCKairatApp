@@ -12,6 +12,7 @@ namespace FCKairatApp.ViewModels
     public class ProfileViewModel: ViewModelBase
     {
         string email, password, name, surname, userlogin, firstteamname, secondteamname, gametime;
+        int gameid;
         public string CurUser = Path.Combine(FileSystem.AppDataDirectory, "curuser.txt");
         public ObservableCollection<TicketDto> Tickets { get; set; }
         public ICommand RemoveTicket { get; set; }
@@ -43,6 +44,10 @@ namespace FCKairatApp.ViewModels
             foreach(TicketDto ticket in ListOfTickets)
             {
                 Tickets.Add(ticket);
+                GameDto GameOfTicket = await database.Table<GameDto>().Where(n => n.Id == ticket.GameId).FirstOrDefaultAsync();
+                FirstTeamName = GameOfTicket.FirstTeamName;
+                SecondTeamName = GameOfTicket.SecondTeamName;
+                GameTime = GameOfTicket.GameTime;
             }
         }
 
@@ -102,6 +107,18 @@ namespace FCKairatApp.ViewModels
                 if (userlogin != value)
                 {
                     userlogin = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public int GameId
+        {
+            get => gameid;
+            set
+            {
+                if (gameid != value)
+                {
+                    gameid = value;
                     OnPropertyChanged();
                 }
             }
