@@ -107,7 +107,8 @@ namespace FCKairatApp.ViewModels
             {
                 GameDto GameToDelete = (GameDto)SelectedGame;                
                 DeleteGoals(GameToDelete);
-                { };                
+                DeleteTickets(GameToDelete);
+                //{ };                
                 database.DeleteAsync(GameToDelete);                
             });
             EndGame = new Command(() =>
@@ -260,11 +261,20 @@ namespace FCKairatApp.ViewModels
         
         public async void DeleteGoals(GameDto game)
         {
-            List<GoalDto> ListOfGoalsOfFirstTeam = await database.Table<GoalDto>().Where(n => n.GameId == game.Id).ToListAsync();
+            List<GoalDto> ListOfGoals = await database.Table<GoalDto>().Where(n => n.GameId == game.Id).ToListAsync();
             { };
-            foreach (GoalDto goal in ListOfGoalsOfFirstTeam)
+            foreach (GoalDto goal in ListOfGoals)
             {
                 await database.DeleteAsync(goal);               
+            }
+        }
+        public async void DeleteTickets(GameDto game)
+        {
+            List<TicketDto> ListOfTickets = await database.Table<TicketDto>().Where(n => n.GameId == game.Id).ToListAsync();
+            { };
+            foreach (TicketDto ticket in ListOfTickets)
+            {
+                await database.DeleteAsync(ticket);
             }
         }
 

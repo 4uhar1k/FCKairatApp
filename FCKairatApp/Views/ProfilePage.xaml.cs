@@ -32,6 +32,7 @@ public partial class ProfilePage : ContentPage
 			GameDto SelectedGame = await thisContext.database.Table<GameDto>().Where(n => n.Id == TicketOfGame.GameId).FirstOrDefaultAsync(); 
             AddGamePage addGamePage = new AddGamePage(SelectedGame);
 			await Navigation.PushAsync(addGamePage);
+			TicketsCollection.SelectedItem = null;
         }
 		
 	}

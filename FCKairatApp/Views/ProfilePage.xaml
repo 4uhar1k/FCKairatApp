@@ -11,13 +11,13 @@
             <Label Text="{Binding Email}" TextColor="White"/>
             <Label Text="{Binding Password}" TextColor="White"/>
 
-            <CollectionView ItemsSource="{Binding Tickets}" SelectionMode="Single" SelectionChanged="GoToGame">
+            <CollectionView x:Name="TicketsCollection" ItemsSource="{Binding Tickets}" SelectionMode="Single" SelectionChanged="GoToGame">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Border>
                             <StackLayout>
                                 <Label Text="{Binding Source={RelativeSource AncestorType={x:Type Page}}, Path=BindingContext.GameTime}" HorizontalOptions="Center" TextColor="Gray"/>
-                                <Label TextColor="White" FontSize="20">
+                                <Label TextColor="White" FontSize="20" HorizontalTextAlignment="Center">
                                     <Label.Text>
                                         <MultiBinding StringFormat="{}{0} - {1}">
                                             <Binding Path="BindingContext.FirstTeamName" Source="{RelativeSource AncestorType={x:Type Page}}" />
