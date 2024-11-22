@@ -14,6 +14,7 @@ public partial class ProfilePage : ContentPage
 		InitializeComponent();
 		thisContext = new ProfileViewModel();
 		BindingContext = thisContext;
+		
 	}
 	public async void LogOut(object sender, EventArgs e)
 	{
@@ -36,9 +37,15 @@ public partial class ProfilePage : ContentPage
         }
 		
 	}
+
+	public async void ChangePass(object sender, EventArgs e)
+	{
+		await Navigation.PushAsync(new ChangePasswordPage());
+	}
 	public void Update(object sender, EventArgs e)
 	{
 		thisContext = new ProfileViewModel();
 		BindingContext = thisContext;
+        
     }
 }

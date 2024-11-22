@@ -23,6 +23,7 @@ public partial class AddGamePage : ContentPage
         AddForFirstTeam.IsVisible = false;
         AddForSecondTeam.IsVisible = false;
         LinkEntry.IsVisible = false;
+        StartGameBtn.IsVisible = false;
     }
     public AddGamePage(GameDto SelectedGame)
     {
@@ -49,7 +50,7 @@ public partial class AddGamePage : ContentPage
 
         SaveGame.Text = "Save changes";
         EndGame.IsVisible = SelectedGame.IsLive;
-
+        StartGameBtn.IsVisible = (!SelectedGame.IsLive);
         AddForFirstTeam.IsVisible = SelectedGame.IsLive;
         AddForSecondTeam.IsVisible = SelectedGame.IsLive;
         LinkEntry.IsVisible = (SelectedGame.IsLive & SelectedGame.TicketsLink!=null & SelectedGame.TicketsLink!="");

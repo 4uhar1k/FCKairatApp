@@ -5,12 +5,12 @@
              x:Class="FCKairatApp.ProfilePage"
              Title="Your Profile">
     <ScrollView>
-        <VerticalStackLayout>
-            <Label Text="{Binding Name}" TextColor="White"/>
-            <Label Text="{Binding Surname}" TextColor="White"/>
-            <Label Text="{Binding Email}" TextColor="White"/>
-            <Label Text="{Binding Password}" TextColor="White"/>
-
+        <VerticalStackLayout Spacing="20">
+            <Label Text="{Binding Name}" FontSize="30" TextColor="White"/>
+            <Label Text="{Binding Surname}" FontSize="30" TextColor="White"/>
+            
+            <Label Text="Your Tickets" TextColor="White" FontSize="45" HorizontalTextAlignment="Center"/>
+            <Label x:Name="NoTicketsLabel" TextColor="White" FontSize="15" Text="You've got no tickets yet" IsVisible="{Binding HasNoTickets}" HorizontalOptions="Center"/>
             <CollectionView x:Name="TicketsCollection" ItemsSource="{Binding Tickets}" SelectionMode="Single" SelectionChanged="GoToGame">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
@@ -33,8 +33,8 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-            
-            <Button Text="Log out" BackgroundColor="Red" WidthRequest="150" FontSize="25" Clicked="LogOut"/>
+            <Button Text="Change password" BackgroundColor="DarkGoldenrod" WidthRequest="250" FontSize="25" Clicked="ChangePass"/>
+            <Button Text="Log out" BackgroundColor="Red" WidthRequest="250" FontSize="25" Clicked="LogOut"/>
             
         </VerticalStackLayout>
     </ScrollView>

@@ -109,7 +109,9 @@
         </Grid>
         <Entry x:Name="LinkEntry" Placeholder="www.example.com" TextColor="White" Text="{Binding TicketsLink}"/>
         <Button x:Name="AddLinkBtn" x:FieldModifier="public" BackgroundColor="DarkGoldenrod" Grid.Column="1" Text="Add link to tickets" Clicked="AddTicketsLink"/>
-            <Button x:Name="SaveGame" x:FieldModifier="public" BackgroundColor="DarkGoldenrod" Grid.Column="1" Text="Add game" Command="{Binding AddGame}" Clicked="goBack"/>
+        <Button x:Name="StartGameBtn" x:FieldModifier="public" BackgroundColor="DarkGoldenrod" Grid.Column="1" Text="Start game" Command="{Binding StartGame}" Clicked="goBack"/>
+
+        <Button x:Name="SaveGame" x:FieldModifier="public" BackgroundColor="DarkGoldenrod" Grid.Column="1" Text="Add game" Command="{Binding AddGame}" Clicked="goBack"/>
             <Button x:Name="EndGame" x:FieldModifier="public" BackgroundColor="Red" Grid.Column="1" Text="End game" Command="{Binding EndGame}" Clicked="goBack"/>
         </VerticalStackLayout>
 </ContentPage>

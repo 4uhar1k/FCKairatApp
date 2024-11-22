@@ -28,6 +28,7 @@ namespace FCKairatApp.ViewModels
         bool islive;        
         public ICommand AddGame { get; set; }
         public ICommand RemoveGame { get; set; }
+        public ICommand StartGame { get; set; }
         public ICommand EndGame { get; set; }
         public ICommand AddTournament { get; set; }
         public ICommand AddGoal { get; set; }
@@ -98,7 +99,7 @@ namespace FCKairatApp.ViewModels
                 }
                 else
                 {
-                    NewGame.IsLive = true;
+                    NewGame.IsLive = false;
                     database.InsertAsync(NewGame);
                 }              
                 }, () => FirstTeamName != null & SecondTeamName != null & FirstTeamName!=SecondTeamName & Tournament!=null & Day!=null & Day!="" & Month!=null 
@@ -110,6 +111,31 @@ namespace FCKairatApp.ViewModels
                 DeleteTickets(GameToDelete);
                 //{ };                
                 database.DeleteAsync(GameToDelete);                
+            });
+            StartGame = new Command(() =>
+            {
+                GameDto NewGame = new GameDto()
+                {
+                    //Id = Games.Count+1,
+                    FirstTeamName = FirstTeamName,
+                    SecondTeamName = SecondTeamName,
+                    FirstTeamScore = FirstTeamScore,
+                    SecondTeamScore = SecondTeamScore,
+                    GameTime = $"{Day} {Month} {Year} {Time}",
+                    Tournament = Tournament,
+                    IsLive = true
+                };
+
+                GameToChange.FirstTeamName = FirstTeamName;
+                GameToChange.SecondTeamName = SecondTeamName;
+                GameToChange.FirstTeamScore = FirstTeamScore;
+                GameToChange.SecondTeamScore = SecondTeamScore;
+                GameToChange.GameTime = $"{Day} {Month} {Year} {Time}";
+                GameToChange.Tournament = Tournament;
+                GameToChange.IsLive = true;
+                database.UpdateAsync(GameToChange);
+
+                
             });
             EndGame = new Command(() =>
             {

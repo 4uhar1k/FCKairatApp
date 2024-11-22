@@ -35,6 +35,7 @@ public partial class GamesPage : ContentPage
 			addGamePage.EndGame.Clicked += Update;
 			addGamePage.FirstGoalAddBtn.Clicked += Update;
 			addGamePage.SecondGoalAddBtn.Clicked += Update;
+			addGamePage.StartGameBtn.Clicked += Update;
 			GamesCollection.SelectedItem = null;
         }
 	}

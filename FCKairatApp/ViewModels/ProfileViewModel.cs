@@ -13,12 +13,13 @@ namespace FCKairatApp.ViewModels
     {
         string email, password, name, surname, userlogin, firstteamname, secondteamname, gametime;
         int gameid;
+        bool hasnotickets;
         public string CurUser = Path.Combine(FileSystem.AppDataDirectory, "curuser.txt");
+        
         public ObservableCollection<TicketDto> Tickets { get; set; }
         public ICommand RemoveTicket { get; set; }
         public ProfileViewModel()
         {
-            
             if (emailbase!=null)
             {
                 Email = emailbase;
@@ -29,11 +30,13 @@ namespace FCKairatApp.ViewModels
             database = baseConnection.CreateConnection();
             Tickets = new ObservableCollection<TicketDto>();
             LoadTickets();
-
+            HasNoTickets = true;
             RemoveTicket = new Command((object ticket) =>
             {
                 TicketDto TicketToRemove = (TicketDto)ticket;
                 database.DeleteAsync(TicketToRemove);
+                if (Tickets.Count == 1)
+                    HasNoTickets = true;
                 //{ };
             });
         }
@@ -43,11 +46,13 @@ namespace FCKairatApp.ViewModels
             List<TicketDto> ListOfTickets = await database.Table<TicketDto>().Where(n => n.UserLogin == Email).ToListAsync();
             foreach(TicketDto ticket in ListOfTickets)
             {
+                HasNoTickets = false;
                 Tickets.Add(ticket);
                 GameDto GameOfTicket = await database.Table<GameDto>().Where(n => n.Id == ticket.GameId).FirstOrDefaultAsync();
                 FirstTeamName = GameOfTicket.FirstTeamName;
                 SecondTeamName = GameOfTicket.SecondTeamName;
                 GameTime = GameOfTicket.GameTime;
+                
             }
         }
 
@@ -161,6 +166,17 @@ namespace FCKairatApp.ViewModels
             }
         }
 
-
+        public bool HasNoTickets
+        {
+            get => hasnotickets;
+            set
+            {
+                if (hasnotickets != value)
+                {
+                    hasnotickets = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
     }
 }
