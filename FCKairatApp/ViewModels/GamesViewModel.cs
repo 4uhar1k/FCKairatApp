@@ -22,10 +22,13 @@ namespace FCKairatApp.ViewModels
         public string ScoredPlayerName { get; set; }        
         public GameDto GameToChange { get; set; }
         public PlayerDto PlayerToUpdate { get; set; }
+        //public TeamDto FirstTeam { get; set; }
+        //public TeamDto SecondTeam { get; set; }
         public TicketDto TicketAlreadyBought { get; set; }
         string firstteamname, secondteamname, gametime, tournament, score, day, month, year, time, tournamentname, scoredplayersurname, scoredteam, ticketslink;
         int id, firstteamscore, secondteamscore, gameid, scoredminute;
-        bool islive;        
+        bool islive;
+        Byte[] firstteamlogo, secondteamlogo;
         public ICommand AddGame { get; set; }
         public ICommand RemoveGame { get; set; }
         public ICommand StartGame { get; set; }
@@ -38,6 +41,8 @@ namespace FCKairatApp.ViewModels
             Games = new ObservableCollection<GameDto>();         
             GoalsOfFirstTeam = new ObservableCollection<GoalDto>();
             GoalsOfSecondTeam = new ObservableCollection<GoalDto>();
+            //FirstTeam = new TeamDto();
+            //SecondTeam = new TeamDto();
             database = baseConnection.CreateConnection();
             LoadGames();
             
@@ -81,6 +86,8 @@ namespace FCKairatApp.ViewModels
                     SecondTeamName = SecondTeamName,
                     FirstTeamScore = FirstTeamScore,
                     SecondTeamScore = SecondTeamScore,
+                    FirstTeamLogo = FirstTeamLogo,
+                    SecondTeamLogo = SecondTeamLogo,
                     GameTime = $"{Day} {Month} {Year} {Time}",
                     Tournament = Tournament,
                     TicketsLink = TicketsLink
@@ -92,6 +99,8 @@ namespace FCKairatApp.ViewModels
                     GameToChange.SecondTeamName = NewGame.SecondTeamName;
                     GameToChange.FirstTeamScore = NewGame.FirstTeamScore;
                     GameToChange.SecondTeamScore = NewGame.SecondTeamScore;
+                    GameToChange.FirstTeamLogo = NewGame.FirstTeamLogo;
+                    GameToChange.SecondTeamLogo = NewGame.SecondTeamLogo;
                     GameToChange.GameTime = NewGame.GameTime;
                     GameToChange.Tournament = NewGame.Tournament;
                     GameToChange.TicketsLink = NewGame.TicketsLink;
@@ -119,6 +128,8 @@ namespace FCKairatApp.ViewModels
                 GameToChange.SecondTeamName = SecondTeamName;
                 GameToChange.FirstTeamScore = FirstTeamScore;
                 GameToChange.SecondTeamScore = SecondTeamScore;
+                GameToChange.FirstTeamLogo = FirstTeamLogo;
+                GameToChange.SecondTeamLogo = SecondTeamLogo;
                 GameToChange.GameTime = $"{Day} {Month} {Year} {Time}";
                 GameToChange.Tournament = Tournament;
                 GameToChange.IsLive = true;
@@ -135,6 +146,8 @@ namespace FCKairatApp.ViewModels
                     SecondTeamName = SecondTeamName,
                     FirstTeamScore = FirstTeamScore,
                     SecondTeamScore = SecondTeamScore,
+                    FirstTeamLogo = FirstTeamLogo,
+                    SecondTeamLogo = SecondTeamLogo,
                     GameTime = $"{Day} {Month} {Year} {Time}",
                     Tournament = Tournament,
                     IsLive = false
@@ -144,6 +157,8 @@ namespace FCKairatApp.ViewModels
                     GameToChange.SecondTeamName = NewGame.SecondTeamName;
                     GameToChange.FirstTeamScore = NewGame.FirstTeamScore;
                     GameToChange.SecondTeamScore = NewGame.SecondTeamScore;
+                GameToChange.FirstTeamLogo = NewGame.FirstTeamLogo;
+                GameToChange.SecondTeamLogo= NewGame.SecondTeamLogo;
                     GameToChange.GameTime = NewGame.GameTime;
                     GameToChange.Tournament = NewGame.Tournament;
                     GameToChange.IsLive = NewGame.IsLive;
@@ -213,6 +228,8 @@ namespace FCKairatApp.ViewModels
                     SecondTeamName = SecondTeamName,
                     FirstTeamScore = FirstTeamScore,
                     SecondTeamScore = SecondTeamScore,
+                    FirstTeamLogo = FirstTeamLogo,
+                    SecondTeamLogo = SecondTeamLogo,
                     GameTime = $"{Day} {Month} {Year} {Time}",
                     Tournament = Tournament,
                     IsLive = true
@@ -221,6 +238,8 @@ namespace FCKairatApp.ViewModels
                 GameToChange.SecondTeamName = NewGame.SecondTeamName;
                 GameToChange.FirstTeamScore = NewGame.FirstTeamScore;
                 GameToChange.SecondTeamScore = NewGame.SecondTeamScore;
+                GameToChange.FirstTeamLogo = NewGame.FirstTeamLogo;
+                GameToChange.SecondTeamLogo = NewGame.SecondTeamLogo;
                 GameToChange.GameTime = NewGame.GameTime;
                 GameToChange.Tournament = NewGame.Tournament;
                 GameToChange.IsLive = NewGame.IsLive;
@@ -247,9 +266,12 @@ namespace FCKairatApp.ViewModels
         public async void LoadGames()
         {
             List<GameDto> ListOfGames = await database.Table<GameDto>().ToListAsync();
+            
             foreach (GameDto game in ListOfGames)
             {
-                Games.Insert(0,game);
+                //FirstTeam = await database.Table<TeamDto>().Where(n => n.TeamName == game.FirstTeamName).FirstOrDefaultAsync();
+                //SecondTeam = await database.Table<TeamDto>().Where(n => n.TeamName == game.SecondTeamName).FirstOrDefaultAsync();
+                Games.Insert(0, game);
             }
             
             if (GameToChange != null)
@@ -449,6 +471,31 @@ namespace FCKairatApp.ViewModels
                 if (ticketslink != value)
                 {
                     ticketslink = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public Byte[] FirstTeamLogo
+        {
+            get => firstteamlogo;
+            set
+            {
+                if (firstteamlogo != value)
+                {
+                    firstteamlogo = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public Byte[] SecondTeamLogo
+        {
+            get => secondteamlogo;
+            set
+            {
+                if (secondteamlogo != value)
+                {
+                    secondteamlogo = value;
                     OnPropertyChanged();
                 }
             }

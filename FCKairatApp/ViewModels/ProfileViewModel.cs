@@ -15,11 +15,12 @@ namespace FCKairatApp.ViewModels
         int gameid;
         bool hasnotickets;
         public string CurUser = Path.Combine(FileSystem.AppDataDirectory, "curuser.txt");
-        
+        public GameDto GameOfTicket { get; set; }
         public ObservableCollection<TicketDto> Tickets { get; set; }
         public ICommand RemoveTicket { get; set; }
         public ProfileViewModel()
         {
+            GameOfTicket = new GameDto();
             if (emailbase!=null)
             {
                 Email = emailbase;
@@ -46,12 +47,13 @@ namespace FCKairatApp.ViewModels
             List<TicketDto> ListOfTickets = await database.Table<TicketDto>().Where(n => n.UserLogin == Email).ToListAsync();
             foreach(TicketDto ticket in ListOfTickets)
             {
+                GameOfTicket = await database.Table<GameDto>().Where(n => n.Id == ticket.GameId).FirstOrDefaultAsync();
                 HasNoTickets = false;
                 Tickets.Add(ticket);
-                GameDto GameOfTicket = await database.Table<GameDto>().Where(n => n.Id == ticket.GameId).FirstOrDefaultAsync();
-                FirstTeamName = GameOfTicket.FirstTeamName;
-                SecondTeamName = GameOfTicket.SecondTeamName;
-                GameTime = GameOfTicket.GameTime;
+                
+                //FirstTeamName = GameOfTicket.FirstTeamName;
+                //SecondTeamName = GameOfTicket.SecondTeamName;
+                //GameTime = GameOfTicket.GameTime;
                 
             }
         }

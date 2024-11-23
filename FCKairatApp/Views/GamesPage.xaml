@@ -3,7 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              BackgroundColor="Black"
              x:Class="FCKairatApp.GamesPage"
+             xmlns:local="clr-namespace:FCKairatApp"
              Title="Timetable">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ScrollView>
         <VerticalStackLayout Margin="0,50,0,0" Spacing="20">
             <Grid>
@@ -37,8 +43,8 @@
                                     <Label Grid.Row="1" Grid.Column="0" Text="{Binding GameTime}" HorizontalTextAlignment="Center" Margin="0,0,0,0" TextColor="Gray" />
                         <Label Grid.Row="1" Grid.Column="1" Text="{Binding Tournament}" HorizontalTextAlignment="Center" Margin="0,0,0,0" TextColor="Gray" />
 
-                                    <Image Grid.Row="1" Grid.Column="0" Source="fckairat.jpg" WidthRequest="200" HeightRequest="200" />
-                                    <Label Grid.Row="1" Grid.Column="1" TextColor="Red" FontSize="40" Margin="40,70,0,0">
+                                    <Image Grid.Row="1" Grid.Column="0" Source="{Binding FirstTeamLogo, Converter={StaticResource ByteArrayToImageSourceConverter}}" WidthRequest="50" />
+                                    <Label Grid.Row="1" Grid.Column="1" TextColor="Red" FontSize="40" Margin="40,40,0,0">
                                         <Label.Text>
                                             <MultiBinding StringFormat="{}{0} - {1}">
                                                 <Binding Path="FirstTeamScore" />
@@ -46,7 +52,7 @@
                                             </MultiBinding>
                                         </Label.Text>
                                     </Label>
-                                    <Image Grid.Row="1" Grid.Column="2" Source="fcatyrau.png" WidthRequest="100" HeightRequest="100"/>
+                                    <Image Grid.Row="1" Grid.Column="2" Source="{Binding SecondTeamLogo, Converter={StaticResource ByteArrayToImageSourceConverter}}" WidthRequest="50" HeightRequest="100"/>
                         <Label Grid.Row="2" Grid.Column="0" Text="{Binding FirstTeamName}" HorizontalTextAlignment="Center" Margin="25,-20,0,0" FontSize="20" TextColor="White"/>
                                     <Label Grid.Row="2" Grid.Column="2" Text="{Binding SecondTeamName}" HorizontalTextAlignment="Center" Margin="25,-20,0,0" FontSize="20" TextColor="White"/>
                     </Grid>
