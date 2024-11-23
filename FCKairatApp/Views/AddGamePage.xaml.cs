@@ -1,6 +1,8 @@
 using CommunityToolkit.Maui.Views;
 using FCKairatApp.Dtos;
 using FCKairatApp.ViewModels;
+using SQLite;
+using System.Globalization;
 //using MauiToolKitPopupSample;
 
 namespace FCKairatApp;
@@ -8,9 +10,16 @@ namespace FCKairatApp;
 public partial class AddGamePage : ContentPage
 {
 	public GamesViewModel thisContext = new GamesViewModel();
-	public AddGamePage()
+    public SqlConnectionBase Connection { get; set; }
+    public ISQLiteAsyncConnection database { get; set; }
+    public ByteArrayToImageSourceConverter Converter = new ByteArrayToImageSourceConverter();
+    public Type forConverter = typeof(Type);
+    CultureInfo CultForConverter = new CultureInfo("es-ES", false);
+    public AddGamePage()
 	{
 		InitializeComponent();
+        Connection = new SqlConnectionBase();
+        database = Connection.CreateConnection();
         //thisContext = new GamesNTeamsViewModel();
 		BindingContext = thisContext;
         FirstTeamGoal.IsVisible = false;
@@ -28,6 +37,9 @@ public partial class AddGamePage : ContentPage
     public AddGamePage(GameDto SelectedGame)
     {
         InitializeComponent();
+        Connection = new SqlConnectionBase();
+        database = Connection.CreateConnection();
+        
         //thisContext = new GamesNTeamsViewModel();
         //thisContext.LoadTeamsNGames();
         thisContext.GameToChange = SelectedGame;
@@ -37,6 +49,8 @@ public partial class AddGamePage : ContentPage
         thisContext.SecondTeamName = SelectedGame.SecondTeamName;
         thisContext.FirstTeamScore = SelectedGame.FirstTeamScore;
         thisContext.SecondTeamScore = SelectedGame.SecondTeamScore;
+        thisContext.FirstTeamLogo = SelectedGame.FirstTeamLogo;
+        thisContext.SecondTeamLogo = SelectedGame.SecondTeamLogo;
         //FirstTeamPicker.SelectedItem = thisContext.TeamNames.Where(n => n == SelectedGame.FirstTeamName).First();
         //thisContext.Score = $"{SelectedGame.FirstTeamScore}:{SelectedGame.SecondTeamScore}";
         thisContext.Day = SelectedGame.GameTime.Split(' ')[0];
@@ -45,16 +59,18 @@ public partial class AddGamePage : ContentPage
         thisContext.Time = SelectedGame.GameTime.Split(' ')[3];
         thisContext.Tournament = SelectedGame.Tournament;
         thisContext.TicketsLink = SelectedGame.TicketsLink;
-        BindingContext = thisContext;
+        //GetLogos(SelectedGame);
 
+        // LogoOfFirstTeam.Source = (ImageSource)Converter.Convert(SelectedTeam.TeamLogo, forConverter, sender, CultForConverter);
+        BindingContext = thisContext;
 
         SaveGame.Text = "Save changes";
         EndGame.IsVisible = SelectedGame.IsLive;
         StartGameBtn.IsVisible = (!SelectedGame.IsLive);
         AddForFirstTeam.IsVisible = SelectedGame.IsLive;
         AddForSecondTeam.IsVisible = SelectedGame.IsLive;
-        LinkEntry.IsVisible = (SelectedGame.IsLive & SelectedGame.TicketsLink!=null & SelectedGame.TicketsLink!="");
-        AddLinkBtn.IsVisible = (SelectedGame.IsLive && SelectedGame.TicketsLink == null | SelectedGame.TicketsLink == "");
+        LinkEntry.IsVisible = (SelectedGame.TicketsLink!=null & SelectedGame.TicketsLink!="");
+        AddLinkBtn.IsVisible = (SelectedGame.TicketsLink == null | SelectedGame.TicketsLink == "");
         FirstTeamGoal.IsVisible = false;
         FirstKairatGoal.IsVisible = false;
         SecondTeamGoal.IsVisible = false;
@@ -67,7 +83,15 @@ public partial class AddGamePage : ContentPage
 	{
 		await Navigation.PopAsync();
 	}
-
+    
+    //public async Task GetLogos(GameDto SelectedGame)
+    //{
+    //    TeamDto teamone = await database.Table<TeamDto>().Where(n => n.TeamName == SelectedGame.FirstTeamName).FirstOrDefaultAsync();
+    //    TeamDto teamtwo = await database.Table<TeamDto>().Where(n => n.TeamName == SelectedGame.SecondTeamName).FirstOrDefaultAsync();
+    //    thisContext.FirstTeamLogo = teamone.TeamLogo;
+    //    thisContext.SecondTeamLogo = teamtwo.TeamLogo;
+    //    BindingContext = thisContext;
+    //}
     public void AddTournament (object sender, EventArgs e)
     {
         try
@@ -119,6 +143,28 @@ public partial class AddGamePage : ContentPage
     {
         LinkEntry.IsVisible = true;
         AddLinkBtn.IsVisible = false;
+    }
+
+    public async void UpdateFirstTeamLogo(object sender, EventArgs e)
+    {        
+        TeamDto SelectedTeam = thisContext.Teams.Where(n => n.TeamName == FirstTeamPicker.SelectedItem.ToString()).FirstOrDefault();
+        LogoOfFirstTeam.Source = (ImageSource)Converter.Convert(SelectedTeam.TeamLogo, forConverter, sender, CultForConverter);
+        thisContext.FirstTeamLogo = SelectedTeam.TeamLogo;
+        //try
+        //{
+        //    TeamDto SelectedTeam = await database.Table<TeamDto>().Where(n => n.TeamName == FirstTeamPicker.SelectedItem.ToString()).FirstOrDefaultAsync();
+        //    LogoOfFirstTeam.Source = (ImageSource)Converter.Convert(SelectedTeam.TeamLogo, forConverter, sender, CultForConverter);
+        //}
+        //catch
+        //{
+
+        //}
+    }
+    public async void UpdateSecondTeamLogo(object sender, EventArgs e)
+    {
+        TeamDto SelectedTeam = thisContext.Teams.Where(n => n.TeamName == SecondTeamPicker.SelectedItem.ToString()).FirstOrDefault();
+        LogoOfSecondTeam.Source = (ImageSource)Converter.Convert(SelectedTeam.TeamLogo, forConverter, sender, CultForConverter);
+        thisContext.SecondTeamLogo = SelectedTeam.TeamLogo;
     }
     public void Update(object sender, EventArgs e)
     {

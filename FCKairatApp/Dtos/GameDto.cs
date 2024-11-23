@@ -16,6 +16,8 @@ namespace FCKairatApp.Dtos
         public string SecondTeamName { get; set; }
         public int FirstTeamScore { get; set; }
         public int SecondTeamScore { get; set; }
+        public Byte[] FirstTeamLogo { get; set; }
+        public Byte[] SecondTeamLogo { get; set; }
         public string GameTime { get; set; }
         public string Tournament { get; set; }
         public bool IsLive { get; set; }

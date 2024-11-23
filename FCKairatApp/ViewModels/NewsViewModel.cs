@@ -18,9 +18,9 @@ namespace FCKairatApp.ViewModels
         public ISQLiteAsyncConnection database;
         public string title, description, author;
         public bool isPublished;
+        public Byte[] newsimage;
         public ICommand AddArticle { get; set; }
         public ICommand DeleteArticle { get; set; }
-        public ICommand EditArticle { get; set; }
         public ObservableCollection<NewsDto> AllNews { get; set; }
         
         public NewsViewModel()
@@ -31,21 +31,31 @@ namespace FCKairatApp.ViewModels
             
             AddArticle = new Command(() =>
             {
-                NewsDto newArticle = new NewsDto()
-                {
-                    Title = Title,
-                    Description = Description,
-                    Author = $"{namebase} {surnamebase}",
-                    IsPublished = true
-                };
-                database.InsertAsync(newArticle);
+                
+                
                 if (articleToChange!=null)
                 {
-                    NewsDto articleToDelete = AllNews.Where(n => n.Title == articleToChange.Title & n.Description == articleToChange.Description & n.Author == articleToChange.Author & n.IsPublished == articleToChange.IsPublished).First();
-                    database.DeleteAsync(articleToDelete);
+                    articleToChange.Title = Title;
+                    articleToChange.Description = Description;
+                    articleToChange.Author = $"{namebase} {surnamebase}";
+                    articleToChange.IsPublished = true;
+                    articleToChange.NewsImage = NewsImage;
+                    database.UpdateAsync(articleToChange);
+                }
+                else
+                {
+                    NewsDto newArticle = new NewsDto()
+                    {
+                        Title = Title,
+                        Description = Description,
+                        Author = $"{namebase} {surnamebase}",
+                        IsPublished = true,
+                        NewsImage = NewsImage
+                    };
+                    database.InsertAsync(newArticle);
                 }
                              
-            }, ()=>Title!="" & Description!="" & Title!=null & Description!=null);
+            }, ()=>Title!="" & Description!="" & Title!=null & Description!=null & NewsImage!=null);
 
             DeleteArticle = new Command(() =>
             {
@@ -73,6 +83,7 @@ namespace FCKairatApp.ViewModels
                 AllNews.Add(newArticle);
             }
         }
+        
 
         public string Title 
         {
@@ -119,6 +130,17 @@ namespace FCKairatApp.ViewModels
                 {
                     isPublished = value;
                     OnPropertyChanged();
+                }
+            }
+        }
+        public Byte[] NewsImage
+        {
+            get => newsimage;
+            set
+            {
+                if (newsimage!=value)
+                {
+                    newsimage = value;
                 }
             }
         }

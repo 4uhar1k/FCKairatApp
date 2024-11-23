@@ -21,6 +21,7 @@ namespace FCKairatApp.ViewModels
         public ICommand RemoveTeam { get; set; }
         string teamname, coachname;
         int winsamount, drawsamount, losesamount, goalsscored, goalsmissed, points;
+        Byte[] teamlogo;
         public TeamsViewModel()
         {
             Teams = new ObservableCollection<TeamDto>();
@@ -33,7 +34,8 @@ namespace FCKairatApp.ViewModels
                 TeamDto NewTeam = new TeamDto()
                 {
                     TeamName = TeamName,
-                    CoachName = CoachName
+                    CoachName = CoachName,
+                    TeamLogo = TeamLogo
                 };
                 SameTeamName = Teams.Where(n => n.TeamName == TeamName).FirstOrDefault();
                 if (SameTeamName == null)
@@ -174,6 +176,17 @@ namespace FCKairatApp.ViewModels
                 {
                     points = value;
                     OnPropertyChanged();
+                }
+            }
+        }
+        public Byte[] TeamLogo
+        {
+            get => teamlogo;
+            set
+            {
+                if (teamlogo != value)
+                {
+                    teamlogo = value;
                 }
             }
         }

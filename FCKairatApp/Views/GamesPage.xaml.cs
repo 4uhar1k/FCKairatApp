@@ -11,6 +11,7 @@ public partial class GamesPage : ContentPage
 		InitializeComponent();
 		thisContext = new GamesViewModel();
 		BindingContext = thisContext;
+		
 	}
 
 	public async void ShowList(object sender, EventArgs e)

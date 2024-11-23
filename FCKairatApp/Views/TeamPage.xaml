@@ -3,7 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              BackgroundColor="Black"
              x:Class="FCKairatApp.TeamPage"
+             xmlns:local="clr-namespace:FCKairatApp"
              Title="Our Team">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <VerticalStackLayout>
         <CollectionView x:Name="CollectionOfSmth" ItemsLayout="VerticalGrid, 2" ItemsSource="{Binding Players}" HeightRequest="530">
     <CollectionView.ItemTemplate>
@@ -21,9 +27,9 @@
                                 <ColumnDefinition Width="1*"/>
                                 <ColumnDefinition Width="1*"/>
                             </Grid.ColumnDefinitions>
-                
-                
-                    <Button x:Name="ImageBtn" BackgroundColor="DarkGoldenrod" Clicked="GoToPlayer" CommandParameter="{Binding .}" ImageSource="dotnet_bot.png" TextColor="White" Grid.Row="0" Grid.Column="0" WidthRequest="150" HeightRequest="150">
+
+
+                            <Button x:Name="ImageBtn" BackgroundColor="DarkGoldenrod" Clicked="GoToPlayer" CommandParameter="{Binding .}" ImageSource="{Binding PlayerImage, Converter={StaticResource ByteArrayToImageSourceConverter}}" TextColor="White" Grid.Row="0" Grid.Column="0" WidthRequest="150" HeightRequest="150">
 
                     </Button>
                     <Label x:Name="NumberLabel" Grid.Row="1" Grid.Column="0" Text="{Binding Number}" TextColor="White" />

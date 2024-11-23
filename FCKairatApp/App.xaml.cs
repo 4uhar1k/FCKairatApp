@@ -20,8 +20,8 @@ namespace FCKairatApp
         protected override async void OnStart()
         {
             ISQLiteAsyncConnection database = _connectionBase.CreateConnection();
-            //await database.DropTableAsync<GameDto>();
-            //await database.DropTableAsync<TicketDto>();
+            //await database.DropTableAsync<GoalDto>();
+            //await database.DropTableAsync<PlayerDto>();
 
             await database.CreateTablesAsync<UserDto, PlayerDto, TeamDto, GameDto, NewsDto>();
             await database.CreateTablesAsync<GoalDto, TicketDto>();

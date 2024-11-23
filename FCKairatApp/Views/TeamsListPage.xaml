@@ -3,7 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FCKairatApp.TeamsListPage"
              Title="TeamsListPage"
+             xmlns:local="clr-namespace:FCKairatApp"
              BackgroundColor="Black">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <VerticalStackLayout>
 
 
@@ -25,10 +31,11 @@
                                         <RowDefinition Height="1*"/>
                                         <RowDefinition Height="1*"/>
                                     </Grid.RowDefinitions>
-                                    <Image Grid.Row="0" Grid.Column="0" Source="fckairat.jpg" />
+                                <Image Grid.Row="0" WidthRequest="80" Grid.Column="0" Source="{Binding TeamLogo, Converter={StaticResource ByteArrayToImageSourceConverter}}" />
                                     <Label Grid.Row="0" Grid.Column="1" Text="{Binding TeamName}" FontSize="25" TextColor="White" VerticalTextAlignment="Center"/>
                                     <Label Grid.Row="1" Grid.Column="1" Text="{Binding CoachName}" FontSize="15" WidthRequest="200" TextColor="Gray" VerticalOptions="Start" VerticalTextAlignment="Start"/>
-                                <Button Grid.Row="0" Grid.Column="2" Text="Delete" Clicked="Update" Command="{Binding Source={RelativeSource AncestorType={x:Type Page}}, Path=BindingContext.RemoveTeam}" CommandParameter="{Binding .}" BackgroundColor="Red"  WidthRequest="80" HeightRequest="40"  />
+                                
+                                <Button Grid.Row="1" Grid.Column="2" Text="Delete" Clicked="Update" Command="{Binding Source={RelativeSource AncestorType={x:Type Page}}, Path=BindingContext.RemoveTeam}" CommandParameter="{Binding .}" BackgroundColor="Red"  WidthRequest="80" HeightRequest="40"  />
                                 </Grid>
                             </StackLayout>
                     </Border>
@@ -51,10 +58,12 @@
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
-                    <Image Grid.Column="0" Source="fckairat.jpg" />
+                    <Image x:Name="LogoOfTeam" WidthRequest="80" Source="{Binding TeamLogo, Converter={StaticResource ByteArrayToImageSourceConverter}}" Grid.Column="0" />
                     <Entry x:Name="NameEntry" Grid.Column="1" Placeholder="New Team..." Text="{Binding TeamName}" HeightRequest="50" FontSize="20" TextColor="White" VerticalTextAlignment="Center"/>
                     <Entry x:Name="CoachEntry" Grid.Row="1" Grid.Column="1" Placeholder="Coach..." Text="{Binding CoachName}" FontSize="15" WidthRequest="200" TextColor="Gray" VerticalOptions="Start" VerticalTextAlignment="Start"/>
-                    <Button x:Name="AddBtn" Grid.Column="2" Text="Add" BackgroundColor="Green" Command="{Binding AddTeam}" Clicked="Update" WidthRequest="80" HeightRequest="40"  />
+                    <Button Grid.Row="0" Grid.Column="2" Text="Logo" Clicked="AddImageFunc" BackgroundColor="DarkGoldenrod"  WidthRequest="80" HeightRequest="40"  />
+
+                    <Button x:Name="AddBtn" Grid.Row="1" Grid.Column="2" Text="Add" BackgroundColor="Green" Command="{Binding AddTeam}" Clicked="Update" WidthRequest="80" HeightRequest="40"  />
                 </Grid>
             </StackLayout>
 </Border>

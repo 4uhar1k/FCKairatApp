@@ -20,7 +20,7 @@ namespace FCKairatApp.Dtos
         public int GoalsScored { get; set; }
         public int GoalsMissed { get; set; }
         public int Points { get; set; }
-        //public Image TeamLogo { get; set; }
+        public Byte[] TeamLogo { get; set; }
 
     }
 }
