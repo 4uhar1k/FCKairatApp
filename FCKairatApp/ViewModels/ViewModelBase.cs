@@ -30,6 +30,7 @@ namespace FCKairatApp.ViewModels
         public NewsDto articleToChange { get; set; }
 
         // for localization
+        // for LoginPage
         public ObservableCollection<string> SurnameBindings = new ObservableCollection<string>() {"Тегіңіз", "Фамилия", "Surname" };
         public ObservableCollection<string> NameBindings = new ObservableCollection<string>() { "Атыңыз", "Имя", "Name" };
         public ObservableCollection<string> PassBindings = new ObservableCollection<string>() { "Құпиясөз", "Пароль", "Password" };
@@ -41,14 +42,19 @@ namespace FCKairatApp.ViewModels
         public ObservableCollection<string> UserNotFoundBindings = new ObservableCollection<string>() { "Қолданушы табылмаған", "Пользователь не найден", "User not found" };
         public ObservableCollection<string> WrongPassBindings = new ObservableCollection<string>() { "Бұрыс құпиясөз", "Неправильный пароль", "Wrong password" };
         public ObservableCollection<string> SignedUpBindings = new ObservableCollection<string>() { "Табысты тіркелдіңіз", "Вы успешно зарегистрировались", "You've been successfully signed up" };
-        public ObservableCollection<string> ReloadAppBtnBindings = new ObservableCollection<string>() { "Өзгерістерді қолдану", "Cохранить изменения", "Apply changes" };
-
-        
+        // for SettingsPage
+        public ObservableCollection<string> ReloadAppBtnBindings = new ObservableCollection<string>() { "Өзгерістерді қолдану", "Cохранить изменения", "Apply changes" };        
         public ObservableCollection<string> ReloadAppBindings = new ObservableCollection<string>() { "Өзгерістерді қолдану үшін қолданбаны қайта іске қосыңыз", "Перезапустите приложения, чтобы сохранить изменения", "Restart app to apply changes"};
+        // for ProfilePage
         public ObservableCollection<string> YourTicketsBindings = new ObservableCollection<string>() { "Билеттеріңіз", "Ваши билеты", "Your tickets" };
         public ObservableCollection<string> NoTicketsBindings = new ObservableCollection<string>() { "Билеттеріңіз жоқ", "Нет билетов", "You've got no tickets yet" };
         public ObservableCollection<string> ChangePassBindings = new ObservableCollection<string>() { "Құпиясөзді өзгерту", "Изменить пароль", "Change password" };
         public ObservableCollection<string> LogOutBindings = new ObservableCollection<string>() { "Аккаунттан шығу", "Выйти из аккаунта", "Log out" };
+        // for AddNews
+        public ObservableCollection<string> AddArticleBindings = new ObservableCollection<string>() { "Жаңа мақала", "Новая статья", "Add new article" };
+        public ObservableCollection<string> AddTitleBindings = new ObservableCollection<string>() { "Тақырып", "Заголовок", "Add title..." };
+        public ObservableCollection<string> AddDescBindings = new ObservableCollection<string>() { "Мәтін", "Текст", "Add text..." };
+        public ObservableCollection<string> AddImageBindings = new ObservableCollection<string>() { "Суретті қосу", "Добавить изображение", "Add image" };
 
         public string SurnamePHBinding { get; set; }
         public string NamePHBinding { get; set; }
@@ -68,6 +74,11 @@ namespace FCKairatApp.ViewModels
         public string NoTicketBinding { get; set; }
         public string ChangePassBtnBinding { get; set; }
         public string LogOutBtnBinding { get; set; }
+
+        public string AddArticleBinding { get; set; }
+        public string AddTitleBinding { get; set; }
+        public string AddDescBinding { get; set; }
+        public string AddImageBtnBinding { get; set; }
         //
         public ViewModelBase()
         {
@@ -129,6 +140,7 @@ namespace FCKairatApp.ViewModels
             LanguagePickerBinding = LanguageBindings[LanguageId];
             LanguageTextBinding = LanguageTextBindings[LanguageId];
             SignedUpBinding = SignedUpBindings[LanguageId];
+
             ReloadAppBtnBinding = ReloadAppBtnBindings[LanguageId];
             ReloadAppBinding = ReloadAppBindings[LanguageId];
 
@@ -136,6 +148,11 @@ namespace FCKairatApp.ViewModels
             NoTicketBinding = NoTicketsBindings[LanguageId];
             ChangePassBtnBinding = ChangePassBindings[LanguageId];
             LogOutBtnBinding = LogOutBindings[LanguageId];
+
+            AddArticleBinding = AddArticleBindings[LanguageId];
+            AddTitleBinding = AddTitleBindings[LanguageId];
+            AddDescBinding = AddDescBindings[LanguageId];
+            AddImageBtnBinding = AddImageBindings[LanguageId];
         }
 
         public async void LoadPlayers()

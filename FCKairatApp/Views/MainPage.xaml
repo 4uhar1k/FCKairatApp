@@ -16,7 +16,7 @@
             Padding="30,0"
             Spacing="25">
 
-            <CollectionView x:Name="NewsCollection" HeightRequest="500" BackgroundColor="Black" ItemsSource="{Binding AllNews}" SelectionChanged="EditText" SelectionMode="Single"
+            <CollectionView x:Name="NewsCollection" VerticalOptions="FillAndExpand" BackgroundColor="Black" ItemsSource="{Binding AllNews}" SelectionChanged="EditText" SelectionMode="Single"
                             >
                 
                     <CollectionView.ItemTemplate>

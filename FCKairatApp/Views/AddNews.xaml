@@ -12,15 +12,15 @@
     </ContentPage.Resources>
     <ScrollView>
         <VerticalStackLayout Spacing="40">
-            <Label Text="Add new article" TextColor="White" FontSize="40" HorizontalTextAlignment="Center" />
+            <Label Text="{Binding AddArticleBinding}" TextColor="White" FontSize="40" HorizontalTextAlignment="Center" />
             <Border>
-                <Editor HeightRequest="50" Text="{Binding Title}" Placeholder="Add title..." TextColor="White" FontSize="27" />
+                <Editor HeightRequest="50" Text="{Binding Title}" Placeholder="{Binding AddTitleBinding}" TextColor="White" FontSize="27" />
             </Border>
             <Border>
-                <Editor HeightRequest="400" Text="{Binding Description}" Placeholder="Add description..." TextColor="White" FontSize="25" />
+                <Editor HeightRequest="400" Text="{Binding Description}" Placeholder="{Binding AddDescBinding}" TextColor="White" FontSize="25" />
             </Border>
             <Image x:Name="NewsImage" Source="{Binding NewsImage, Converter={StaticResource ByteArrayToImageSourceConverter}}"  HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="200" HeightRequest="200"/>
-            <Button Text="Add Image" Clicked="AddImageFunc"/>
+            <Button Text="{Binding AddImageBtnBinding}" Clicked="AddImageFunc"/>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
