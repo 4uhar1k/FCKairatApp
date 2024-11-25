@@ -1,4 +1,4 @@
-:black_heart::yellow_heart:Dear FC Kairat fans and not only,:black_heart::yellow_heart:
+:black_heart::yellow_heart:Dear FC Kairat Almaty fans and not only,:black_heart::yellow_heart:
 
 To celebrate the 70th anniversary of the Almaty club and the fourth championship title in our history,
 I developed a mobile app for FC Kairat. In this app, users can post on the forum, follow upcoming games, view standings and player statistics, 
