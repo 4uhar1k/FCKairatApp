@@ -33,6 +33,7 @@ public partial class AddGamePage : ContentPage
         AddForSecondTeam.IsVisible = false;
         LinkEntry.IsVisible = false;
         StartGameBtn.IsVisible = false;
+        
     }
     public AddGamePage(GameDto SelectedGame)
     {

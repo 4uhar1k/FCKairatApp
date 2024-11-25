@@ -35,7 +35,7 @@ public partial class TeamsListPage : ContentPage
             thisContext.TeamLogo = SelectedGame.TeamLogo;
             LogoOfTeam.Source = (ImageSource)Converter.Convert(SelectedGame.TeamLogo, forConverter, sender, CultForConverter);
             //LogoOfTeam.Source = "{Binding TeamLogo, Converter={StaticResource ByteArrayToImageSourceConverter}}";
-			AddBtn.Text = "Edit";
+			//AddBtn.Text = "Edit";
 			TeamsCollection.SelectedItem = null;
             //Update(sender, e);
             //thisContext = new GamesNTeamsViewModel();
@@ -81,7 +81,7 @@ public partial class TeamsListPage : ContentPage
 		{
             thisContext = new TeamsViewModel();
             BindingContext = thisContext;
-            AddBtn.Text = "Add";
+            //AddBtn.Text = "Add";
             LogoOfTeam.Source = "";
             //AddingGrid.IsVisible = false;
         }

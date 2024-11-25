@@ -26,6 +26,10 @@ namespace FCKairatApp
             {
                 Shell.Current.CurrentPage.BindingContext = new TableViewModel();
             }
+            else if (Shell.Current.CurrentPage.Title == "Settings")
+            {
+                Shell.Current.CurrentPage.BindingContext = new ViewModelBase();
+            }
         }
     }
 }

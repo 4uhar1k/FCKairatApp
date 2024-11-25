@@ -11,7 +11,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <VerticalStackLayout>
-        <CollectionView x:Name="CollectionOfSmth" ItemsLayout="VerticalGrid, 2" ItemsSource="{Binding Players}" HeightRequest="530">
+        <CollectionView x:Name="CollectionOfSmth" ItemsLayout="VerticalGrid, 2" ItemsSource="{Binding Players}" VerticalOptions="FillAndExpand">
     <CollectionView.ItemTemplate>
                 <DataTemplate>
 
@@ -29,11 +29,11 @@
                             </Grid.ColumnDefinitions>
 
 
-                            <Button x:Name="ImageBtn" BackgroundColor="DarkGoldenrod" Clicked="GoToPlayer" CommandParameter="{Binding .}" ImageSource="{Binding PlayerImage, Converter={StaticResource ByteArrayToImageSourceConverter}}" TextColor="White" Grid.Row="0" Grid.Column="0" WidthRequest="150" HeightRequest="150">
+                            <Button x:Name="ImageBtn" BackgroundColor="DarkGoldenrod" Clicked="GoToPlayer" CommandParameter="{Binding .}" ImageSource="{Binding PlayerImage, Converter={StaticResource ByteArrayToImageSourceConverter}}" TextColor="White" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" WidthRequest="150" HeightRequest="150">
 
                     </Button>
                     <Label x:Name="NumberLabel" Grid.Row="1" Grid.Column="0" Text="{Binding Number}" TextColor="White" />
-                            <Button x:Name="RemoveBtn" Grid.Row="1" Grid.Column="0" Clicked="Update" Command="{Binding Source={RelativeSource AncestorType={x:Type Page}}, Path=BindingContext.DeletePlayer}" CommandParameter="{Binding .}" WidthRequest="60" BackgroundColor="Red" Text="-" FontSize="20" />
+                            <Button x:Name="RemoveBtn" Grid.Row="1" Grid.Column="0" Clicked="Update" Command="{Binding Source={RelativeSource AncestorType={x:Type Page}}, Path=BindingContext.DeletePlayer}" CommandParameter="{Binding .}" WidthRequest="60" BackgroundColor="Red" ImageSource="bin.png" FontSize="20" />
                             <Label x:Name="NameLabel" Grid.Row="2" Grid.Column="0" Text="{Binding Name}" TextColor="White"  />
                             <Label x:Name="SurnameLabel" Grid.Row="2" Grid.Column="1" Text="{Binding Surname}" TextColor="White"  />
 
@@ -51,6 +51,6 @@
         </DataTemplate>
     </CollectionView.ItemTemplate>
 </CollectionView>
-        <Button BackgroundColor="Green" Grid.Row="1" Text="+" Clicked="GoToPlayer" FontSize="100" Padding="2" Grid.Column="1" WidthRequest="150" HeightRequest="150"   />
+        <Button BackgroundColor="Green" ImageSource="add.png" Clicked="GoToPlayer" FontSize="30" HorizontalOptions="Center" Padding="2" Margin="0,0,0,0" WidthRequest="250" HeightRequest="70"   />
     </VerticalStackLayout>
 </ContentPage>
