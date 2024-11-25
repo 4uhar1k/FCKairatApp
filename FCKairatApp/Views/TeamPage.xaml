@@ -11,7 +11,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <VerticalStackLayout>
-        <CollectionView x:Name="CollectionOfSmth" ItemsLayout="VerticalGrid, 2" ItemsSource="{Binding Players}" HeightRequest="530">
+        <CollectionView x:Name="CollectionOfSmth" ItemsLayout="VerticalGrid, 2" ItemsSource="{Binding Players}" VerticalOptions="FillAndExpand">
     <CollectionView.ItemTemplate>
                 <DataTemplate>
 
@@ -29,7 +29,7 @@
                             </Grid.ColumnDefinitions>
 
 
-                            <Button x:Name="ImageBtn" BackgroundColor="DarkGoldenrod" Clicked="GoToPlayer" CommandParameter="{Binding .}" ImageSource="{Binding PlayerImage, Converter={StaticResource ByteArrayToImageSourceConverter}}" TextColor="White" Grid.Row="0" Grid.Column="0" WidthRequest="150" HeightRequest="150">
+                            <Button x:Name="ImageBtn" BackgroundColor="DarkGoldenrod" Clicked="GoToPlayer" CommandParameter="{Binding .}" ImageSource="{Binding PlayerImage, Converter={StaticResource ByteArrayToImageSourceConverter}}" TextColor="White" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" WidthRequest="150" HeightRequest="150">
 
                     </Button>
                     <Label x:Name="NumberLabel" Grid.Row="1" Grid.Column="0" Text="{Binding Number}" TextColor="White" />
@@ -51,6 +51,6 @@
         </DataTemplate>
     </CollectionView.ItemTemplate>
 </CollectionView>
-        <Button BackgroundColor="Green" Grid.Row="1" Text="+" Clicked="GoToPlayer" FontSize="100" Padding="2" Grid.Column="1" WidthRequest="150" HeightRequest="150"   />
+        <Button BackgroundColor="Green" Grid.Row="1" Text="+" Clicked="GoToPlayer" FontSize="30" HorizontalOptions="End" Padding="2" Margin="-20,0,0,0" WidthRequest="50" HeightRequest="50"   />
     </VerticalStackLayout>
 </ContentPage>

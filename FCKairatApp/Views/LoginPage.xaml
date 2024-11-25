@@ -6,19 +6,15 @@
              Title="LoginPage">
     <VerticalStackLayout Spacing="15">
         <Image Source="fckairat.jpg" VerticalOptions="Center" HorizontalOptions="Center"/>
-        <Entry x:Name="SurnamePlaceholder" Text="{Binding Surname}" Placeholder="Surname" FontSize="30" HorizontalTextAlignment="Center" PlaceholderColor="Gray" TextColor="White"/>
-        <Entry x:Name="NamePlaceholder" Text ="{Binding Name}" Placeholder="Name" FontSize="30" HorizontalTextAlignment="Center" PlaceholderColor="Gray" TextColor="White"/>
-        <Entry x:Name="LoginPlaceholder" Text="{Binding Email}" Placeholder="Login" FontSize="30" HorizontalTextAlignment="Center" PlaceholderColor="Gray" TextColor="White"/>
-        <Entry x:Name="PassPlaceholder" Text="{Binding Password}" IsPassword="True" Placeholder="Password" FontSize="30" HorizontalTextAlignment="Center" PlaceholderColor="Gray" TextColor="White" />
-        <Button x:FieldModifier="public" x:Name="SignInBtn" Text="Sign in" BackgroundColor="DarkGoldenrod" TextColor="Black" FontSize="20" WidthRequest="250" Clicked="SignIn"  />
-        <Button x:Name="SignUpBtn" Text="Sign up" BackgroundColor="White" TextColor="Black" FontSize="20" WidthRequest="150" Clicked="SignUp"  />
-        <Button x:Name="RestorePassword" Clicked="RestorePass"  Text="Forgot your password?" TextColor="White" BackgroundColor="Transparent"/>
-        <Picker Title="Language" BackgroundColor="Gray" FontSize="20" WidthRequest="125" HorizontalTextAlignment="Center" >
-            <Picker.Items>
-                <x:String>KZ</x:String>
-                <x:String>RU</x:String>
-                <x:String>EN</x:String>                
-            </Picker.Items>
+        <Entry x:Name="SurnamePlaceholder" Text="{Binding Surname}" Placeholder="{Binding SurnamePHBinding}" FontSize="30" HorizontalTextAlignment="Center" PlaceholderColor="Gray" TextColor="White"/>
+        <Entry x:Name="NamePlaceholder" Text ="{Binding Name}" Placeholder="{Binding NamePHBinding}" FontSize="30" HorizontalTextAlignment="Center" PlaceholderColor="Gray" TextColor="White"/>
+        <Entry x:Name="LoginPlaceholder" Text="{Binding Email}" Placeholder="E-mail" FontSize="30" HorizontalTextAlignment="Center" PlaceholderColor="Gray" TextColor="White"/>
+        <Entry x:Name="PassPlaceholder" Text="{Binding Password}" IsPassword="True" Placeholder="{Binding PassPHBinding}" FontSize="30" HorizontalTextAlignment="Center" PlaceholderColor="Gray" TextColor="White" />
+        <Button x:FieldModifier="public" x:Name="SignInBtn" Text="{Binding SignInBtnBinding}" BackgroundColor="DarkGoldenrod" TextColor="Black" FontSize="20" WidthRequest="250" Clicked="SignIn"  />
+        <Button x:Name="SignUpBtn" Text="{Binding SignUpBtnBinding}" BackgroundColor="White" TextColor="Black" FontSize="20" WidthRequest="250" Clicked="SignUp"  />
+        <Button x:Name="RestorePassword" Clicked="RestorePass"  Text="{Binding ForgotPassBtnBinding}" TextColor="White" BackgroundColor="Transparent"/>
+        <Picker x:Name="LanguagePicker" ItemsSource="{Binding LanguageBindings}" SelectedItem="{Binding LanguagePickerBinding}" SelectedIndexChanged="LanguageChanged" Title="" BackgroundColor="Gray" FontSize="20" WidthRequest="125" HorizontalTextAlignment="Center" >
+            
         </Picker>
     </VerticalStackLayout>
 </ContentPage>
