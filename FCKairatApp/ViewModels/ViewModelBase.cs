@@ -37,14 +37,19 @@ namespace FCKairatApp.ViewModels
         public ObservableCollection<string> SignUpBindings = new ObservableCollection<string>() { "Тіркелу", "Зарегистрироваться", "Sign up" };
         public ObservableCollection<string> ForgotPassBindings = new ObservableCollection<string>() { "Құпиясөзді ұмыттыңыз ба?", "Забыли пароль?", "Forgot your password?" };
         public ObservableCollection<string> LanguageTextBindings = new ObservableCollection<string>() { "Тіл", "Язык", "Language" };
-
         public ObservableCollection<string> LanguageBindings { get; set; }
         public ObservableCollection<string> UserNotFoundBindings = new ObservableCollection<string>() { "Қолданушы табылмаған", "Пользователь не найден", "User not found" };
         public ObservableCollection<string> WrongPassBindings = new ObservableCollection<string>() { "Бұрыс құпиясөз", "Неправильный пароль", "Wrong password" };
         public ObservableCollection<string> SignedUpBindings = new ObservableCollection<string>() { "Табысты тіркелдіңіз", "Вы успешно зарегистрировались", "You've been successfully signed up" };
         public ObservableCollection<string> ReloadAppBtnBindings = new ObservableCollection<string>() { "Өзгерістерді қолдану", "Cохранить изменения", "Apply changes" };
 
+        
         public ObservableCollection<string> ReloadAppBindings = new ObservableCollection<string>() { "Өзгерістерді қолдану үшін қолданбаны қайта іске қосыңыз", "Перезапустите приложения, чтобы сохранить изменения", "Restart app to apply changes"};
+        public ObservableCollection<string> YourTicketsBindings = new ObservableCollection<string>() { "Билеттеріңіз", "Ваши билеты", "Your tickets" };
+        public ObservableCollection<string> NoTicketsBindings = new ObservableCollection<string>() { "Билеттеріңіз жоқ", "Нет билетов", "You've got no tickets yet" };
+        public ObservableCollection<string> ChangePassBindings = new ObservableCollection<string>() { "Құпиясөзді өзгерту", "Изменить пароль", "Change password" };
+        public ObservableCollection<string> LogOutBindings = new ObservableCollection<string>() { "Аккаунттан шығу", "Выйти из аккаунта", "Log out" };
+
         public string SurnamePHBinding { get; set; }
         public string NamePHBinding { get; set; }
         public string PassPHBinding { get; set; }
@@ -57,8 +62,12 @@ namespace FCKairatApp.ViewModels
         public string WrongPassBinding { get; set; }
         public string SignedUpBinding { get; set; }
         public string ReloadAppBtnBinding { get; set; }
-
         public string ReloadAppBinding { get; set; }
+
+        public string YourTicketBinding { get; set; }
+        public string NoTicketBinding { get; set; }
+        public string ChangePassBtnBinding { get; set; }
+        public string LogOutBtnBinding { get; set; }
         //
         public ViewModelBase()
         {
@@ -122,6 +131,11 @@ namespace FCKairatApp.ViewModels
             SignedUpBinding = SignedUpBindings[LanguageId];
             ReloadAppBtnBinding = ReloadAppBtnBindings[LanguageId];
             ReloadAppBinding = ReloadAppBindings[LanguageId];
+
+            YourTicketBinding = YourTicketsBindings[LanguageId];
+            NoTicketBinding = NoTicketsBindings[LanguageId];
+            ChangePassBtnBinding = ChangePassBindings[LanguageId];
+            LogOutBtnBinding = LogOutBindings[LanguageId];
         }
 
         public async void LoadPlayers()
