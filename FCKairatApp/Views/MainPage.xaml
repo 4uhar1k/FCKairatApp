@@ -42,7 +42,7 @@
                     </CollectionView.ItemTemplate>
                 
             </CollectionView>
-            <Button Text="+" BackgroundColor="Green" WidthRequest="50" FontSize="25" HorizontalOptions="End" Clicked="AddNewText" />
+            <Button ImageSource="add.png" BackgroundColor="Green" WidthRequest="50" FontSize="25" HorizontalOptions="End" Clicked="AddNewText" />
         </VerticalStackLayout>
     </ScrollView>
 

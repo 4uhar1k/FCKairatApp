@@ -25,7 +25,7 @@
                                         </MultiBinding>
                                     </Label.Text>
                                 </Label>
-                                <Button Text="Remove" Clicked="Update" BackgroundColor="Red" WidthRequest="100"
+                                <Button ImageSource="bin.png" Clicked="Update" BackgroundColor="Red" WidthRequest="60"
                                  Command="{Binding Source={RelativeSource AncestorType={x:Type Page}}, Path=BindingContext.RemoveTicket}"
                                  CommandParameter="{Binding .}"/>
                             </StackLayout>
